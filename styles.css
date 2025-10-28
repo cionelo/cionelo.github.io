@@ -1,0 +1,1311 @@
+/* ================================
+   CSS RESET & BASE STYLES
+   ================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Palette - Default Mode */
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --primary-dark: #1e3a8a;
+    --accent: #0ea5e9;
+    
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    
+    --border: #e2e8f0;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --shadow-lg: rgba(0, 0, 0, 0.15);
+    
+    /* Spacing */
+    --container-width: 1200px;
+    --section-padding: 5rem 2rem;
+    --card-padding: 2rem;
+    
+    /* Transitions */
+    --transition: all 0.3s ease;
+    --transition-fast: all 0.15s ease;
+    
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================
+   TYPOGRAPHY
+   ================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ================================
+   UTILITIES
+   ================================ */
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-lg);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ================================
+   NAVIGATION
+   ================================ */
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-primary);
+    z-index: 1000;
+    transition: var(--transition);
+    border-bottom: 1px solid transparent;
+}
+
+.nav.scrolled {
+    box-shadow: 0 2px 10px var(--shadow);
+    border-bottom-color: var(--border);
+}
+
+.nav-container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    transition: var(--transition-fast);
+}
+
+.nav-logo:hover {
+    color: var(--primary-dark);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    position: relative;
+    transition: var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: var(--transition-fast);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-cta {
+    padding: 0.625rem 1.5rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.nav-cta:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Mobile Toggle */
+.nav-mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.nav-mobile-toggle span {
+    width: 24px;
+    height: 3px;
+    background-color: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+/* Resume Dropdown */
+.resume-dropdown {
+    position: fixed;
+    top: 70px;
+    right: 2rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px var(--shadow-lg);
+    padding: 1rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 300px;
+    z-index: 999;
+}
+
+.resume-dropdown.active {
+    display: flex;
+}
+
+.resume-option {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    transition: var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.resume-option:hover {
+    background-color: var(--bg-secondary);
+}
+
+.resume-title {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.resume-desc {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+}
+
+/* ================================
+   HERO SECTION
+   ================================ */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem 4rem;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+.hero-container {
+    max-width: 800px;
+    text-align: center;
+}
+
+.hero-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    object-fit: cover;
+    border: 4px solid var(--primary);
+    box-shadow: 0 8px 24px var(--shadow-lg);
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.hero-description {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.hero-social {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.hero-social a {
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.hero-social a:hover {
+    color: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* ================================
+   ABOUT SECTION
+   ================================ */
+
+.about {
+    padding: var(--section-padding);
+    background-color: var(--bg-secondary);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.about-text p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background-color: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    box-shadow: 0 2px 10px var(--shadow);
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px var(--shadow-lg);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ================================
+   PROJECTS SECTION
+   ================================ */
+
+.projects {
+    padding: var(--section-padding);
+    background-color: var(--bg-primary);
+}
+
+/* Featured Project */
+.project-featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    background-color: var(--bg-secondary);
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+.project-image-wrapper {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow);
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.project-image:hover {
+    transform: scale(1.05);
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.project-description {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.project-features {
+    margin-bottom: 1.5rem;
+}
+
+.project-features li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.project-features li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tech-tag {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-tertiary);
+    color: var(--primary);
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.project-card {
+    background-color: var(--bg-secondary);
+    padding: 2.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px var(--shadow);
+    transition: var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-lg);
+}
+
+.project-card .project-title {
+    font-size: 1.5rem;
+}
+
+.project-card .project-features {
+    font-size: 0.95rem;
+}
+
+/* ================================
+   SKILLS SECTION
+   ================================ */
+
+.skills {
+    padding: var(--section-padding);
+    background-color: var(--bg-secondary);
+}
+
+.skills-categories {
+    display: grid;
+    gap: 3rem;
+}
+
+.skills-category {
+    background-color: var(--bg-primary);
+    padding: 2.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.category-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.skill-item {
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.skill-item:hover {
+    border-color: var(--primary);
+    background-color: var(--bg-tertiary);
+    transform: translateY(-3px);
+}
+
+/* ================================
+   EXPERIENCE SECTION
+   ================================ */
+
+.experience {
+    padding: var(--section-padding);
+    background-color: var(--bg-primary);
+}
+
+.timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--border);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    border: 3px solid var(--bg-primary);
+    box-shadow: 0 0 0 4px var(--border);
+}
+
+.timeline-date {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-company {
+    color: var(--text-tertiary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.timeline-details {
+    margin-left: 1.5rem;
+}
+
+.timeline-details li {
+    position: relative;
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.timeline-details li::before {
+    content: '•';
+    position: absolute;
+    left: -1.5rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.experience-cta {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+/* ================================
+   CONTACT SECTION
+   ================================ */
+
+.contact {
+    padding: var(--section-padding);
+    background-color: var(--bg-secondary);
+}
+
+.contact-subtitle {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem;
+    background-color: var(--bg-primary);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px var(--shadow);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-lg);
+}
+
+.contact-card svg {
+    color: var(--primary);
+}
+
+.contact-card strong {
+    font-size: 1.125rem;
+    color: var(--text-primary);
+}
+
+.contact-card span {
+    color: var(--text-secondary);
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.footer {
+    padding: 3rem 2rem 2rem;
+    background-color: var(--text-primary);
+    color: white;
+}
+
+.footer-content {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.footer-left p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-social a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition-fast);
+    font-weight: 500;
+}
+
+.footer-social a:hover {
+    color: white;
+}
+
+.easter-egg-hint {
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 1s ease-in 3s forwards;
+}
+
+.easter-egg-hint small {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 1024px) {
+    .project-featured {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-methods {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    /* Navigation */
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: var(--bg-primary);
+        padding: 2rem;
+        gap: 1.5rem;
+        box-shadow: 0 4px 20px var(--shadow-lg);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-mobile-toggle {
+        display: flex;
+    }
+    
+    .nav-cta {
+        display: none;
+    }
+    
+    /* Hero */
+    .hero {
+        padding: 5rem 1.5rem 3rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-cta {
+        flex-direction: column;
+    }
+    
+    /* Projects */
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-featured {
+        padding: 2rem;
+    }
+    
+    /* Skills */
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Timeline */
+    .timeline {
+        padding-left: 1.5rem;
+    }
+    
+    .timeline-item {
+        padding-left: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .hero-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-links {
+        flex-direction: column;
+    }
+}
+
+/* ================================
+   MINECRAFT THEME (F3 MODE) - READY FOR WEEK 2
+   ================================ */
+
+body.minecraft-theme {
+    /* We'll add Minecraft styling here in Week 2 */
+    /* This class will be toggled by JavaScript when F3 is pressed */
+}
+
+/* Placeholder for future Minecraft textures */
+/* body.minecraft-theme {
+    --primary: #8B4513;
+    --bg-primary: url('textures/stone.png');
+    etc.
+} */
+/* ================================
+   MINECRAFT HEARTH - 3D FIREPLACE
+   ================================ */
+
+/* Hearth Container - 256px × 192px fixed top-center */
+.hearth-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-128px);  /* Center: -256px/2 */
+    width: 256px;
+    height: 192px;
+    z-index: 1001;  /* Above nav (1000) */
+    
+    /* 3D perspective */
+    perspective: 800px;
+    transform-style: preserve-3d;
+    
+    /* Pixel-perfect rendering */
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    
+    /* Hidden by default - only shows in F3 mode */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    pointer-events: none;
+}
+
+/* Show hearth in Minecraft mode */
+body.minecraft-theme .hearth-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ================================
+   LAYER 1: BACK WALL (Deepest)
+   ================================ */
+
+.hearth-back-wall {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 256px;  /* 32px × 8 */
+    height: 192px;  /* 32px × 6 */
+    
+    background-image: url('../textures/cobblestone.png');
+    background-size: 256px 256px;  /* Scale 8× (32px → 256px) */
+    background-repeat: repeat;
+    
+    transform: translateZ(-80px);  /* Push back in 3D space */
+    filter: brightness(0.3);  /* Dark = depth */
+    
+    /* Pixel-perfect */
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* ================================
+   LAYER 2: INNER WALLS (Middle depth)
+   ================================ */
+
+.hearth-inner-left,
+.hearth-inner-right,
+.hearth-inner-bottom {
+    position: absolute;
+    background-image: url('../textures/stonebrick.png');
+    background-size: 256px 256px;  /* Scale 8× */
+    transform: translateZ(-40px);  /* Between back wall and fire */
+    filter: brightness(0.5);  /* Slightly lighter than back */
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.hearth-inner-left {
+    top: 32px;
+    left: 0;
+    width: 32px;   /* 32px × 1 */
+    height: 128px; /* 32px × 4 */
+}
+
+.hearth-inner-right {
+    top: 32px;
+    right: 0;
+    width: 32px;
+    height: 128px;
+}
+
+.hearth-inner-bottom {
+    bottom: 0;
+    left: 32px;
+    width: 192px;  /* 32px × 6 */
+    height: 32px;
+}
+
+/* ================================
+   LAYER 3: FIRE CANVAS (Center)
+   ================================ */
+
+#fireCanvas {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    width: 192px;   /* 32px × 6 (fire area) */
+    height: 128px;  /* 32px × 4 */
+    transform: translateZ(-20px);  /* Fire in front of walls, behind frame */
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* ================================
+   LAYER 4: FRAME (Front layer)
+   ================================ */
+
+.hearth-frame {
+    position: absolute;
+    background-image: url('../textures/stonebrick_carved.png');
+    background-size: 256px 256px;  /* Scale 8× */
+    transform: translateZ(0);  /* Front-most structural layer */
+    
+    /* Inner shadow for depth */
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.hearth-frame-top {
+    top: 0;
+    left: 32px;
+    width: 192px;  /* 32px × 6 */
+    height: 32px;
+    box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.6);  /* Shadow on bottom edge */
+}
+
+.hearth-frame-bottom {
+    bottom: 0;
+    left: 32px;
+    width: 192px;
+    height: 32px;
+    box-shadow: inset 0 8px 12px rgba(0, 0, 0, 0.6);  /* Shadow on top edge */
+}
+
+.hearth-frame-left {
+    top: 32px;
+    left: 0;
+    width: 32px;
+    height: 128px;
+    box-shadow: inset -8px 0 12px rgba(0, 0, 0, 0.6);  /* Shadow on right edge */
+}
+
+.hearth-frame-right {
+    top: 32px;
+    right: 0;
+    width: 32px;
+    height: 128px;
+    box-shadow: inset 8px 0 12px rgba(0, 0, 0, 0.6);  /* Shadow on left edge */
+}
+
+/* ================================
+   LAYER 5: CORNERS (Front accents)
+   ================================ */
+
+.hearth-corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background-image: url('../textures/stonebrick_carved.png');
+    background-size: 256px 256px;  /* Scale 8× */
+    transform: translateZ(5px);  /* Slightly forward from frame */
+    
+    /* Enhanced shadow for corner depth */
+    box-shadow: 
+        inset -4px -4px 8px rgba(0, 0, 0, 0.8),
+        0 2px 8px rgba(0, 0, 0, 0.4);
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.hearth-corner-tl {
+    top: 0;
+    left: 0;
+    background-position: 0 0;
+}
+
+.hearth-corner-tr {
+    top: 0;
+    right: 0;
+    background-position: -224px 0;  /* Offset for corner texture */
+}
+
+.hearth-corner-bl {
+    bottom: 0;
+    left: 0;
+    background-position: 0 -160px;
+}
+
+.hearth-corner-br {
+    bottom: 0;
+    right: 0;
+    background-position: -224px -160px;
+}
+
+/* ================================
+   LAYER 6: EMBER PARTICLES
+   ================================ */
+
+.ember-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 256px;
+    height: 192px;
+    transform: translateZ(20px);  /* Float forward from frame */
+    pointer-events: none;
+    overflow: visible;  /* Embers can float beyond container */
+}
+
+.ember {
+    position: absolute;
+    width: 8px;   /* Small ember sprite */
+    height: 8px;
+    background-image: url('../textures/particles.png');
+    background-size: 256px 256px;  /* Scale 8× */
+    
+    /* Ember sprite position (you'll need to locate exact position in particles.png) */
+    background-position: -48px -48px;  /* Placeholder - adjust based on particles.png */
+    
+    opacity: 0.9;
+    filter: brightness(1.5);
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* Ember float animation */
+@keyframes ember-float {
+    0% {
+        transform: translateY(0) translateX(0) translateZ(0);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateY(-60px) translateX(10px) translateZ(30px);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-120px) translateX(-5px) translateZ(60px);
+        opacity: 0;
+    }
+}
+
+.ember.active {
+    animation: ember-float 3s ease-out forwards;
+}
+
+/* ================================
+   LAYER 7: FIRE GLOW
+   ================================ */
+
+.fire-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(10px);
+    width: 300px;   /* Larger than hearth for glow spread */
+    height: 300px;
+    
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 140, 0, 0.4) 0%,   /* Warm orange center */
+        rgba(255, 100, 0, 0.2) 30%,  /* Ember glow */
+        rgba(255, 60, 0, 0.1) 50%,
+        transparent 70%
+    );
+    
+    pointer-events: none;
+    filter: blur(20px);
+    
+    /* Gentle flicker animation */
+    animation: fire-glow-flicker 0.3s infinite alternate;
+}
+
+@keyframes fire-glow-flicker {
+    0% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) translateZ(10px) scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateZ(10px) scale(1.05);
+    }
+}
+
+/* ================================
+   NAV GLOW INTEGRATION
+   ================================ */
+
+/* Add glow to nav when hearth is active */
+body.minecraft-theme .nav {
+    /* Warm light from hearth above */
+    box-shadow: 
+        0 2px 10px var(--shadow),
+        0 -20px 60px rgba(255, 140, 0, 0.15);  /* Glow from above */
+}
+
+body.minecraft-theme .nav-container {
+    /* Subtle orange tint from fire light */
+    filter: brightness(1.05);
+}
+
+/* Nav buttons get ember glow on hover */
+body.minecraft-theme .nav-link:hover,
+body.minecraft-theme .nav-cta:hover {
+    text-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+    transition: text-shadow 0.2s ease;
+}
+
+/* ================================
+   RESPONSIVE ADJUSTMENTS
+   ================================ */
+
+@media (max-width: 768px) {
+    /* Scale down hearth on mobile but maintain aspect ratio */
+    .hearth-container {
+        transform: translateX(-96px) scale(0.75);  /* 75% = 192px wide */
+        transform-origin: top center;
+    }
+    
+    /* Adjust nav position */
+    body.minecraft-theme .nav {
+        top: 160px;  /* Account for scaled hearth */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further scale on very small screens */
+    .hearth-container {
+        transform: translateX(-64px) scale(0.5);  /* 50% = 128px wide */
+    }
+    
+    body.minecraft-theme .nav {
+        top: 120px;
+    }
+}
+
+/* ================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================ */
+
+.hearth-container,
+.hearth-container * {
+    /* GPU acceleration */
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Reduce animations when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .fire-glow {
+        animation: none;
+    }
+    
+    .ember.active {
+        animation-duration: 5s;  /* Slower, less jarring */
+    }
+}
