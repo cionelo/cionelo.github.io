@@ -1000,14 +1000,14 @@ body.minecraft-theme .hero-image {
    ================================ */
 
 /* CMD+F: HEARTH_CONTAINER */
-/* Main hearth container - 512×512px (4×4 blocks @ 128px) */
+/* Main hearth container - 512×512px (4×4 blocks @ 128px) - moved down one block */
 .hearth-container {
     position: absolute;
     width: 512px;   /* 4 blocks × 128px */
     height: 512px;  /* 4 blocks × 128px */
     left: 50%;
     top: 50%;
-    transform: translate(-256px, -256px);  /* Center (half of 512) */
+    transform: translate(-256px, -128px);  /* Moved down 128px (one block) */
     
     /* 3D perspective */
     perspective: 800px;
@@ -1038,13 +1038,13 @@ body.minecraft-theme .hearth-container {
    ================================ */
 
 /* CMD+F: BACK_WALL */
-/* 2×2 cobblestone blocks behind fire with Minecraft-style depth shadows */
+/* Cobblestone alcove - 2×2 core with half-block border (~64px) on all sides */
 .hearth-back-wall {
     position: absolute;
-    top: 128px;      /* Start below top bar (1 block) */
-    left: 128px;     /* Start after left pillar (1 block) */
-    width: 256px;    /* 2 blocks wide (128×2) */
-    height: 256px;   /* 2 blocks tall (128×2) */
+    top: 64px;       /* Start 64px above fire (half block) */
+    left: 64px;      /* Start 64px left of fire (half block) */
+    width: 384px;    /* 2×2 core (256px) + borders (64px × 2) */
+    height: 384px;   /* 2×2 core (256px) + borders (64px × 2) */
     
     background-image: url('textures/cobblestone.png');
     background-size: 128px 128px;
@@ -1052,7 +1052,7 @@ body.minecraft-theme .hearth-container {
     
     transform: translateZ(-128px);  /* One block back (128px units) */
     
-    /* Minecraft-style ambient occlusion - darker at edges, lighter in center */
+    /* Minecraft-style ambient occlusion - darkest at edges, lighter at center */
     filter: brightness(0.5);
     
     image-rendering: pixelated;
@@ -1061,14 +1061,25 @@ body.minecraft-theme .hearth-container {
     
     z-index: 1;  /* Behind everything */
     
-    /* Minecraft depth effect - multiple inset shadows for gradient */
+    /* Minecraft alcove depth effect - heavy shadows at edges, gradual lightening toward center */
     box-shadow: 
-        inset 0 0 40px rgba(0, 0, 0, 0.8),      /* Overall darkness */
-        inset 15px 15px 30px rgba(0, 0, 0, 0.6), /* Top-left shadow */
-        inset -15px 15px 30px rgba(0, 0, 0, 0.6), /* Top-right shadow */
-        inset 15px 0 20px rgba(0, 0, 0, 0.5),    /* Left edge */
-        inset -15px 0 20px rgba(0, 0, 0, 0.5),   /* Right edge */
-        inset 0 15px 20px rgba(0, 0, 0, 0.5);    /* Top edge */
+        /* Overall darkness */
+        inset 0 0 50px rgba(0, 0, 0, 0.9),
+        
+        /* Strong edge shadows (the "border" areas) */
+        inset 30px 0 40px rgba(0, 0, 0, 0.8),    /* Left edge */
+        inset -30px 0 40px rgba(0, 0, 0, 0.8),   /* Right edge */
+        inset 0 30px 40px rgba(0, 0, 0, 0.8),    /* Top edge */
+        inset 0 -30px 40px rgba(0, 0, 0, 0.8),   /* Bottom edge */
+        
+        /* Corner shadows */
+        inset 20px 20px 35px rgba(0, 0, 0, 0.7),   /* Top-left */
+        inset -20px 20px 35px rgba(0, 0, 0, 0.7),  /* Top-right */
+        inset 20px -20px 35px rgba(0, 0, 0, 0.7),  /* Bottom-left */
+        inset -20px -20px 35px rgba(0, 0, 0, 0.7), /* Bottom-right */
+        
+        /* Center lightening (where fire is) */
+        inset 0 0 80px rgba(0, 0, 0, 0.5);
 }
 
 /* ================================
