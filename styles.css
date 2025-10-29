@@ -935,18 +935,62 @@ body.minecraft-theme {
    MINECRAFT HEARTH - 3D FIREPLACE
    ================================ */
 
-/* Hearth Container - 256px × 192px fixed top-center */
-.hearth-container {
+/* ================================
+   MINECRAFT ALT MODE - BACKGROUND
+   ================================ */
+
+/* Stone background fills entire screen in alt mode */
+body.minecraft-theme {
+    background-image: url('../textures/stone.png');
+    background-size: 256px 256px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* Stonebrick header area (top of page) */
+body.minecraft-theme::before {
+    content: '';
     position: fixed;
-    top: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 512px;  /* 2 blocks tall */
+    background-image: url('../textures/stonebrick.png');
+    background-size: 256px 256px;
+    background-repeat: repeat;
+    z-index: -1;
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* Hide profile photo in alt mode */
+body.minecraft-theme .hero-image {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ================================
+   MINECRAFT HEARTH - 4×4 BLOCKS
+   ================================ */
+
+/* Main hearth container - 1024×1024px (4×4 blocks) */
+.hearth-container {
+    position: absolute;
+    width: 1024px;
+    height: 1024px;
     left: 50%;
-    transform: translateX(-128px);  /* Center: -256px/2 */
-    width: 256px;
-    height: 192px;
-    z-index: 1001;  /* Above nav (1000) */
+    top: 50%;
+    transform: translate(-512px, -512px);  /* Center in hero section */
     
     /* 3D perspective */
-    perspective: 800px;
+    perspective: 1200px;
     transform-style: preserve-3d;
     
     /* Pixel-perfect rendering */
@@ -954,14 +998,21 @@ body.minecraft-theme {
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    /* Hidden by default - only shows in F3 mode */
+    /* Hidden by default - shows in F3 mode */
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
     pointer-events: none;
+    
+    z-index: 10;
 }
 
-/* Show hearth in Minecraft mode */
+/* Position in hero section */
+.hero {
+    position: relative;
+}
+
+/* Show hearth in minecraft mode */
 body.minecraft-theme .hearth-container {
     opacity: 1;
     visibility: visible;
@@ -971,76 +1022,106 @@ body.minecraft-theme .hearth-container {
    LAYER 1: BACK WALL (Deepest)
    ================================ */
 
+/* 4 cobblestone blocks (2×2 grid) behind fire */
 .hearth-back-wall {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 256px;  /* 32px × 8 */
-    height: 192px;  /* 32px × 6 */
+    top: 256px;      /* Start below top bar */
+    left: 256px;     /* Start after left pillar */
+    width: 512px;    /* 2 blocks wide (256×2) */
+    height: 512px;   /* 2 blocks tall (256×2) */
     
     background-image: url('../textures/cobblestone.png');
-    background-size: 256px 256px;  /* Scale 8× (32px → 256px) */
+    background-size: 256px 256px;
     background-repeat: repeat;
     
-    transform: translateZ(-80px);  /* Push back in 3D space */
+    transform: translateZ(-120px);  /* Push far back */
     filter: brightness(0.3);  /* Dark = depth */
     
-    /* Pixel-perfect */
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
 
 /* ================================
-   LAYER 2: INNER WALLS (Middle depth)
+   LAYER 2: SIDE PILLARS
    ================================ */
 
-.hearth-inner-left,
-.hearth-inner-right,
+/* Left pillar - stone_slab_side (vertical) */
+.hearth-inner-left {
+    position: absolute;
+    top: 256px;    /* Below top bar */
+    left: 0;
+    width: 256px;  /* 1 block */
+    height: 512px; /* 2 blocks tall */
+    
+    background-image: url('../textures/stone_slab_side.png');
+    background-size: 256px 256px;
+    background-repeat: repeat-y;
+    
+    transform: translateZ(-60px);
+    filter: brightness(0.6);
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    
+    /* Inner shadow for depth */
+    box-shadow: inset -20px 0 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Right pillar - stone_slab_side (vertical) */
+.hearth-inner-right {
+    position: absolute;
+    top: 256px;
+    right: 0;
+    width: 256px;
+    height: 512px;
+    
+    background-image: url('../textures/stone_slab_side.png');
+    background-size: 256px 256px;
+    background-repeat: repeat-y;
+    
+    transform: translateZ(-60px);
+    filter: brightness(0.6);
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    
+    box-shadow: inset 20px 0 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Bottom inner edge (optional depth element) */
 .hearth-inner-bottom {
     position: absolute;
-    background-image: url('../textures/stonebrick.png');
-    background-size: 256px 256px;  /* Scale 8× */
-    transform: translateZ(-40px);  /* Between back wall and fire */
-    filter: brightness(0.5);  /* Slightly lighter than back */
+    bottom: 256px;
+    left: 256px;
+    width: 512px;
+    height: 256px;
+    
+    background-image: url('../textures/stone_slab_side.png');
+    background-size: 256px 256px;
+    
+    transform: translateZ(-60px);
+    filter: brightness(0.5);
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
 
-.hearth-inner-left {
-    top: 32px;
-    left: 0;
-    width: 32px;   /* 32px × 1 */
-    height: 128px; /* 32px × 4 */
-}
-
-.hearth-inner-right {
-    top: 32px;
-    right: 0;
-    width: 32px;
-    height: 128px;
-}
-
-.hearth-inner-bottom {
-    bottom: 0;
-    left: 32px;
-    width: 192px;  /* 32px × 6 */
-    height: 32px;
-}
-
 /* ================================
-   LAYER 3: FIRE CANVAS (Center)
+   LAYER 3: FIRE CANVAS (Dual Fires)
    ================================ */
 
 #fireCanvas {
     position: absolute;
-    top: 32px;
-    left: 32px;
-    width: 192px;   /* 32px × 6 (fire area) */
-    height: 128px;  /* 32px × 4 */
-    transform: translateZ(-20px);  /* Fire in front of walls, behind frame */
+    top: 256px;     /* Below top bar */
+    left: 256px;    /* After left pillar */
+    width: 512px;   /* 2 fires × 256px */
+    height: 512px;  /* 2 blocks tall */
+    
+    transform: translateZ(-30px);  /* Fire between back wall and frame */
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -1048,71 +1129,79 @@ body.minecraft-theme .hearth-container {
 }
 
 /* ================================
-   LAYER 4: FRAME (Front layer)
+   LAYER 4: FRAME (Front Structural Layer)
    ================================ */
 
 .hearth-frame {
     position: absolute;
-    background-image: url('../textures/stonebrick_carved.png');
-    background-size: 256px 256px;  /* Scale 8× */
-    transform: translateZ(0);  /* Front-most structural layer */
+    background-image: url('../textures/stone_slab_side.png');
+    background-size: 256px 256px;
+    transform: translateZ(0);  /* Front-most layer */
     
-    /* Inner shadow for depth */
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+    /* Inner shadow for 3D depth */
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
 
+/* Top horizontal bar (spans full width minus corners) */
 .hearth-frame-top {
     top: 0;
-    left: 32px;
-    width: 192px;  /* 32px × 6 */
-    height: 32px;
-    box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.6);  /* Shadow on bottom edge */
+    left: 256px;
+    width: 512px;   /* 2 blocks (between corners) */
+    height: 256px;  /* 1 block */
+    
+    box-shadow: inset 0 -15px 30px rgba(0, 0, 0, 0.7);
 }
 
+/* Bottom bar (optional, can remove if not needed) */
 .hearth-frame-bottom {
     bottom: 0;
-    left: 32px;
-    width: 192px;
-    height: 32px;
-    box-shadow: inset 0 8px 12px rgba(0, 0, 0, 0.6);  /* Shadow on top edge */
+    left: 256px;
+    width: 512px;
+    height: 256px;
+    
+    box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.7);
 }
 
+/* Left frame edge */
 .hearth-frame-left {
-    top: 32px;
+    top: 256px;
     left: 0;
-    width: 32px;
-    height: 128px;
-    box-shadow: inset -8px 0 12px rgba(0, 0, 0, 0.6);  /* Shadow on right edge */
+    width: 256px;
+    height: 512px;
+    
+    box-shadow: inset -15px 0 30px rgba(0, 0, 0, 0.7);
 }
 
+/* Right frame edge */
 .hearth-frame-right {
-    top: 32px;
+    top: 256px;
     right: 0;
-    width: 32px;
-    height: 128px;
-    box-shadow: inset 8px 0 12px rgba(0, 0, 0, 0.6);  /* Shadow on left edge */
+    width: 256px;
+    height: 512px;
+    
+    box-shadow: inset 15px 0 30px rgba(0, 0, 0, 0.7);
 }
 
 /* ================================
-   LAYER 5: CORNERS (Front accents)
+   LAYER 5: CARVED CORNERS
    ================================ */
 
 .hearth-corner {
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 256px;
+    height: 256px;
     background-image: url('../textures/stonebrick_carved.png');
-    background-size: 256px 256px;  /* Scale 8× */
-    transform: translateZ(5px);  /* Slightly forward from frame */
+    background-size: 256px 256px;
+    transform: translateZ(10px);  /* Slightly forward from frame */
     
-    /* Enhanced shadow for corner depth */
+    /* Strong shadow for prominent corners */
     box-shadow: 
-        inset -4px -4px 8px rgba(0, 0, 0, 0.8),
-        0 2px 8px rgba(0, 0, 0, 0.4);
+        inset -8px -8px 20px rgba(0, 0, 0, 0.8),
+        0 4px 15px rgba(0, 0, 0, 0.5);
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -1122,25 +1211,21 @@ body.minecraft-theme .hearth-container {
 .hearth-corner-tl {
     top: 0;
     left: 0;
-    background-position: 0 0;
 }
 
 .hearth-corner-tr {
     top: 0;
     right: 0;
-    background-position: -224px 0;  /* Offset for corner texture */
 }
 
 .hearth-corner-bl {
     bottom: 0;
     left: 0;
-    background-position: 0 -160px;
 }
 
 .hearth-corner-br {
     bottom: 0;
     right: 0;
-    background-position: -224px -160px;
 }
 
 /* ================================
@@ -1151,22 +1236,22 @@ body.minecraft-theme .hearth-container {
     position: absolute;
     top: 0;
     left: 0;
-    width: 256px;
-    height: 192px;
-    transform: translateZ(20px);  /* Float forward from frame */
+    width: 1024px;
+    height: 1024px;
+    transform: translateZ(30px);  /* Float forward */
     pointer-events: none;
-    overflow: visible;  /* Embers can float beyond container */
+    overflow: visible;
 }
 
 .ember {
     position: absolute;
-    width: 8px;   /* Small ember sprite */
-    height: 8px;
+    width: 16px;    /* 2× original (8px × 2) */
+    height: 16px;
     background-image: url('../textures/particles.png');
-    background-size: 256px 256px;  /* Scale 8× */
+    background-size: 512px 512px;  /* Scale entire particle sheet */
     
-    /* Ember sprite position (you'll need to locate exact position in particles.png) */
-    background-position: -48px -48px;  /* Placeholder - adjust based on particles.png */
+    /* Placeholder position - needs adjustment after finding ember */
+    background-position: -96px -96px;
     
     opacity: 0.9;
     filter: brightness(1.5);
@@ -1179,15 +1264,15 @@ body.minecraft-theme .hearth-container {
 /* Ember float animation */
 @keyframes ember-float {
     0% {
-        transform: translateY(0) translateX(0) translateZ(0);
+        transform: translateY(0) translateX(0) translateZ(0) scale(1);
         opacity: 0.9;
     }
     50% {
-        transform: translateY(-60px) translateX(10px) translateZ(30px);
-        opacity: 0.7;
+        transform: translateY(-120px) translateX(20px) translateZ(60px) scale(0.8);
+        opacity: 0.6;
     }
     100% {
-        transform: translateY(-120px) translateX(-5px) translateZ(60px);
+        transform: translateY(-240px) translateX(-10px) translateZ(120px) scale(0.6);
         opacity: 0;
     }
 }
@@ -1202,87 +1287,62 @@ body.minecraft-theme .hearth-container {
 
 .fire-glow {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
-    transform: translate(-50%, -50%) translateZ(10px);
-    width: 300px;   /* Larger than hearth for glow spread */
-    height: 300px;
+    transform: translate(-50%, -50%) translateZ(20px);
+    width: 600px;
+    height: 600px;
     
     background: radial-gradient(
         circle at center,
-        rgba(255, 140, 0, 0.4) 0%,   /* Warm orange center */
-        rgba(255, 100, 0, 0.2) 30%,  /* Ember glow */
-        rgba(255, 60, 0, 0.1) 50%,
+        rgba(255, 140, 0, 0.5) 0%,
+        rgba(255, 100, 0, 0.3) 30%,
+        rgba(255, 60, 0, 0.15) 50%,
         transparent 70%
     );
     
     pointer-events: none;
-    filter: blur(20px);
+    filter: blur(40px);
     
-    /* Gentle flicker animation */
-    animation: fire-glow-flicker 0.3s infinite alternate;
+    /* Gentle flicker */
+    animation: fire-glow-flicker 0.4s infinite alternate;
 }
 
 @keyframes fire-glow-flicker {
     0% {
-        opacity: 0.8;
-        transform: translate(-50%, -50%) translateZ(10px) scale(1);
+        opacity: 0.7;
+        transform: translate(-50%, -50%) translateZ(20px) scale(1);
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%) translateZ(10px) scale(1.05);
+        transform: translate(-50%, -50%) translateZ(20px) scale(1.08);
     }
 }
 
 /* ================================
-   NAV GLOW INTEGRATION
+   RESPONSIVE - MOBILE
    ================================ */
 
-/* Add glow to nav when hearth is active */
-body.minecraft-theme .nav {
-    /* Warm light from hearth above */
-    box-shadow: 
-        0 2px 10px var(--shadow),
-        0 -20px 60px rgba(255, 140, 0, 0.15);  /* Glow from above */
+@media (max-width: 1200px) {
+    .hearth-container {
+        transform: translate(-512px, -512px) scale(0.8);
+        transform-origin: center;
+    }
 }
-
-body.minecraft-theme .nav-container {
-    /* Subtle orange tint from fire light */
-    filter: brightness(1.05);
-}
-
-/* Nav buttons get ember glow on hover */
-body.minecraft-theme .nav-link:hover,
-body.minecraft-theme .nav-cta:hover {
-    text-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
-    transition: text-shadow 0.2s ease;
-}
-
-/* ================================
-   RESPONSIVE ADJUSTMENTS
-   ================================ */
 
 @media (max-width: 768px) {
-    /* Scale down hearth on mobile but maintain aspect ratio */
     .hearth-container {
-        transform: translateX(-96px) scale(0.75);  /* 75% = 192px wide */
-        transform-origin: top center;
+        transform: translate(-256px, -256px) scale(0.5);  /* 512×512 on mobile */
     }
     
-    /* Adjust nav position */
-    body.minecraft-theme .nav {
-        top: 160px;  /* Account for scaled hearth */
+    body.minecraft-theme::before {
+        height: 256px;  /* 1 block tall header on mobile */
     }
 }
 
 @media (max-width: 480px) {
-    /* Further scale on very small screens */
     .hearth-container {
-        transform: translateX(-64px) scale(0.5);  /* 50% = 128px wide */
-    }
-    
-    body.minecraft-theme .nav {
-        top: 120px;
+        transform: translate(-128px, -128px) scale(0.25);  /* 256×256 on tiny screens */
     }
 }
 
@@ -1292,19 +1352,22 @@ body.minecraft-theme .nav-cta:hover {
 
 .hearth-container,
 .hearth-container * {
-    /* GPU acceleration */
     will-change: transform, opacity;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
 
-/* Reduce animations when user prefers reduced motion */
+/* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
     .fire-glow {
         animation: none;
     }
     
     .ember.active {
-        animation-duration: 5s;  /* Slower, less jarring */
+        animation-duration: 5s;
+    }
+    
+    .hearth-container {
+        transition-duration: 0.1s;
     }
 }
