@@ -1,7 +1,8 @@
 /* ================================
    CSS RESET & BASE STYLES
    ================================ */
-{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -303,6 +304,7 @@ img {
     justify-content: center;
     padding: 6rem 2rem 4rem;
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    position: relative;
 }
 
 .hero-container {
@@ -917,32 +919,14 @@ img {
 }
 
 /* ================================
-   MINECRAFT THEME (F3 MODE) - READY FOR WEEK 2
+   MINECRAFT THEME (F3 MODE)
    ================================ */
 
+/* CMD+F: MINECRAFT_BACKGROUND */
+/* Stone.png background for entire page in alt mode */
 body.minecraft-theme {
-    /* We'll add Minecraft styling here in Week 2 */
-    /* This class will be toggled by JavaScript when F3 is pressed */
-}
-
-/* Placeholder for future Minecraft textures */
-/* body.minecraft-theme {
-    --primary: #8B4513;
-    --bg-primary: url('textures/stone.png');
-    etc.
-} */
-/* ================================
-   MINECRAFT HEARTH - 3D FIREPLACE
-   ================================ */
-
-/* ================================
-   MINECRAFT ALT MODE - BACKGROUND
-   ================================ */
-
-/* Stone background fills entire screen in alt mode */
-body.minecraft-theme {
-    background-image: url('../textures/stone.png');
-    background-size: 256px 256px;
+    background-image: url('textures/stone.png');
+    background-size: 128px 128px;
     background-repeat: repeat;
     background-attachment: fixed;
     
@@ -951,24 +935,34 @@ body.minecraft-theme {
     image-rendering: crisp-edges;
 }
 
-/* Stonebrick header area (top of page) */
-body.minecraft-theme::before {
+/* CMD+F: STONEBRICK_BANNER */
+/* Stonebrick banner - flexible size, recessed behind hearth */
+body.minecraft-theme .hero::before {
     content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 512px;  /* 2 blocks tall */
-    background-image: url('../textures/stonebrick.png');
-    background-size: 256px 256px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(-60px);
+    
+    /* Flexible size - adjust width/height as needed */
+    width: 768px;   /* 6 blocks wide (128×6) */
+    height: 768px;  /* 6 blocks tall (128×6) */
+    
+    background-image: url('textures/stonebrick.png');
+    background-size: 128px 128px;
     background-repeat: repeat;
-    z-index: -1;
+    
+    /* Recessed 60px behind front plane */
+    transform-style: preserve-3d;
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    
+    z-index: 5;
 }
 
+/* CMD+F: HIDE_PROFILE */
 /* Hide profile photo in alt mode */
 body.minecraft-theme .hero-image {
     opacity: 0;
@@ -977,20 +971,21 @@ body.minecraft-theme .hero-image {
 }
 
 /* ================================
-   MINECRAFT HEARTH - 4×4 BLOCKS
+   MINECRAFT HEARTH - 4×4 BLOCKS (128px each)
    ================================ */
 
-/* Main hearth container - 1024×1024px (4×4 blocks) */
+/* CMD+F: HEARTH_CONTAINER */
+/* Main hearth container - 512×512px (4×4 blocks @ 128px) */
 .hearth-container {
     position: absolute;
-    width: 1024px;
-    height: 1024px;
+    width: 512px;   /* 4 blocks × 128px */
+    height: 512px;  /* 4 blocks × 128px */
     left: 50%;
     top: 50%;
-    transform: translate(-512px, -512px);  /* Center in hero section */
+    transform: translate(-256px, -256px);  /* Center (half of 512) */
     
     /* 3D perspective */
-    perspective: 1200px;
+    perspective: 800px;
     transform-style: preserve-3d;
     
     /* Pixel-perfect rendering */
@@ -1007,11 +1002,6 @@ body.minecraft-theme .hero-image {
     z-index: 10;
 }
 
-/* Position in hero section */
-.hero {
-    position: relative;
-}
-
 /* Show hearth in minecraft mode */
 body.minecraft-theme .hearth-container {
     opacity: 1;
@@ -1019,23 +1009,24 @@ body.minecraft-theme .hearth-container {
 }
 
 /* ================================
-   LAYER 1: BACK WALL (Deepest)
+   LAYER 1: BACK WALL (Cobblestone)
    ================================ */
 
+/* CMD+F: BACK_WALL */
 /* 4 cobblestone blocks (2×2 grid) behind fire */
 .hearth-back-wall {
     position: absolute;
-    top: 256px;      /* Start below top bar */
-    left: 256px;     /* Start after left pillar */
-    width: 512px;    /* 2 blocks wide (256×2) */
-    height: 512px;   /* 2 blocks tall (256×2) */
+    top: 128px;      /* Start below top bar (1 block) */
+    left: 128px;     /* Start after left pillar (1 block) */
+    width: 256px;    /* 2 blocks wide (128×2) */
+    height: 256px;   /* 2 blocks tall (128×2) */
     
-    background-image: url('../textures/cobblestone.png');
-    background-size: 256px 256px;
+    background-image: url('textures/cobblestone.png');
+    background-size: 128px 128px;
     background-repeat: repeat;
     
-    transform: translateZ(-120px);  /* Push far back */
-    filter: brightness(0.3);  /* Dark = depth */
+    transform: translateZ(-60px);  /* Recessed behind front plane */
+    filter: brightness(0.4);  /* Dark = depth */
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -1043,67 +1034,67 @@ body.minecraft-theme .hearth-container {
 }
 
 /* ================================
-   LAYER 2: SIDE PILLARS
+   LAYER 2: SIDE PILLARS & INNER WALLS
    ================================ */
 
+/* CMD+F: LEFT_PILLAR */
 /* Left pillar - stone_slab_side (vertical) */
 .hearth-inner-left {
     position: absolute;
-    top: 256px;    /* Below top bar */
+    top: 128px;    /* Below top bar */
     left: 0;
-    width: 256px;  /* 1 block */
-    height: 512px; /* 2 blocks tall */
+    width: 128px;  /* 1 block */
+    height: 256px; /* 2 blocks tall */
     
-    background-image: url('../textures/stone_slab_side.png');
-    background-size: 256px 256px;
+    background-image: url('textures/stone_slab_side.png');
+    background-size: 128px 128px;
     background-repeat: repeat-y;
     
-    transform: translateZ(-60px);
-    filter: brightness(0.6);
+    transform: translateZ(0);  /* Front plane with hearth frame */
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
     /* Inner shadow for depth */
-    box-shadow: inset -20px 0 40px rgba(0, 0, 0, 0.6);
+    box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.6);
 }
 
+/* CMD+F: RIGHT_PILLAR */
 /* Right pillar - stone_slab_side (vertical) */
 .hearth-inner-right {
     position: absolute;
-    top: 256px;
+    top: 128px;
     right: 0;
-    width: 256px;
-    height: 512px;
+    width: 128px;
+    height: 256px;
     
-    background-image: url('../textures/stone_slab_side.png');
-    background-size: 256px 256px;
+    background-image: url('textures/stone_slab_side.png');
+    background-size: 128px 128px;
     background-repeat: repeat-y;
     
-    transform: translateZ(-60px);
-    filter: brightness(0.6);
+    transform: translateZ(0);
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    box-shadow: inset 20px 0 40px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.6);
 }
 
-/* Bottom inner edge (optional depth element) */
+/* CMD+F: BOTTOM_INNER */
+/* Bottom inner edge */
 .hearth-inner-bottom {
     position: absolute;
-    bottom: 256px;
-    left: 256px;
-    width: 512px;
-    height: 256px;
+    bottom: 128px;
+    left: 128px;
+    width: 256px;
+    height: 128px;
     
-    background-image: url('../textures/stone_slab_side.png');
-    background-size: 256px 256px;
+    background-image: url('textures/stone_slab_side.png');
+    background-size: 128px 128px;
     
-    transform: translateZ(-60px);
-    filter: brightness(0.5);
+    transform: translateZ(0);
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -1114,14 +1105,15 @@ body.minecraft-theme .hearth-container {
    LAYER 3: FIRE CANVAS (Dual Fires)
    ================================ */
 
+/* CMD+F: FIRE_CANVAS */
 #fireCanvas {
     position: absolute;
-    top: 256px;     /* Below top bar */
-    left: 256px;    /* After left pillar */
-    width: 512px;   /* 2 fires × 256px */
-    height: 512px;  /* 2 blocks tall */
+    top: 128px;     /* Below top bar */
+    left: 128px;    /* After left pillar */
+    width: 256px;   /* 2 fires × 128px (scaled from 512) */
+    height: 256px;  /* 2 blocks tall (scaled from 512) */
     
-    transform: translateZ(-30px);  /* Fire between back wall and frame */
+    transform: translateZ(0);  /* Front plane */
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -1132,76 +1124,82 @@ body.minecraft-theme .hearth-container {
    LAYER 4: FRAME (Front Structural Layer)
    ================================ */
 
+/* CMD+F: HEARTH_FRAME */
 .hearth-frame {
     position: absolute;
-    background-image: url('../textures/stone_slab_side.png');
-    background-size: 256px 256px;
-    transform: translateZ(0);  /* Front-most layer */
+    background-image: url('textures/stone_slab_side.png');
+    background-size: 128px 128px;
+    transform: translateZ(0);  /* Front plane */
     
     /* Inner shadow for 3D depth */
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
 
+/* CMD+F: FRAME_TOP */
 /* Top horizontal bar (spans full width minus corners) */
 .hearth-frame-top {
     top: 0;
-    left: 256px;
-    width: 512px;   /* 2 blocks (between corners) */
-    height: 256px;  /* 1 block */
+    left: 128px;
+    width: 256px;   /* 2 blocks (between corners) */
+    height: 128px;  /* 1 block */
     
-    box-shadow: inset 0 -15px 30px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 -8px 15px rgba(0, 0, 0, 0.7);
 }
 
-/* Bottom bar (optional, can remove if not needed) */
+/* CMD+F: FRAME_BOTTOM */
+/* Bottom bar */
 .hearth-frame-bottom {
     bottom: 0;
-    left: 256px;
-    width: 512px;
-    height: 256px;
+    left: 128px;
+    width: 256px;
+    height: 128px;
     
-    box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 8px 15px rgba(0, 0, 0, 0.7);
 }
 
+/* CMD+F: FRAME_LEFT */
 /* Left frame edge */
 .hearth-frame-left {
-    top: 256px;
+    top: 128px;
     left: 0;
-    width: 256px;
-    height: 512px;
+    width: 128px;
+    height: 256px;
     
-    box-shadow: inset -15px 0 30px rgba(0, 0, 0, 0.7);
+    box-shadow: inset -8px 0 15px rgba(0, 0, 0, 0.7);
 }
 
+/* CMD+F: FRAME_RIGHT */
 /* Right frame edge */
 .hearth-frame-right {
-    top: 256px;
+    top: 128px;
     right: 0;
-    width: 256px;
-    height: 512px;
+    width: 128px;
+    height: 256px;
     
-    box-shadow: inset 15px 0 30px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 8px 0 15px rgba(0, 0, 0, 0.7);
 }
 
 /* ================================
    LAYER 5: CARVED CORNERS
    ================================ */
 
+/* CMD+F: CARVED_CORNERS */
 .hearth-corner {
     position: absolute;
-    width: 256px;
-    height: 256px;
-    background-image: url('../textures/stonebrick_carved.png');
-    background-size: 256px 256px;
-    transform: translateZ(10px);  /* Slightly forward from frame */
+    width: 128px;
+    height: 128px;
+    background-image: url('textures/stonebrick_carved.png');
+    background-size: 128px 128px;
+    transform: translateZ(0);  /* Front plane */
     
     /* Strong shadow for prominent corners */
     box-shadow: 
-        inset -8px -8px 20px rgba(0, 0, 0, 0.8),
-        0 4px 15px rgba(0, 0, 0, 0.5);
+        inset -4px -4px 10px rgba(0, 0, 0, 0.8),
+        0 2px 8px rgba(0, 0, 0, 0.5);
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -1232,26 +1230,28 @@ body.minecraft-theme .hearth-container {
    LAYER 6: EMBER PARTICLES
    ================================ */
 
+/* CMD+F: EMBER_CONTAINER */
 .ember-container {
     position: absolute;
     top: 0;
     left: 0;
-    width: 1024px;
-    height: 1024px;
-    transform: translateZ(30px);  /* Float forward */
+    width: 512px;
+    height: 512px;
+    transform: translateZ(10px);  /* Float forward */
     pointer-events: none;
     overflow: visible;
 }
 
+/* CMD+F: EMBER_PARTICLE */
 .ember {
     position: absolute;
-    width: 16px;    /* 2× original (8px × 2) */
+    width: 16px;    /* Scaled appropriately */
     height: 16px;
-    background-image: url('../textures/particles.png');
-    background-size: 512px 512px;  /* Scale entire particle sheet */
+    background-image: url('textures/particles.png');
+    background-size: 256px 256px;  /* Scale particle sheet */
     
-    /* Placeholder position - needs adjustment after finding ember */
-    background-position: -96px -96px;
+    /* Placeholder position - adjust after finding ember */
+    background-position: -48px -48px;
     
     opacity: 0.9;
     filter: brightness(1.5);
@@ -1261,6 +1261,7 @@ body.minecraft-theme .hearth-container {
     image-rendering: crisp-edges;
 }
 
+/* CMD+F: EMBER_ANIMATION */
 /* Ember float animation */
 @keyframes ember-float {
     0% {
@@ -1268,11 +1269,11 @@ body.minecraft-theme .hearth-container {
         opacity: 0.9;
     }
     50% {
-        transform: translateY(-120px) translateX(20px) translateZ(60px) scale(0.8);
+        transform: translateY(-60px) translateX(10px) translateZ(30px) scale(0.8);
         opacity: 0.6;
     }
     100% {
-        transform: translateY(-240px) translateX(-10px) translateZ(120px) scale(0.6);
+        transform: translateY(-120px) translateX(-5px) translateZ(60px) scale(0.6);
         opacity: 0;
     }
 }
@@ -1285,13 +1286,14 @@ body.minecraft-theme .hearth-container {
    LAYER 7: FIRE GLOW
    ================================ */
 
+/* CMD+F: FIRE_GLOW */
 .fire-glow {
     position: absolute;
-    top: 40%;
+    top: 45%;
     left: 50%;
-    transform: translate(-50%, -50%) translateZ(20px);
-    width: 600px;
-    height: 600px;
+    transform: translate(-50%, -50%) translateZ(5px);
+    width: 300px;   /* Scaled down from 600px */
+    height: 300px;
     
     background: radial-gradient(
         circle at center,
@@ -1302,20 +1304,21 @@ body.minecraft-theme .hearth-container {
     );
     
     pointer-events: none;
-    filter: blur(40px);
+    filter: blur(20px);  /* Scaled blur */
     
     /* Gentle flicker */
     animation: fire-glow-flicker 0.4s infinite alternate;
 }
 
+/* CMD+F: GLOW_ANIMATION */
 @keyframes fire-glow-flicker {
     0% {
         opacity: 0.7;
-        transform: translate(-50%, -50%) translateZ(20px) scale(1);
+        transform: translate(-50%, -50%) translateZ(5px) scale(1);
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%) translateZ(20px) scale(1.08);
+        transform: translate(-50%, -50%) translateZ(5px) scale(1.08);
     }
 }
 
@@ -1323,26 +1326,38 @@ body.minecraft-theme .hearth-container {
    RESPONSIVE - MOBILE
    ================================ */
 
+/* CMD+F: HEARTH_RESPONSIVE */
 @media (max-width: 1200px) {
     .hearth-container {
-        transform: translate(-512px, -512px) scale(0.8);
+        transform: translate(-256px, -256px) scale(0.8);
         transform-origin: center;
+    }
+    
+    body.minecraft-theme .hero::before {
+        width: 640px;   /* 5 blocks */
+        height: 640px;
     }
 }
 
 @media (max-width: 768px) {
     .hearth-container {
-        transform: translate(-256px, -256px) scale(0.5);  /* 512×512 on mobile */
+        transform: translate(-128px, -128px) scale(0.5);  /* 256×256 on mobile */
     }
     
-    body.minecraft-theme::before {
-        height: 256px;  /* 1 block tall header on mobile */
+    body.minecraft-theme .hero::before {
+        width: 384px;   /* 3 blocks */
+        height: 384px;
     }
 }
 
 @media (max-width: 480px) {
     .hearth-container {
-        transform: translate(-128px, -128px) scale(0.25);  /* 256×256 on tiny screens */
+        transform: translate(-64px, -64px) scale(0.25);  /* 128×128 on tiny screens */
+    }
+    
+    body.minecraft-theme .hero::before {
+        width: 256px;   /* 2 blocks */
+        height: 256px;
     }
 }
 
@@ -1350,6 +1365,7 @@ body.minecraft-theme .hearth-container {
    PERFORMANCE OPTIMIZATIONS
    ================================ */
 
+/* CMD+F: PERFORMANCE */
 .hearth-container,
 .hearth-container * {
     will-change: transform, opacity;
