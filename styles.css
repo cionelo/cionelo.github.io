@@ -935,24 +935,48 @@ body.minecraft-theme {
     image-rendering: crisp-edges;
 }
 
-/* CMD+F: STONEBRICK_BANNER */
-/* Stonebrick banner - flexible size, recessed behind hearth */
-body.minecraft-theme .hero::before {
+/* CMD+F: STICKY_NAV_STONEBRICK */
+/* Sticky stonebrick nav bar at top - "green zone" for buttons */
+body.minecraft-theme::after {
     content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) translateZ(-60px);
-    
-    /* Flexible size - adjust width/height as needed */
-    width: 768px;   /* 6 blocks wide (128×6) */
-    height: 768px;  /* 6 blocks tall (128×6) */
+    position: fixed;
+    top: 70px;  /* Below main nav */
+    left: 0;
+    right: 0;
+    height: 256px;  /* 2 blocks tall (128×2) */
     
     background-image: url('textures/stonebrick.png');
     background-size: 128px 128px;
     background-repeat: repeat;
     
-    /* Recessed 60px behind front plane */
+    transform: translateZ(0);  /* Front plane with hearth */
+    
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    
+    z-index: 100;  /* Below main nav (1000) but above content */
+    pointer-events: none;  /* Allow clicks through for now */
+}
+
+/* CMD+F: STONEBRICK_BANNER */
+/* Stonebrick banner - flexible size, recessed one block behind hearth */
+body.minecraft-theme .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(-128px);
+    
+    /* Larger size to accommodate hearth + green zone above */
+    width: 1024px;   /* 8 blocks wide (128×8) */
+    height: 896px;   /* 7 blocks tall (128×7) - extra room above */
+    
+    background-image: url('textures/stonebrick.png');
+    background-size: 128px 128px;
+    background-repeat: repeat;
+    
+    /* Recessed 128px behind front plane (one block) */
     transform-style: preserve-3d;
     
     image-rendering: pixelated;
@@ -1013,7 +1037,7 @@ body.minecraft-theme .hearth-container {
    ================================ */
 
 /* CMD+F: BACK_WALL */
-/* 4 cobblestone blocks (2×2 grid) behind fire */
+/* 2×2 cobblestone blocks behind fire only (recessed one block) */
 .hearth-back-wall {
     position: absolute;
     top: 128px;      /* Start below top bar (1 block) */
@@ -1025,7 +1049,7 @@ body.minecraft-theme .hearth-container {
     background-size: 128px 128px;
     background-repeat: repeat;
     
-    transform: translateZ(-60px);  /* Recessed behind front plane */
+    transform: translateZ(-128px);  /* One block back (128px units) */
     filter: brightness(0.4);  /* Dark = depth */
     
     image-rendering: pixelated;
@@ -1050,7 +1074,7 @@ body.minecraft-theme .hearth-container {
     background-size: 128px 128px;
     background-repeat: repeat-y;
     
-    transform: translateZ(0);  /* Front plane with hearth frame */
+    transform: translateZ(0);  /* Front plane (uniform with hearth) */
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -1073,7 +1097,7 @@ body.minecraft-theme .hearth-container {
     background-size: 128px 128px;
     background-repeat: repeat-y;
     
-    transform: translateZ(0);
+    transform: translateZ(0);  /* Front plane (uniform with hearth) */
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -1094,7 +1118,7 @@ body.minecraft-theme .hearth-container {
     background-image: url('textures/stone_slab_side.png');
     background-size: 128px 128px;
     
-    transform: translateZ(0);
+    transform: translateZ(0);  /* Front plane (uniform with hearth) */
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
