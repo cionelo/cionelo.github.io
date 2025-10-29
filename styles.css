@@ -307,6 +307,12 @@ img {
     position: relative;
 }
 
+/* CMD+F: HERO_MINECRAFT */
+/* Make hero background transparent in Minecraft mode so stone.png shows */
+body.minecraft-theme .hero {
+    background: transparent;
+}
+
 .hero-container {
     max-width: 800px;
     text-align: center;
@@ -935,28 +941,23 @@ body.minecraft-theme {
     image-rendering: crisp-edges;
 }
 
-/* CMD+F: STICKY_NAV_STONEBRICK */
-/* Sticky stonebrick nav bar at top - "green zone" for buttons */
-body.minecraft-theme::after {
-    content: '';
-    position: fixed;
-    top: 70px;  /* Below main nav */
-    left: 0;
-    right: 0;
-    height: 256px;  /* 2 blocks tall (128×2) */
-    
+/* CMD+F: MINECRAFT_NAV */
+/* Reskin existing nav bar to stonebrick in Minecraft mode */
+body.minecraft-theme .nav {
     background-image: url('textures/stonebrick.png');
     background-size: 128px 128px;
     background-repeat: repeat;
-    
-    transform: translateZ(0);  /* Front plane with hearth */
+    background-color: transparent;
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    z-index: 100;  /* Below main nav (1000) but above content */
-    pointer-events: none;  /* Allow clicks through for now */
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    
+    /* Increase height for "green zone" */
+    padding: 1.5rem 2rem;
 }
 
 /* CMD+F: STONEBRICK_BANNER */
@@ -1050,11 +1051,13 @@ body.minecraft-theme .hearth-container {
     background-repeat: repeat;
     
     transform: translateZ(-128px);  /* One block back (128px units) */
-    filter: brightness(0.4);  /* Dark = depth */
+    filter: brightness(0.5);  /* Dark for depth */
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    
+    z-index: 1;  /* Ensure it renders behind fire */
 }
 
 /* ================================
@@ -1062,12 +1065,12 @@ body.minecraft-theme .hearth-container {
    ================================ */
 
 /* CMD+F: LEFT_PILLAR */
-/* Left pillar - stone_slab_side (vertical) */
+/* Left pillar - stone_slab_side (vertical, edge only) */
 .hearth-inner-left {
     position: absolute;
     top: 128px;    /* Below top bar */
     left: 0;
-    width: 128px;  /* 1 block */
+    width: 128px;  /* 1 block - stays on left edge */
     height: 256px; /* 2 blocks tall */
     
     background-image: url('textures/stone_slab_side.png');
@@ -1082,15 +1085,17 @@ body.minecraft-theme .hearth-container {
     
     /* Inner shadow for depth */
     box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.6);
+    
+    z-index: 3;  /* In front of cobblestone */
 }
 
 /* CMD+F: RIGHT_PILLAR */
-/* Right pillar - stone_slab_side (vertical) */
+/* Right pillar - stone_slab_side (vertical, edge only) */
 .hearth-inner-right {
     position: absolute;
     top: 128px;
     right: 0;
-    width: 128px;
+    width: 128px;  /* 1 block - stays on right edge */
     height: 256px;
     
     background-image: url('textures/stone_slab_side.png');
@@ -1104,6 +1109,8 @@ body.minecraft-theme .hearth-container {
     image-rendering: crisp-edges;
     
     box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.6);
+    
+    z-index: 3;  /* In front of cobblestone */
 }
 
 /* CMD+F: BOTTOM_INNER */
@@ -1123,6 +1130,8 @@ body.minecraft-theme .hearth-container {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    
+    z-index: 3;  /* In front of cobblestone */
 }
 
 /* ================================
@@ -1142,6 +1151,8 @@ body.minecraft-theme .hearth-container {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    
+    z-index: 2;  /* In front of cobblestone, behind frame */
 }
 
 /* ================================
@@ -1161,6 +1172,8 @@ body.minecraft-theme .hearth-container {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    
+    z-index: 4;  /* Top layer - frame is most forward */
 }
 
 /* CMD+F: FRAME_TOP */
@@ -1228,6 +1241,8 @@ body.minecraft-theme .hearth-container {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    
+    z-index: 5;  /* Highest - corners are most prominent */
 }
 
 .hearth-corner-tl {
