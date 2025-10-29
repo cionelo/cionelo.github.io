@@ -357,7 +357,7 @@ class HearthFireAnimation {
         this.fireHeight = 512;  // 2 blocks tall (256×2)
         this.totalWidth = 512;  // 2 fires side-by-side
         
-        this.animationSpeed = 3; // Frames per second (medium flicker)
+        this.animationSpeed = 16; // Frames per second (medium flicker)
         this.frameTimer = 0;
         this.lastTimestamp = 0;
         
