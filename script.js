@@ -350,16 +350,20 @@ class HearthFireAnimation {
         this.fireLayer1 = null;
         this.currentFrame = 0;
         this.frameCount = 32;  // Total frames in fire animation
-        this.frameSize = 32;   // Original texture size
-        this.displaySize = 192; // Scaled size (32 × 6)
-        this.displayHeight = 128; // Scaled height (32 × 4)
+        this.frameSize = 32;   // Original texture size (32×32 per frame)
+        
+        // UPDATED: Dual fire rendering
+        this.fireWidth = 256;   // Each fire is 256px wide
+        this.fireHeight = 512;  // 2 blocks tall (256×2)
+        this.totalWidth = 512;  // 2 fires side-by-side
+        
         this.animationSpeed = 3; // Frames per second (medium flicker)
         this.frameTimer = 0;
         this.lastTimestamp = 0;
         
         // Ember state
         this.emberTimer = 0;
-        this.emberInterval = 1500; // Spawn ember every 1.5 seconds (occasional)
+        this.emberInterval = 1500; // Spawn ember every 1.5 seconds
         this.maxEmbers = 4;
         this.activeEmbers = 0;
         
@@ -370,6 +374,184 @@ class HearthFireAnimation {
         // Preload textures
         this.loadTextures();
     }
+    
+    loadTextures() {
+        this.fireLayer0 = new Image();
+        this.fireLayer1 = new Image();
+        
+        let loaded = 0;
+        const checkLoaded = () => {
+            loaded++;
+            if (loaded === 2) {
+                console.log('🔥 Fire textures loaded successfully');
+                console.log(`   Layer 0: ${this.fireLayer0.width}×${this.fireLayer0.height}`);
+                console.log(`   Layer 1: ${this.fireLayer1.width}×${this.fireLayer1.height}`);
+            }
+        };
+        
+        this.fireLayer0.onload = checkLoaded;
+        this.fireLayer1.onload = checkLoaded;
+        
+        this.fireLayer0.onerror = () => console.error('❌ Failed to load fire_layer_0.png');
+        this.fireLayer1.onerror = () => console.error('❌ Failed to load fire_layer_1.png');
+        
+        this.fireLayer0.src = 'textures/fire_layer_0.png';
+        this.fireLayer1.src = 'textures/fire_layer_1.png';
+    }
+    
+    start() {
+        if (!this.canvas || !this.ctx) {
+            console.warn('⚠️ Fire canvas not found');
+            return;
+        }
+        
+        // Set canvas size for dual fires
+        this.canvas.width = this.totalWidth;
+        this.canvas.height = this.fireHeight;
+        
+        this.isActive = true;
+        this.lastTimestamp = performance.now();
+        this.animate(this.lastTimestamp);
+        console.log('🔥 Hearth fire started - Dual fires rendering');
+    }
+    
+    stop() {
+        this.isActive = false;
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
+        
+        // Clear canvas
+        if (this.ctx) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+        
+        // Remove all embers
+        if (this.emberContainer) {
+            this.emberContainer.innerHTML = '';
+        }
+        this.activeEmbers = 0;
+        
+        console.log('🔥 Hearth fire stopped');
+    }
+    
+    animate(timestamp) {
+        if (!this.isActive) return;
+        
+        const deltaTime = timestamp - this.lastTimestamp;
+        this.lastTimestamp = timestamp;
+        
+        // Update frame timer
+        this.frameTimer += deltaTime;
+        const frameDelay = 1000 / this.animationSpeed;
+        
+        if (this.frameTimer >= frameDelay) {
+            this.frameTimer = 0;
+            this.currentFrame = (this.currentFrame + 1) % this.frameCount;
+            this.drawFire();
+        }
+        
+        // Update ember timer
+        this.emberTimer += deltaTime;
+        if (this.emberTimer >= this.emberInterval && this.activeEmbers < this.maxEmbers) {
+            this.spawnEmber();
+            this.emberTimer = 0;
+        }
+        
+        this.animationFrameId = requestAnimationFrame((t) => this.animate(t));
+    }
+    
+    drawFire() {
+        if (!this.ctx || !this.fireLayer0 || !this.fireLayer1) return;
+        if (!this.fireLayer0.complete || !this.fireLayer1.complete) return;
+        
+        // Clear canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Enable pixel-perfect rendering
+        this.ctx.imageSmoothingEnabled = false;
+        
+        // Calculate source rectangle (which frame to draw)
+        const frameHeight = this.frameSize; // 32px per frame
+        const sourceY = this.currentFrame * frameHeight;
+        
+        // Draw TWO fires side-by-side
+        for (let i = 0; i < 2; i++) {
+            const xPosition = i * this.fireWidth;  // 0 or 256
+            
+            // Layer 0: Base fire
+            this.ctx.globalCompositeOperation = 'source-over';
+            this.ctx.globalAlpha = 1.0;
+            
+            this.ctx.drawImage(
+                this.fireLayer0,
+                0, sourceY,                    // Source x, y
+                this.frameSize, frameHeight,   // Source width, height (32×32)
+                xPosition, 0,                  // Dest x, y
+                this.fireWidth, this.fireHeight // Dest width, height (256×512)
+            );
+            
+            // Layer 1: Overlay fire (additive blending)
+            this.ctx.globalCompositeOperation = 'lighter';
+            this.ctx.globalAlpha = 0.8;
+            
+            this.ctx.drawImage(
+                this.fireLayer1,
+                0, sourceY,
+                this.frameSize, frameHeight,
+                xPosition, 0,
+                this.fireWidth, this.fireHeight
+            );
+        }
+        
+        // Reset composite settings
+        this.ctx.globalCompositeOperation = 'source-over';
+        this.ctx.globalAlpha = 1.0;
+    }
+    
+    spawnEmber() {
+        if (!this.emberContainer) return;
+        
+        const ember = document.createElement('div');
+        ember.className = 'ember active';
+        
+        // Random position within fire area (between the two fires)
+        // Fire area spans from 256px to 768px horizontally
+        const randomX = 300 + Math.random() * 400;  // Center area of hearth
+        const startY = 600;  // Bottom of fire area (adjusted for 1024px hearth)
+        
+        ember.style.left = `${randomX}px`;
+        ember.style.top = `${startY}px`;
+        
+        this.emberContainer.appendChild(ember);
+        this.activeEmbers++;
+        
+        // Remove ember after animation completes
+        setTimeout(() => {
+            if (ember.parentNode) {
+                ember.parentNode.removeChild(ember);
+            }
+            this.activeEmbers--;
+        }, 3000);
+    }
+}
+
+// Create global hearth instance
+let hearthFire = null;
+
+// Initialize hearth when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        hearthFire = new HearthFireAnimation();
+        console.log('🔥 HearthFireAnimation initialized');
+    });
+} else {
+    hearthFire = new HearthFireAnimation();
+    console.log('🔥 HearthFireAnimation initialized');
+}
+
+
     
     loadTextures() {
         this.fireLayer0 = new Image();
