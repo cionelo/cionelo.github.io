@@ -112,22 +112,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-function toggleMinecraftMode() {
-    minecraftMode = !minecraftMode;
-    
-    if (minecraftMode) {
-        // Enable Minecraft theme
-        document.body.classList.add('minecraft-theme');
-        showDebugStats();
-        // In Week 2: Add fire animation, load textures, etc.
-        console.log('🎮 Minecraft Mode Activated! (Full styling coming in Week 2)');
-    } else {
-        // Disable Minecraft theme
-        document.body.classList.remove('minecraft-theme');
-        hideDebugStats();
-        console.log('✨ Default Mode Restored');
-    }
-}
 
 // ================================
 // DEBUG STATS OVERLAY (F3 Screen)
