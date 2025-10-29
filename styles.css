@@ -1038,7 +1038,7 @@ body.minecraft-theme .hearth-container {
    ================================ */
 
 /* CMD+F: BACK_WALL */
-/* 2×2 cobblestone blocks behind fire only (recessed one block) */
+/* 2×2 cobblestone blocks behind fire with Minecraft-style depth shadows */
 .hearth-back-wall {
     position: absolute;
     top: 128px;      /* Start below top bar (1 block) */
@@ -1051,13 +1051,24 @@ body.minecraft-theme .hearth-container {
     background-repeat: repeat;
     
     transform: translateZ(-128px);  /* One block back (128px units) */
-    filter: brightness(0.5);  /* Dark for depth */
+    
+    /* Minecraft-style ambient occlusion - darker at edges, lighter in center */
+    filter: brightness(0.5);
     
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    z-index: 1;  /* Ensure it renders behind fire */
+    z-index: 1;  /* Behind everything */
+    
+    /* Minecraft depth effect - multiple inset shadows for gradient */
+    box-shadow: 
+        inset 0 0 40px rgba(0, 0, 0, 0.8),      /* Overall darkness */
+        inset 15px 15px 30px rgba(0, 0, 0, 0.6), /* Top-left shadow */
+        inset -15px 15px 30px rgba(0, 0, 0, 0.6), /* Top-right shadow */
+        inset 15px 0 20px rgba(0, 0, 0, 0.5),    /* Left edge */
+        inset -15px 0 20px rgba(0, 0, 0, 0.5),   /* Right edge */
+        inset 0 15px 20px rgba(0, 0, 0, 0.5);    /* Top edge */
 }
 
 /* ================================
@@ -1065,7 +1076,7 @@ body.minecraft-theme .hearth-container {
    ================================ */
 
 /* CMD+F: LEFT_PILLAR */
-/* Left pillar - stone_slab_side (vertical, edge only) */
+/* Left pillar - stone_slab_side with Minecraft inner shadow */
 .hearth-inner-left {
     position: absolute;
     top: 128px;    /* Below top bar */
@@ -1083,14 +1094,16 @@ body.minecraft-theme .hearth-container {
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    /* Inner shadow for depth */
-    box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.6);
+    /* Minecraft-style inner shadow - darkness facing the recessed area */
+    box-shadow: 
+        inset -20px 0 30px rgba(0, 0, 0, 0.7),  /* Deep shadow on right edge */
+        inset -10px 10px 20px rgba(0, 0, 0, 0.5); /* Corner shadow */
     
     z-index: 3;  /* In front of cobblestone */
 }
 
 /* CMD+F: RIGHT_PILLAR */
-/* Right pillar - stone_slab_side (vertical, edge only) */
+/* Right pillar - stone_slab_side with Minecraft inner shadow */
 .hearth-inner-right {
     position: absolute;
     top: 128px;
@@ -1108,30 +1121,18 @@ body.minecraft-theme .hearth-container {
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.6);
+    /* Minecraft-style inner shadow - darkness facing the recessed area */
+    box-shadow: 
+        inset 20px 0 30px rgba(0, 0, 0, 0.7),   /* Deep shadow on left edge */
+        inset 10px 10px 20px rgba(0, 0, 0, 0.5); /* Corner shadow */
     
     z-index: 3;  /* In front of cobblestone */
 }
 
 /* CMD+F: BOTTOM_INNER */
-/* Bottom inner edge */
+/* Bottom inner edge - REMOVED for upside-down U shape */
 .hearth-inner-bottom {
-    position: absolute;
-    bottom: 128px;
-    left: 128px;
-    width: 256px;
-    height: 128px;
-    
-    background-image: url('textures/stone_slab_side.png');
-    background-size: 128px 128px;
-    
-    transform: translateZ(0);  /* Front plane (uniform with hearth) */
-    
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    
-    z-index: 3;  /* In front of cobblestone */
+    display: none;  /* Not needed - hearth is upside-down U */
 }
 
 /* ================================
@@ -1177,47 +1178,48 @@ body.minecraft-theme .hearth-container {
 }
 
 /* CMD+F: FRAME_TOP */
-/* Top horizontal bar (spans full width minus corners) */
+/* Top horizontal bar with Minecraft inner shadow (spans full width minus corners) */
 .hearth-frame-top {
     top: 0;
     left: 128px;
     width: 256px;   /* 2 blocks (between corners) */
     height: 128px;  /* 1 block */
     
-    box-shadow: inset 0 -8px 15px rgba(0, 0, 0, 0.7);
+    /* Minecraft-style shadow - darkness at bottom edge facing recessed area */
+    box-shadow: 
+        inset 0 -20px 30px rgba(0, 0, 0, 0.7),  /* Deep shadow on bottom */
+        inset 10px -10px 20px rgba(0, 0, 0, 0.5), /* Bottom-left corner */
+        inset -10px -10px 20px rgba(0, 0, 0, 0.5); /* Bottom-right corner */
 }
 
 /* CMD+F: FRAME_BOTTOM */
-/* Bottom bar */
+/* Bottom bar - REMOVED for upside-down U shape */
 .hearth-frame-bottom {
-    bottom: 0;
-    left: 128px;
-    width: 256px;
-    height: 128px;
-    
-    box-shadow: inset 0 8px 15px rgba(0, 0, 0, 0.7);
+    display: none;  /* Not needed - hearth is upside-down U */
 }
 
 /* CMD+F: FRAME_LEFT */
-/* Left frame edge */
+/* Left frame edge with Minecraft inner shadow */
 .hearth-frame-left {
     top: 128px;
     left: 0;
     width: 128px;
     height: 256px;
     
-    box-shadow: inset -8px 0 15px rgba(0, 0, 0, 0.7);
+    box-shadow: 
+        inset -20px 0 30px rgba(0, 0, 0, 0.7);  /* Deep shadow on right edge */
 }
 
 /* CMD+F: FRAME_RIGHT */
-/* Right frame edge */
+/* Right frame edge with Minecraft inner shadow */
 .hearth-frame-right {
     top: 128px;
     right: 0;
     width: 128px;
     height: 256px;
     
-    box-shadow: inset 8px 0 15px rgba(0, 0, 0, 0.7);
+    box-shadow: 
+        inset 20px 0 30px rgba(0, 0, 0, 0.7);  /* Deep shadow on left edge */
 }
 
 /* ================================
@@ -1255,14 +1257,10 @@ body.minecraft-theme .hearth-container {
     right: 0;
 }
 
-.hearth-corner-bl {
-    bottom: 0;
-    left: 0;
-}
-
+/* Bottom corners removed - upside-down U only has top corners */
+.hearth-corner-bl,
 .hearth-corner-br {
-    bottom: 0;
-    right: 0;
+    display: none;
 }
 
 /* ================================
