@@ -250,13 +250,13 @@ document.addEventListener('keydown', (e) => {
 // ================================
 
 // Highlight active section in navigation
-const sections = document.querySelectorAll('section[id]');
+const pageSections = document.querySelectorAll('section[id]');
 const navLinksArray = document.querySelectorAll('.nav-link');
 
 window.addEventListener('scroll', () => {
     let current = '';
     
-    sections.forEach(section => {
+    pageSections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
         if (window.scrollY >= (sectionTop - 100)) {
@@ -553,163 +553,7 @@ if (document.readyState === 'loading') {
 
 
     
-    loadTextures() {
-        this.fireLayer0 = new Image();
-        this.fireLayer1 = new Image();
-        
-        let loaded = 0;
-        const checkLoaded = () => {
-            loaded++;
-            if (loaded === 2) {
-                console.log('🔥 Fire textures loaded');
-            }
-        };
-        
-        this.fireLayer0.onload = checkLoaded;
-        this.fireLayer1.onload = checkLoaded;
-        
-        this.fireLayer0.onerror = () => console.error('Failed to load fire_layer_0.png');
-        this.fireLayer1.onerror = () => console.error('Failed to load fire_layer_1.png');
-        
-        this.fireLayer0.src = 'textures/fire_layer_0.png';
-        this.fireLayer1.src = 'textures/fire_layer_1.png';
-    }
-    
-    start() {
-        if (!this.canvas || !this.ctx) {
-            console.warn('Fire canvas not found');
-            return;
-        }
-        
-        this.isActive = true;
-        this.lastTimestamp = performance.now();
-        this.animate(this.lastTimestamp);
-        console.log('🔥 Hearth fire started');
-    }
-    
-    stop() {
-        this.isActive = false;
-        if (this.animationFrameId) {
-            cancelAnimationFrame(this.animationFrameId);
-            this.animationFrameId = null;
-        }
-        
-        // Clear canvas
-        if (this.ctx) {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        }
-        
-        // Remove all embers
-        if (this.emberContainer) {
-            this.emberContainer.innerHTML = '';
-        }
-        this.activeEmbers = 0;
-        
-        console.log('🔥 Hearth fire stopped');
-    }
-    
-    animate(timestamp) {
-        if (!this.isActive) return;
-        
-        const deltaTime = timestamp - this.lastTimestamp;
-        this.lastTimestamp = timestamp;
-        
-        // Update frame timer
-        this.frameTimer += deltaTime;
-        const frameDelay = 1000 / this.animationSpeed; // milliseconds per frame
-        
-        if (this.frameTimer >= frameDelay) {
-            this.frameTimer = 0;
-            this.currentFrame = (this.currentFrame + 1) % this.frameCount;
-            this.drawFire();
-        }
-        
-        // Update ember timer
-        this.emberTimer += deltaTime;
-        if (this.emberTimer >= this.emberInterval && this.activeEmbers < this.maxEmbers) {
-            this.spawnEmber();
-            this.emberTimer = 0;
-        }
-        
-        this.animationFrameId = requestAnimationFrame((t) => this.animate(t));
-    }
-    
-    drawFire() {
-        if (!this.ctx || !this.fireLayer0 || !this.fireLayer1) return;
-        
-        // Clear canvas
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        // Enable pixel-perfect rendering
-        this.ctx.imageSmoothingEnabled = false;
-        
-        // Calculate source rectangle (which frame to draw)
-        const frameHeight = this.frameSize; // 32px per frame
-        const sourceY = this.currentFrame * frameHeight;
-        
-        // Layer 0: Base fire
-        this.ctx.globalCompositeOperation = 'source-over';
-        this.ctx.drawImage(
-            this.fireLayer0,
-            0, sourceY,              // Source x, y
-            this.frameSize, frameHeight,  // Source width, height (32×32)
-            0, 0,                    // Dest x, y
-            this.displaySize, this.displayHeight  // Dest width, height (192×128)
-        );
-        
-        // Layer 1: Overlay fire (additive blending for glow)
-        this.ctx.globalCompositeOperation = 'lighter';
-        this.ctx.globalAlpha = 0.8; // Slightly transparent for blend
-        this.ctx.drawImage(
-            this.fireLayer1,
-            0, sourceY,
-            this.frameSize, frameHeight,
-            0, 0,
-            this.displaySize, this.displayHeight
-        );
-        
-        // Reset composite settings
-        this.ctx.globalCompositeOperation = 'source-over';
-        this.ctx.globalAlpha = 1.0;
-    }
-    
-    spawnEmber() {
-        if (!this.emberContainer) return;
-        
-        const ember = document.createElement('div');
-        ember.className = 'ember active';
-        
-        // Random horizontal position within hearth opening
-        const randomX = 60 + Math.random() * 130; // Between left/right frame (32px margins)
-        const startY = 120; // Bottom of fire area
-        
-        ember.style.left = `${randomX}px`;
-        ember.style.top = `${startY}px`;
-        
-        this.emberContainer.appendChild(ember);
-        this.activeEmbers++;
-        
-        // Remove ember after animation completes
-        setTimeout(() => {
-            if (ember.parentNode) {
-                ember.parentNode.removeChild(ember);
-            }
-            this.activeEmbers--;
-        }, 3000); // Match animation duration
-    }
-}
 
-// Create global hearth instance
-let hearthFire = null;
-
-// Initialize hearth when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        hearthFire = new HearthFireAnimation();
-    });
-} else {
-    hearthFire = new HearthFireAnimation();
-}
 
 /* ================================
    UPDATE F3 TOGGLE TO CONTROL HEARTH
