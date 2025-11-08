@@ -1,44 +1,40 @@
 /* ================================
-   CSS RESET & BASE STYLES
+   DARK THEME PORTFOLIO - UPDATED STYLING
+   Based on modern dev UI design system
    ================================ */
 
-* {
+   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    /* Color Palette - Default Mode */
-    --primary: #1e40af;
-    --primary-light: #3b82f6;
-    --primary-dark: #1e3a8a;
-    --accent: #0ea5e9;
-    
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --bg-tertiary: #f1f5f9;
-    
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-tertiary: #64748b;
-    
-    --border: #e2e8f0;
-    --shadow: rgba(0, 0, 0, 0.1);
-    --shadow-lg: rgba(0, 0, 0, 0.15);
+:root { 
+    /* Dark Theme Color Palette CHANGE BRAND COLORS HERE [MEDIA,ATHLETE,ETC] */ 
+    --bg: #0b0c0e;
+    --panel: #121418;
+    --card: #161922;
+    --muted: #8b919d;
+    --text: #e7eaf0;
+    --brand: #65b2ff; 
+    --brand-ink: #0b2139;
+    --ok: #5ce0a3;
+    --warn: #ffd666;
+    --danger: #ff7a7a;
+    --radius: 16px;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
     
     /* Spacing */
     --container-width: 1200px;
     --section-padding: 5rem 2rem;
-    --card-padding: 2rem;
     
     /* Transitions */
     --transition: all 0.3s ease;
     --transition-fast: all 0.15s ease;
     
     /* Typography */
-    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    --font-primary: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 html {
@@ -48,11 +44,12 @@ html {
 
 body {
     font-family: var(--font-primary);
-    color: var(--text-primary);
-    background-color: var(--bg-primary);
-    line-height: 1.6;
+    color: var(--text);
+    background: radial-gradient(1200px 800px at 80% -10%, #182033 0%, #0b0c0e 55%);
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
 }
 
 /* ================================
@@ -61,8 +58,9 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 1rem;
+    color: var(--text);
 }
 
 h1 { font-size: 2.5rem; }
@@ -71,7 +69,7 @@ h3 { font-size: 1.5rem; }
 
 p {
     margin-bottom: 1rem;
-    color: var(--text-secondary);
+    color: #cfd6e4;
 }
 
 a {
@@ -89,6 +87,10 @@ img {
     display: block;
 }
 
+code, pre {
+    font-family: var(--font-mono);
+}
+
 /* ================================
    UTILITIES
    ================================ */
@@ -103,43 +105,50 @@ img {
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 3rem;
-    color: var(--text-primary);
+    color: var(--text);
+    font-weight: 600;
+    letter-spacing: 0.2px;
 }
 
 /* Button Styles */
 .btn {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
     display: inline-block;
     padding: 0.875rem 2rem;
-    border-radius: 0.5rem;
+    border-radius: 12px;
     font-weight: 600;
     font-size: 1rem;
-    cursor: pointer;
-    border: 2px solid transparent;
     transition: var(--transition);
     text-align: center;
 }
 
 .btn-primary {
-    background-color: var(--primary);
-    color: white;
+    background: var(--brand);
+    color: var(--brand-ink);
+    box-shadow: 0 6px 18px rgba(101,178,255,.35);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-dark);
+    filter: saturate(1.05) brightness(1.05);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--shadow-lg);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
 }
 
 .btn-secondary {
-    background-color: transparent;
-    color: var(--primary);
-    border-color: var(--primary);
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,.16);
+    box-shadow: none;
 }
 
 .btn-secondary:hover {
-    background-color: var(--primary);
-    color: white;
-    transform: translateY(-2px);
+    background: rgba(255,255,255,.05);
+    border-color: rgba(255,255,255,.24);
 }
 
 /* ================================
@@ -151,15 +160,17 @@ img {
     top: 0;
     left: 0;
     right: 0;
-    background-color: var(--bg-primary);
     z-index: 1000;
     transition: var(--transition);
-    border-bottom: 1px solid transparent;
+    background: rgba(255,255,255,.02);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    backdrop-filter: blur(6px);
 }
 
 .nav.scrolled {
-    box-shadow: 0 2px 10px var(--shadow);
-    border-bottom-color: var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,.5);
+    background: rgba(18,20,24,.95);
+    border-bottom-color: rgba(255,255,255,.1);
 }
 
 .nav-container {
@@ -174,12 +185,12 @@ img {
 .nav-logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--brand);
     transition: var(--transition-fast);
 }
 
 .nav-logo:hover {
-    color: var(--primary-dark);
+    filter: brightness(1.2);
 }
 
 .nav-links {
@@ -189,14 +200,18 @@ img {
 }
 
 .nav-link {
-    color: var(--text-secondary);
+    color: var(--muted);
     font-weight: 500;
     position: relative;
     transition: var(--transition-fast);
 }
 
 .nav-link:hover {
-    color: var(--primary);
+    color: var(--brand);
+}
+
+.nav-link.active {
+    color: var(--text);
 }
 
 .nav-link::after {
@@ -206,28 +221,34 @@ img {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--primary);
+    background-color: var(--brand);
     transition: var(--transition-fast);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 
 .nav-cta {
     padding: 0.625rem 1.5rem;
-    background-color: var(--primary);
-    color: white;
+    background: var(--brand);
+    color: var(--brand-ink);
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
+    box-shadow: 0 6px 18px rgba(101,178,255,.35);
 }
 
 .nav-cta:hover {
-    background-color: var(--primary-dark);
+    filter: saturate(1.05) brightness(1.05);
     transform: translateY(-2px);
+}
+
+.nav-cta:active {
+    transform: translateY(1px);
 }
 
 /* Mobile Toggle */
@@ -244,7 +265,7 @@ img {
 .nav-mobile-toggle span {
     width: 24px;
     height: 3px;
-    background-color: var(--text-primary);
+    background-color: var(--text);
     border-radius: 2px;
     transition: var(--transition);
 }
@@ -254,10 +275,10 @@ img {
     position: fixed;
     top: 70px;
     right: 2rem;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 20px var(--shadow-lg);
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     padding: 1rem;
     display: none;
     flex-direction: column;
@@ -272,25 +293,27 @@ img {
 
 .resume-option {
     padding: 1rem;
-    border-radius: 0.375rem;
+    border-radius: 12px;
     transition: var(--transition-fast);
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    border: 1px solid transparent;
 }
 
 .resume-option:hover {
-    background-color: var(--bg-secondary);
+    background: rgba(255,255,255,.05);
+    border-color: rgba(255,255,255,.12);
 }
 
 .resume-title {
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text);
 }
 
 .resume-desc {
     font-size: 0.875rem;
-    color: var(--text-tertiary);
+    color: var(--muted);
 }
 
 /* ================================
@@ -302,8 +325,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6rem 2rem 4rem;
-    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    padding: 8rem 2rem 4rem;
 }
 
 .hero-container {
@@ -317,26 +339,27 @@ img {
     border-radius: 50%;
     margin: 0 auto 2rem;
     object-fit: cover;
-    border: 4px solid var(--primary);
-    box-shadow: 0 8px 24px var(--shadow-lg);
+    border: 4px solid var(--brand);
+    box-shadow: 0 8px 24px rgba(101,178,255,.4);
 }
 
 .hero-title {
     font-size: 3rem;
     margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    color: var(--text);
+    font-weight: 700;
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: var(--primary);
+    color: var(--brand);
     font-weight: 600;
     margin-bottom: 1.5rem;
 }
 
 .hero-description {
     font-size: 1.125rem;
-    color: var(--text-secondary);
+    color: #cfd6e4;
     margin-bottom: 2.5rem;
     line-height: 1.8;
 }
@@ -346,6 +369,7 @@ img {
     gap: 1rem;
     justify-content: center;
     margin-bottom: 2.5rem;
+    flex-wrap: wrap;
 }
 
 .hero-social {
@@ -355,12 +379,12 @@ img {
 }
 
 .hero-social a {
-    color: var(--text-secondary);
+    color: var(--muted);
     transition: var(--transition-fast);
 }
 
 .hero-social a:hover {
-    color: var(--primary);
+    color: var(--brand);
     transform: translateY(-3px);
 }
 
@@ -370,7 +394,7 @@ img {
 
 .about {
     padding: var(--section-padding);
-    background-color: var(--bg-secondary);
+    background: var(--bg);
 }
 
 .about-content {
@@ -384,6 +408,7 @@ img {
     font-size: 1.125rem;
     line-height: 1.8;
     margin-bottom: 1.5rem;
+    color: #cfd6e4;
 }
 
 .about-stats {
@@ -393,31 +418,32 @@ img {
 }
 
 .stat-card {
-    background-color: var(--bg-primary);
+    background: var(--card);
     padding: 2rem;
-    border-radius: 0.75rem;
+    border-radius: var(--radius);
     text-align: center;
-    box-shadow: 0 2px 10px var(--shadow);
+    box-shadow: var(--shadow);
     transition: var(--transition);
+    border: 1px solid rgba(255,255,255,.06);
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 20px var(--shadow-lg);
+    border-color: rgba(101,178,255,.3);
 }
 
 .stat-number {
     display: block;
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--brand);
     margin-bottom: 0.5rem;
 }
 
 .stat-label {
     display: block;
     font-size: 0.875rem;
-    color: var(--text-tertiary);
+    color: var(--muted);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -429,7 +455,7 @@ img {
 
 .projects {
     padding: var(--section-padding);
-    background-color: var(--bg-primary);
+    background: var(--panel);
 }
 
 /* Featured Project */
@@ -438,16 +464,18 @@ img {
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     margin-bottom: 4rem;
-    background-color: var(--bg-secondary);
+    background: var(--card);
     padding: 3rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 20px var(--shadow);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,.06);
 }
 
 .project-image-wrapper {
-    border-radius: 0.75rem;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 4px 15px var(--shadow);
+    box-shadow: 0 4px 15px rgba(0,0,0,.3);
+    border: 1px solid rgba(255,255,255,.08);
 }
 
 .project-image {
@@ -470,12 +498,13 @@ img {
 .project-title {
     font-size: 1.75rem;
     margin-bottom: 1rem;
-    color: var(--text-primary);
+    color: var(--text);
+    font-weight: 600;
 }
 
 .project-description {
     font-size: 1.125rem;
-    color: var(--text-secondary);
+    color: #cfd6e4;
     margin-bottom: 1.5rem;
     line-height: 1.7;
 }
@@ -488,14 +517,14 @@ img {
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.75rem;
-    color: var(--text-secondary);
+    color: #cfd6e4;
 }
 
 .project-features li::before {
     content: '▸';
     position: absolute;
     left: 0;
-    color: var(--primary);
+    color: var(--brand);
     font-weight: 700;
 }
 
@@ -507,18 +536,19 @@ img {
 }
 
 .tech-tag {
-    padding: 0.5rem 1rem;
-    background-color: var(--bg-tertiary);
-    color: var(--primary);
-    border-radius: 2rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    border: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: #121723;
+    color: #bcd3ff;
 }
 
 .project-links {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 /* Projects Grid */
@@ -529,16 +559,17 @@ img {
 }
 
 .project-card {
-    background-color: var(--bg-secondary);
+    background: var(--card);
     padding: 2.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 10px var(--shadow);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     transition: var(--transition);
+    border: 1px solid rgba(255,255,255,.06);
 }
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px var(--shadow-lg);
+    border-color: rgba(101,178,255,.3);
 }
 
 .project-card .project-title {
@@ -555,7 +586,7 @@ img {
 
 .skills {
     padding: var(--section-padding);
-    background-color: var(--bg-secondary);
+    background: var(--bg);
 }
 
 .skills-categories {
@@ -564,16 +595,18 @@ img {
 }
 
 .skills-category {
-    background-color: var(--bg-primary);
+    background: var(--card);
     padding: 2.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 10px var(--shadow);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,.06);
 }
 
 .category-title {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: var(--primary);
+    color: var(--brand);
+    font-weight: 600;
 }
 
 .skills-grid {
@@ -584,18 +617,18 @@ img {
 
 .skill-item {
     padding: 1rem;
-    background-color: var(--bg-secondary);
-    border: 2px solid var(--border);
-    border-radius: 0.5rem;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
     text-align: center;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text);
     transition: var(--transition);
 }
 
 .skill-item:hover {
-    border-color: var(--primary);
-    background-color: var(--bg-tertiary);
+    border-color: var(--brand);
+    background: rgba(101,178,255,.1);
     transform: translateY(-3px);
 }
 
@@ -605,7 +638,7 @@ img {
 
 .experience {
     padding: var(--section-padding);
-    background-color: var(--bg-primary);
+    background: var(--panel);
 }
 
 .timeline {
@@ -622,7 +655,7 @@ img {
     top: 0;
     bottom: 0;
     width: 2px;
-    background-color: var(--border);
+    background: rgba(255,255,255,.12);
 }
 
 .timeline-item {
@@ -638,15 +671,15 @@ img {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: var(--primary);
-    border: 3px solid var(--bg-primary);
-    box-shadow: 0 0 0 4px var(--border);
+    background: var(--brand);
+    border: 3px solid var(--panel);
+    box-shadow: 0 0 0 4px rgba(255,255,255,.12);
 }
 
 .timeline-date {
     font-size: 0.875rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--brand);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
@@ -655,10 +688,11 @@ img {
 .timeline-title {
     font-size: 1.5rem;
     margin-bottom: 0.25rem;
+    font-weight: 600;
 }
 
 .timeline-company {
-    color: var(--text-tertiary);
+    color: var(--muted);
     font-weight: 600;
     margin-bottom: 1rem;
 }
@@ -670,7 +704,7 @@ img {
 .timeline-details li {
     position: relative;
     margin-bottom: 0.75rem;
-    color: var(--text-secondary);
+    color: #cfd6e4;
     line-height: 1.6;
 }
 
@@ -678,7 +712,7 @@ img {
     content: '•';
     position: absolute;
     left: -1.5rem;
-    color: var(--primary);
+    color: var(--brand);
     font-weight: 700;
 }
 
@@ -693,13 +727,13 @@ img {
 
 .contact {
     padding: var(--section-padding);
-    background-color: var(--bg-secondary);
+    background: var(--bg);
 }
 
 .contact-subtitle {
     text-align: center;
     font-size: 1.125rem;
-    color: var(--text-secondary);
+    color: #cfd6e4;
     margin-bottom: 3rem;
     max-width: 600px;
     margin-left: auto;
@@ -720,29 +754,30 @@ img {
     align-items: center;
     gap: 1rem;
     padding: 2.5rem;
-    background-color: var(--bg-primary);
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 10px var(--shadow);
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     transition: var(--transition);
     text-align: center;
+    border: 1px solid rgba(255,255,255,.06);
 }
 
 .contact-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px var(--shadow-lg);
+    border-color: rgba(101,178,255,.3);
 }
 
 .contact-card svg {
-    color: var(--primary);
+    color: var(--brand);
 }
 
 .contact-card strong {
     font-size: 1.125rem;
-    color: var(--text-primary);
+    color: var(--text);
 }
 
 .contact-card span {
-    color: var(--text-secondary);
+    color: var(--muted);
 }
 
 /* ================================
@@ -751,8 +786,9 @@ img {
 
 .footer {
     padding: 3rem 2rem 2rem;
-    background-color: var(--text-primary);
-    color: white;
+    background: var(--panel);
+    color: var(--text);
+    border-top: 1px solid rgba(255,255,255,.06);
 }
 
 .footer-content {
@@ -765,7 +801,7 @@ img {
 }
 
 .footer-left p {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--muted);
 }
 
 .footer-social {
@@ -774,13 +810,13 @@ img {
 }
 
 .footer-social a {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--muted);
     transition: var(--transition-fast);
     font-weight: 500;
 }
 
 .footer-social a:hover {
-    color: white;
+    color: var(--brand);
 }
 
 .easter-egg-hint {
@@ -790,7 +826,7 @@ img {
 }
 
 .easter-egg-hint small {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--muted);
     font-size: 0.875rem;
 }
 
@@ -837,14 +873,15 @@ img {
         left: 0;
         right: 0;
         flex-direction: column;
-        background-color: var(--bg-primary);
+        background: var(--panel);
         padding: 2rem;
         gap: 1.5rem;
-        box-shadow: 0 4px 20px var(--shadow-lg);
+        box-shadow: var(--shadow);
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
         transition: var(--transition);
+        border-bottom: 1px solid rgba(255,255,255,.12);
     }
     
     .nav-links.active {
@@ -918,93 +955,57 @@ img {
 }
 
 /* ================================
-   MINECRAFT THEME (F3 MODE) - READY FOR WEEK 2
+   MINECRAFT HEARTH STYLES (PRESERVED)
    ================================ */
 
-body.minecraft-theme {
-    /* We'll add Minecraft styling here in Week 2 */
-    /* This class will be toggled by JavaScript when F3 is pressed */
-}
-
-/* Placeholder for future Minecraft textures */
-/* body.minecraft-theme {
-    --primary: #8B4513;
-    --bg-primary: url('textures/stone.png');
-    etc.
-} */
-/* ================================
-   MINECRAFT HEARTH - 3D FIREPLACE
-   ================================ */
-
-/* Hearth Container - 256px × 192px fixed top-center */
 .hearth-container {
     position: fixed;
     top: 20px;
     left: 50%;
-    transform: translateX(-128px);  /* Center: -256px/2 */
+    transform: translateX(-128px);
     width: 256px;
     height: 192px;
-    z-index: 1001;  /* Above nav (1000) */
-    
-    /* 3D perspective */
+    z-index: 1001;
     perspective: 800px;
     transform-style: preserve-3d;
-    
-    /* Pixel-perfect rendering */
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
-    
-    /* Hidden by default - only shows in F3 mode */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
     pointer-events: none;
 }
 
-/* Show hearth in Minecraft mode */
 body.minecraft-theme .hearth-container {
     opacity: 1;
     visibility: visible;
 }
 
-/* ================================
-   LAYER 1: BACK WALL (Deepest)
-   ================================ */
-
 .hearth-back-wall {
     position: absolute;
     top: 0;
     left: 0;
-    width: 256px;  /* 32px × 8 */
-    height: 192px;  /* 32px × 6 */
-    
+    width: 256px;
+    height: 192px;
     background-image: url('../textures/cobblestone.png');
-    background-size: 256px 256px;  /* Scale 8× (32px → 256px) */
+    background-size: 256px 256px;
     background-repeat: repeat;
-    
-    transform: translateZ(-80px);  /* Push back in 3D space */
-    filter: brightness(0.3);  /* Dark = depth */
-    
-    /* Pixel-perfect */
+    transform: translateZ(-80px);
+    filter: brightness(0.3);
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
-
-/* ================================
-   LAYER 2: INNER WALLS (Middle depth)
-   ================================ */
 
 .hearth-inner-left,
 .hearth-inner-right,
 .hearth-inner-bottom {
     position: absolute;
     background-image: url('../textures/stonebrick.png');
-    background-size: 256px 256px;  /* Scale 8× */
-    transform: translateZ(-40px);  /* Between back wall and fire */
-    filter: brightness(0.5);  /* Slightly lighter than back */
-    
+    background-size: 256px 256px;
+    transform: translateZ(-40px);
+    filter: brightness(0.5);
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
@@ -1013,8 +1014,8 @@ body.minecraft-theme .hearth-container {
 .hearth-inner-left {
     top: 32px;
     left: 0;
-    width: 32px;   /* 32px × 1 */
-    height: 128px; /* 32px × 4 */
+    width: 32px;
+    height: 128px;
 }
 
 .hearth-inner-right {
@@ -1027,40 +1028,28 @@ body.minecraft-theme .hearth-container {
 .hearth-inner-bottom {
     bottom: 0;
     left: 32px;
-    width: 192px;  /* 32px × 6 */
+    width: 192px;
     height: 32px;
 }
-
-/* ================================
-   LAYER 3: FIRE CANVAS (Center)
-   ================================ */
 
 #fireCanvas {
     position: absolute;
     top: 32px;
     left: 32px;
-    width: 192px;   /* 32px × 6 (fire area) */
-    height: 128px;  /* 32px × 4 */
-    transform: translateZ(-20px);  /* Fire in front of walls, behind frame */
-    
+    width: 192px;
+    height: 128px;
+    transform: translateZ(-20px);
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
 
-/* ================================
-   LAYER 4: FRAME (Front layer)
-   ================================ */
-
 .hearth-frame {
     position: absolute;
     background-image: url('../textures/stonebrick_carved.png');
-    background-size: 256px 256px;  /* Scale 8× */
-    transform: translateZ(0);  /* Front-most structural layer */
-    
-    /* Inner shadow for depth */
+    background-size: 256px 256px;
+    transform: translateZ(0);
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
-    
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
@@ -1069,9 +1058,9 @@ body.minecraft-theme .hearth-container {
 .hearth-frame-top {
     top: 0;
     left: 32px;
-    width: 192px;  /* 32px × 6 */
+    width: 192px;
     height: 32px;
-    box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.6);  /* Shadow on bottom edge */
+    box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.6);
 }
 
 .hearth-frame-bottom {
@@ -1079,7 +1068,7 @@ body.minecraft-theme .hearth-container {
     left: 32px;
     width: 192px;
     height: 32px;
-    box-shadow: inset 0 8px 12px rgba(0, 0, 0, 0.6);  /* Shadow on top edge */
+    box-shadow: inset 0 8px 12px rgba(0, 0, 0, 0.6);
 }
 
 .hearth-frame-left {
@@ -1087,7 +1076,7 @@ body.minecraft-theme .hearth-container {
     left: 0;
     width: 32px;
     height: 128px;
-    box-shadow: inset -8px 0 12px rgba(0, 0, 0, 0.6);  /* Shadow on right edge */
+    box-shadow: inset -8px 0 12px rgba(0, 0, 0, 0.6);
 }
 
 .hearth-frame-right {
@@ -1095,26 +1084,19 @@ body.minecraft-theme .hearth-container {
     right: 0;
     width: 32px;
     height: 128px;
-    box-shadow: inset 8px 0 12px rgba(0, 0, 0, 0.6);  /* Shadow on left edge */
+    box-shadow: inset 8px 0 12px rgba(0, 0, 0, 0.6);
 }
-
-/* ================================
-   LAYER 5: CORNERS (Front accents)
-   ================================ */
 
 .hearth-corner {
     position: absolute;
     width: 32px;
     height: 32px;
     background-image: url('../textures/stonebrick_carved.png');
-    background-size: 256px 256px;  /* Scale 8× */
-    transform: translateZ(5px);  /* Slightly forward from frame */
-    
-    /* Enhanced shadow for corner depth */
+    background-size: 256px 256px;
+    transform: translateZ(5px);
     box-shadow: 
         inset -4px -4px 8px rgba(0, 0, 0, 0.8),
         0 2px 8px rgba(0, 0, 0, 0.4);
-    
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
@@ -1129,7 +1111,7 @@ body.minecraft-theme .hearth-container {
 .hearth-corner-tr {
     top: 0;
     right: 0;
-    background-position: -224px 0;  /* Offset for corner texture */
+    background-position: -224px 0;
 }
 
 .hearth-corner-bl {
@@ -1144,40 +1126,31 @@ body.minecraft-theme .hearth-container {
     background-position: -224px -160px;
 }
 
-/* ================================
-   LAYER 6: EMBER PARTICLES
-   ================================ */
-
 .ember-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 256px;
     height: 192px;
-    transform: translateZ(20px);  /* Float forward from frame */
+    transform: translateZ(20px);
     pointer-events: none;
-    overflow: visible;  /* Embers can float beyond container */
+    overflow: visible;
 }
 
 .ember {
     position: absolute;
-    width: 8px;   /* Small ember sprite */
+    width: 8px;
     height: 8px;
     background-image: url('../textures/particles.png');
-    background-size: 256px 256px;  /* Scale 8× */
-    
-    /* Ember sprite position (you'll need to locate exact position in particles.png) */
-    background-position: -48px -48px;  /* Placeholder - adjust based on particles.png */
-    
+    background-size: 256px 256px;
+    background-position: -48px -48px;
     opacity: 0.9;
     filter: brightness(1.5);
-    
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
 
-/* Ember float animation */
 @keyframes ember-float {
     0% {
         transform: translateY(0) translateX(0) translateZ(0);
@@ -1197,30 +1170,22 @@ body.minecraft-theme .hearth-container {
     animation: ember-float 3s ease-out forwards;
 }
 
-/* ================================
-   LAYER 7: FIRE GLOW
-   ================================ */
-
 .fire-glow {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) translateZ(10px);
-    width: 300px;   /* Larger than hearth for glow spread */
+    width: 300px;
     height: 300px;
-    
     background: radial-gradient(
         circle at center,
-        rgba(255, 140, 0, 0.4) 0%,   /* Warm orange center */
-        rgba(255, 100, 0, 0.2) 30%,  /* Ember glow */
+        rgba(255, 140, 0, 0.4) 0%,
+        rgba(255, 100, 0, 0.2) 30%,
         rgba(255, 60, 0, 0.1) 50%,
         transparent 70%
     );
-    
     pointer-events: none;
     filter: blur(20px);
-    
-    /* Gentle flicker animation */
     animation: fire-glow-flicker 0.3s infinite alternate;
 }
 
@@ -1235,51 +1200,36 @@ body.minecraft-theme .hearth-container {
     }
 }
 
-/* ================================
-   NAV GLOW INTEGRATION
-   ================================ */
-
-/* Add glow to nav when hearth is active */
 body.minecraft-theme .nav {
-    /* Warm light from hearth above */
     box-shadow: 
-        0 2px 10px var(--shadow),
-        0 -20px 60px rgba(255, 140, 0, 0.15);  /* Glow from above */
+        0 2px 10px rgba(0,0,0,.5),
+        0 -20px 60px rgba(255, 140, 0, 0.15);
 }
 
 body.minecraft-theme .nav-container {
-    /* Subtle orange tint from fire light */
     filter: brightness(1.05);
 }
 
-/* Nav buttons get ember glow on hover */
 body.minecraft-theme .nav-link:hover,
 body.minecraft-theme .nav-cta:hover {
     text-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
     transition: text-shadow 0.2s ease;
 }
 
-/* ================================
-   RESPONSIVE ADJUSTMENTS
-   ================================ */
-
 @media (max-width: 768px) {
-    /* Scale down hearth on mobile but maintain aspect ratio */
     .hearth-container {
-        transform: translateX(-96px) scale(0.75);  /* 75% = 192px wide */
+        transform: translateX(-96px) scale(0.75);
         transform-origin: top center;
     }
     
-    /* Adjust nav position */
     body.minecraft-theme .nav {
-        top: 160px;  /* Account for scaled hearth */
+        top: 160px;
     }
 }
 
 @media (max-width: 480px) {
-    /* Further scale on very small screens */
     .hearth-container {
-        transform: translateX(-64px) scale(0.5);  /* 50% = 128px wide */
+        transform: translateX(-64px) scale(0.5);
     }
     
     body.minecraft-theme .nav {
@@ -1287,25 +1237,19 @@ body.minecraft-theme .nav-cta:hover {
     }
 }
 
-/* ================================
-   PERFORMANCE OPTIMIZATIONS
-   ================================ */
-
 .hearth-container,
 .hearth-container * {
-    /* GPU acceleration */
     will-change: transform, opacity;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
 
-/* Reduce animations when user prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
     .fire-glow {
         animation: none;
     }
     
     .ember.active {
-        animation-duration: 5s;  /* Slower, less jarring */
+        animation-duration: 5s;
     }
 }
