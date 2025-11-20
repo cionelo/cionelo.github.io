@@ -1253,3 +1253,595 @@ body.minecraft-theme .nav-cta:hover {
         animation-duration: 5s;
     }
 }
+/* ================================
+   MARKETING INTELLIGENCE SECTION
+   Red Accent Theme
+   ================================ */
+
+:root {
+    --marketing-red: #ff4757;
+    --marketing-red-dark: #c23444;
+    --marketing-red-light: #ff6b7a;
+    --marketing-bg: #1a1214;
+}
+
+.marketing-intelligence {
+    padding: var(--section-padding);
+    background: var(--marketing-bg);
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--muted);
+    max-width: 700px;
+    margin: -2rem auto 4rem;
+}
+
+/* Campaign Headers */
+.campaign-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.campaign-header h3 {
+    font-size: 2rem;
+    color: var(--marketing-red);
+    margin-bottom: 1rem;
+}
+
+.campaign-metric-hero {
+    font-size: 1.25rem;
+    color: var(--marketing-red-light);
+    font-weight: 600;
+}
+
+/* ================================
+   CAROUSEL SYSTEM
+   ================================ */
+
+.campaign-carousel {
+    position: relative;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 3rem;
+    margin-bottom: 4rem;
+    border: 1px solid rgba(255, 71, 87, 0.2);
+    overflow: hidden;
+}
+
+.carousel-slide {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.carousel-slide.active {
+    display: block;
+    opacity: 1;
+}
+
+.slide-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.slide-visual {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.slide-visual img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hype-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.slide-text h4 {
+    font-size: 1.5rem;
+    color: var(--marketing-red);
+    margin-bottom: 1.5rem;
+}
+
+.campaign-bullets {
+    list-style: none;
+    padding: 0;
+}
+
+.campaign-bullets li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: #cfd6e4;
+    line-height: 1.6;
+}
+
+.campaign-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--marketing-red);
+    font-weight: 700;
+}
+
+/* Metric Cards */
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: rgba(255, 71, 87, 0.1);
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.metric-card.highlight {
+    background: rgba(255, 71, 87, 0.2);
+    border-color: var(--marketing-red);
+}
+
+.metric-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--marketing-red);
+    margin-bottom: 0.5rem;
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.metric-inline {
+    font-size: 1.125rem;
+    color: var(--marketing-red-light);
+    margin-bottom: 1.5rem;
+}
+
+/* A/B Testing Grid */
+.ab-test-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.ab-test-card {
+    background: rgba(255, 71, 87, 0.05);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: var(--transition);
+}
+
+.ab-test-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--marketing-red);
+}
+
+.ab-test-card .video-thumbnail {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.ab-test-card .video-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.ab-metrics h5 {
+    color: var(--marketing-red);
+    margin-bottom: 0.5rem;
+}
+
+.ab-metrics .views {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.ab-metrics .engagement {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin: 0.5rem 0;
+}
+
+.er-badge {
+    display: inline-block;
+    background: var(--marketing-red);
+    color: var(--brand-ink);
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.ab-test-info {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.test-variable, .test-result {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Carousel Controls */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 71, 87, 0.9);
+    border: none;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    z-index: 10;
+}
+
+.carousel-control:hover {
+    background: var(--marketing-red);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-control.prev {
+    left: 1rem;
+}
+
+.carousel-control.next {
+    right: 1rem;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 71, 87, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.indicator.active {
+    background: var(--marketing-red);
+    width: 32px;
+    border-radius: 6px;
+}
+
+.indicator:hover {
+    background: var(--marketing-red-light);
+}
+
+/* ================================
+   HORIZONTAL SCROLL (#CocoTok)
+   ================================ */
+
+.campaign-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    padding: 2rem 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--marketing-red) var(--card);
+}
+
+.campaign-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.campaign-scroll::-webkit-scrollbar-track {
+    background: var(--card);
+    border-radius: 4px;
+}
+
+.campaign-scroll::-webkit-scrollbar-thumb {
+    background: var(--marketing-red);
+    border-radius: 4px;
+}
+
+.scroll-slide {
+    flex: 0 0 90%;
+    scroll-snap-align: center;
+    background: var(--card);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+}
+
+.scroll-slide h4 {
+    font-size: 1.5rem;
+    color: var(--marketing-red);
+    margin-bottom: 2rem;
+}
+
+/* ================================
+   CHART CONTAINERS
+   ================================ */
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    margin: 2rem 0;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.chart-container canvas {
+    max-height: 100%;
+}
+
+/* ================================
+   UNM TERTIARY CAMPAIGN
+   ================================ */
+
+.campaign-tertiary {
+    margin-top: 4rem;
+}
+
+.unm-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.unm-details {
+    background: var(--card);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+    border-radius: var(--radius);
+    padding: 2rem;
+}
+
+.unm-thumbnail {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* ================================
+   MODALS
+   ================================ */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    display: none;
+    position: relative;
+    background: var(--card);
+    border: 2px solid var(--marketing-red);
+    border-radius: var(--radius);
+    max-width: 800px;
+    width: 100%;
+    padding: 3rem;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.modal.active {
+    display: block;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--marketing-red);
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    background: var(--marketing-red-dark);
+    transform: rotate(90deg);
+}
+
+.modal-content h3 {
+    color: var(--marketing-red);
+    margin-bottom: 0.5rem;
+}
+
+.modal-date {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.modal-metrics-table {
+    margin: 2rem 0;
+}
+
+.modal-metrics-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modal-metrics-table th,
+.modal-metrics-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.modal-metrics-table th {
+    color: var(--marketing-red);
+    font-weight: 600;
+}
+
+.modal-metrics-table td {
+    color: var(--text);
+}
+
+.modal-strategy {
+    background: rgba(255, 71, 87, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.modal-strategy h4 {
+    color: var(--marketing-red);
+    margin-bottom: 1rem;
+}
+
+.modal-strategy ul {
+    list-style: none;
+    padding: 0;
+}
+
+.modal-strategy li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.75rem;
+    color: #cfd6e4;
+}
+
+.modal-strategy li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--marketing-red);
+    font-weight: 700;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 1024px) {
+    .slide-content {
+        grid-template-columns: 1fr;
+    }
+
+    .ab-test-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .unm-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .campaign-carousel {
+        padding: 2rem 1rem;
+    }
+
+    .carousel-control {
+        width: 40px;
+        height: 40px;
+    }
+
+    .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .scroll-slide {
+        flex: 0 0 95%;
+    }
+
+    .chart-container {
+        height: 300px;
+    }
+
+    .modal {
+        padding: 2rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .campaign-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .campaign-metric-hero {
+        font-size: 1rem;
+    }
+
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+}
