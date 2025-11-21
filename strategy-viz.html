@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Engineering - Multi-Niche Targeting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #161922;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .viz-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            max-width: 900px;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid;
+            z-index: 2;
+        }
+
+        .script-bubble {
+            width: 130px;
+            height: 130px;
+            background: rgba(101, 178, 255, 0.2);
+            border-color: #65b2ff;
+            box-shadow: 0 8px 20px rgba(101, 178, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .script-bubble .bubble-text {
+            color: #65b2ff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 15px;
+        }
+
+        .script-bubble:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 40px rgba(101, 178, 255, 0.8);
+            background: rgba(101, 178, 255, 0.3);
+            z-index: 100;
+        }
+
+        .niche-bubble {
+            width: 90px;
+            height: 90px;
+            font-size: 0.75rem;
+            border-width: 1.5px;
+        }
+
+        .niche-bubble.cs-concept {
+            background: rgba(101, 178, 255, 0.08);
+            border-color: rgba(101, 178, 255, 0.4);
+        }
+
+        .niche-bubble.cs-concept .bubble-text {
+            color: #8bb4e0;
+        }
+
+        .niche-bubble.humor {
+            background: rgba(255, 71, 87, 0.08);
+            border-color: rgba(255, 71, 87, 0.4);
+        }
+
+        .niche-bubble.humor .bubble-text {
+            color: #ff8a97;
+        }
+
+        .niche-bubble.identity {
+            background: rgba(92, 224, 163, 0.08);
+            border-color: rgba(92, 224, 163, 0.4);
+        }
+
+        .niche-bubble.identity .bubble-text {
+            color: #7de8b3;
+        }
+
+        .niche-bubble:hover {
+            transform: scale(1.15);
+            filter: brightness(1.4);
+            z-index: 50;
+        }
+
+        .bubble-text {
+            font-weight: 600;
+            line-height: 1.2;
+            padding: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            33% {
+                transform: translate(var(--float-x), var(--float-y));
+            }
+            66% {
+                transform: translate(calc(var(--float-x) * -0.5), calc(var(--float-y) * -0.5));
+            }
+        }
+
+        .connection {
+            stroke-width: 1.5;
+            opacity: 0.15;
+            transition: all 0.3s ease;
+        }
+
+        .connection.active {
+            opacity: 0.7;
+            stroke-width: 2.5;
+        }
+
+        .connection.cs-concept {
+            stroke: #65b2ff;
+        }
+
+        .connection.humor {
+            stroke: #ff4757;
+        }
+
+        .connection.identity {
+            stroke: #5ce0a3;
+        }
+
+        .title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .title h3 {
+            color: #ff4757;
+            font-size: 1.5rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .title p {
+            color: #8b919d;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 30px;
+            background: rgba(22, 25, 34, 0.9);
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(101, 178, 255, 0.2);
+            z-index: 10;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #8b919d;
+        }
+
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.cs { background: #65b2ff; }
+        .legend-dot.humor { background: #ff4757; }
+        .legend-dot.identity { background: #5ce0a3; }
+
+        @media (max-width: 768px) {
+            .viz-container {
+                height: 500px;
+            }
+
+            .script-bubble {
+                width: 100px;
+                height: 100px;
+            }
+
+            .script-bubble .bubble-text {
+                font-size: 0.75rem;
+                padding: 10px;
+            }
+
+            .niche-bubble {
+                width: 70px;
+                height: 70px;
+                font-size: 0.65rem;
+            }
+
+            .title h3 {
+                font-size: 1.2rem;
+            }
+
+            .title p {
+                font-size: 0.8rem;
+            }
+
+            .legend {
+                flex-direction: column;
+                gap: 8px;
+                padding: 10px 16px;
+            }
+
+            .legend-item {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="viz-container" id="vizContainer">
+        <div class="title">
+            <h3>Script → Sub-Niche Mapping</h3>
+            <p>AI-Assisted Multi-Niche Targeting Strategy</p>
+        </div>
+
+        <svg id="connections"></svg>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot cs"></div>
+                <span>CS Concepts</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot humor"></div>
+                <span>Humor/Viral</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot identity"></div>
+                <span>Identity/Community</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const data = {
+            scriptKeywords: [
+                { text: 'mutex\nsemaphore', x: 200, y: 180, niches: ['CS Concepts', 'Concurrency'] },
+                { text: 'recursion\ntree', x: 400, y: 140, niches: ['CS Concepts', 'Algorithms'] },
+                { text: 'polymorphism', x: 600, y: 200, niches: ['OOP Students'] },
+                { text: 'Java\nPython', x: 700, y: 350, niches: ['Java Community', 'Python Beginners'] },
+                { text: 'finals week', x: 150, y: 400, niches: ['Student Stress', 'Campus Content'] },
+                { text: 'women in STEM', x: 350, y: 480, niches: ['Women in STEM', 'Inclusivity'] },
+                { text: 'coconut', x: 550, y: 500, niches: ['Viral Memes', 'CocoTok', 'Brand Identity'] },
+                { text: 'CS degree', x: 450, y: 320, niches: ['CS Majors', 'Tech Careers'] },
+            ],
+            subNiches: [
+                { text: 'CS Concepts', category: 'cs-concept', x: 150, y: 100 },
+                { text: 'Concurrency', category: 'cs-concept', x: 250, y: 250 },
+                { text: 'Algorithms', category: 'cs-concept', x: 450, y: 80 },
+                { text: 'OOP Students', category: 'cs-concept', x: 650, y: 120 },
+                { text: 'Java Community', category: 'cs-concept', x: 750, y: 280 },
+                { text: 'Python Beginners', category: 'cs-concept', x: 780, y: 420 },
+                { text: 'Student Stress', category: 'identity', x: 80, y: 320 },
+                { text: 'Campus Content', category: 'identity', x: 100, y: 480 },
+                { text: 'Women in STEM', category: 'identity', x: 280, y: 560 },
+                { text: 'Inclusivity', category: 'identity', x: 420, y: 580 },
+                { text: 'CS Majors', category: 'identity', x: 500, y: 240 },
+                { text: 'Tech Careers', category: 'identity', x: 380, y: 400 },
+                { text: 'Viral Memes', category: 'humor', x: 600, y: 580 },
+                { text: 'CocoTok', category: 'humor', x: 680, y: 520 },
+                { text: 'Brand Identity', category: 'humor', x: 500, y: 440 },
+            ]
+        };
+
+        const container = document.getElementById('vizContainer');
+        const svg = document.getElementById('connections');
+
+        const scriptNodes = [];
+        const nicheNodes = [];
+
+        // Create script bubbles
+        data.scriptKeywords.forEach((keyword, index) => {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble script-bubble';
+            bubble.style.left = `${keyword.x}px`;
+            bubble.style.top = `${keyword.y}px`;
+            bubble.style.transform = 'translate(-50%, -50%)';
+            
+            // Random float animation
+            const floatX = (Math.random() - 0.5) * 20;
+            const floatY = (Math.random() - 0.5) * 20;
+            bubble.style.setProperty('--float-x', `${floatX}px`);
+            bubble.style.setProperty('--float-y', `${floatY}px`);
+            bubble.style.animationDelay = `${index * 0.5}s`;
+            
+            bubble.innerHTML = `<div class="bubble-text">${keyword.text}</div>`;
+            bubble.dataset.niches = JSON.stringify(keyword.niches);
+            
+            container.appendChild(bubble);
+            scriptNodes.push({ element: bubble, x: keyword.x, y: keyword.y, keyword });
+        });
+
+        // Create niche bubbles
+        data.subNiches.forEach(niche => {
+            const bubble = document.createElement('div');
+            bubble.className = `bubble niche-bubble ${niche.category}`;
+            bubble.style.left = `${niche.x}px`;
+            bubble.style.top = `${niche.y}px`;
+            bubble.style.transform = 'translate(-50%, -50%)';
+            bubble.innerHTML = `<div class="bubble-text">${niche.text}</div>`;
+            bubble.dataset.niche = niche.text;
+            
+            container.appendChild(bubble);
+            nicheNodes.push({ element: bubble, x: niche.x, y: niche.y, niche });
+        });
+
+        // Draw connections
+        scriptNodes.forEach(scriptNode => {
+            const niches = JSON.parse(scriptNode.element.dataset.niches);
+            niches.forEach(nicheName => {
+                const nicheNode = nicheNodes.find(n => n.niche.text === nicheName);
+                if (nicheNode) {
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', scriptNode.x);
+                    line.setAttribute('y1', scriptNode.y);
+                    line.setAttribute('x2', nicheNode.x);
+                    line.setAttribute('y2', nicheNode.y);
+                    line.classList.add('connection', nicheNode.niche.category);
+                    line.dataset.keyword = scriptNode.keyword.text;
+                    line.dataset.niche = nicheName;
+                    svg.appendChild(line);
+                }
+            });
+        });
+
+        // Hover interactions
+        document.querySelectorAll('.script-bubble').forEach(node => {
+            node.addEventListener('mouseenter', function() {
+                const niches = JSON.parse(this.dataset.niches);
+                document.querySelectorAll('.connection').forEach(line => {
+                    if (line.dataset.keyword === this.querySelector('.bubble-text').textContent) {
+                        line.classList.add('active');
+                    }
+                });
+                nicheNodes.forEach(nicheNode => {
+                    if (niches.includes(nicheNode.niche.text)) {
+                        nicheNode.element.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                        nicheNode.element.style.filter = 'brightness(1.5)';
+                    }
+                });
+            });
+
+            node.addEventListener('mouseleave', function() {
+                document.querySelectorAll('.connection').forEach(line => {
+                    line.classList.remove('active');
+                });
+                nicheNodes.forEach(nicheNode => {
+                    nicheNode.element.style.transform = 'translate(-50%, -50%)';
+                    nicheNode.element.style.filter = 'none';
+                });
+            });
+        });
+
+        // Responsive adjustments
+        function adjustForScreenSize() {
+            const width = window.innerWidth;
+            if (width < 768) {
+                const scale = width / 900;
+                container.style.transform = `scale(${scale})`;
+                container.style.transformOrigin = 'top left';
+            } else {
+                container.style.transform = 'none';
+            }
+        }
+
+        window.addEventListener('resize', adjustForScreenSize);
+        adjustForScreenSize();
+    </script>
+</body>
+</html>

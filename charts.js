@@ -1,8 +1,8 @@
 /**
  * Marketing Intelligence Charts
  * Chart.js Animated Graphs
- * Version: 1.0
- * Date: 2025-11-19
+ * Version: 2.0
+ * Date: 2024-11-20
  */
 
 // ================================
@@ -23,7 +23,9 @@ function initSalesChart() {
                 backgroundColor: 'rgba(255, 71, 87, 0.1)',
                 yAxisID: 'y',
                 tension: 0.4,
-                fill: true
+                fill: true,
+                pointRadius: 5,
+                pointHoverRadius: 7
             },
             {
                 label: 'Units Sold',
@@ -32,20 +34,11 @@ function initSalesChart() {
                 backgroundColor: 'rgba(255, 165, 2, 0.1)',
                 yAxisID: 'y1',
                 tension: 0.4,
-                fill: true
+                fill: true,
+                pointRadius: 5,
+                pointHoverRadius: 7
             }
         ]
-    };
-
-    // Video post date annotations
-    const videoAnnotations = {
-        'Dec 29, 2022': { x: 0, label: 'Original' },
-        'Jan 21, 2023': { x: 1, label: 'Hype 1', small: true },
-        'Feb 10, 2023': { x: 2, label: 'Hype 2', small: true },
-        'Feb 14, 2023': { x: 2, label: 'Hype 3+4', small: true },
-        'Feb 22, 2023': { x: 2, label: 'Repost 1 (Shop)' },
-        'Mar 10, 2023': { x: 3, label: 'Repost 2' },
-        'May 3, 2023': { x: 5, label: 'Repost 3' }
     };
 
     new Chart(ctx, {
@@ -62,51 +55,124 @@ function initSalesChart() {
                 legend: {
                     labels: {
                         color: '#e7eaf0',
-                        font: { size: 14 }
+                        font: { size: 14, family: 'Inter' }
                     }
                 },
                 tooltip: {
                     backgroundColor: 'rgba(18, 20, 24, 0.95)',
                     titleColor: '#ff4757',
+                    titleFont: { size: 14, family: 'Inter', weight: '600' },
                     bodyColor: '#e7eaf0',
+                    bodyFont: { size: 13, family: 'Inter' },
                     borderColor: '#ff4757',
                     borderWidth: 1,
+                    padding: 12,
                     callbacks: {
                         title: function(context) {
                             return context[0].label;
                         },
                         afterBody: function(context) {
                             const index = context[0].dataIndex;
-                            const videos = Object.entries(videoAnnotations)
-                                .filter(([_, v]) => v.x === index)
-                                .map(([date, v]) => `${date}: ${v.label}`);
-                            return videos.length ? ['\nVideo Posts:', ...videos] : [];
+                            const videoMarkers = {
+                                1: ['Jan 21: Hype 1', 'Feb 10: Hype 2', 'Feb 14: Hype 3+4'],
+                                2: ['Feb 22: Repost 1 (Shop Launch)'],
+                                3: ['Mar 10: Repost 2'],
+                                5: ['May 3: Repost 3']
+                            };
+                            const videos = videoMarkers[index];
+                            return videos ? ['\nVideo Posts:', ...videos] : [];
                         }
                     }
                 },
                 annotation: {
-                    annotations: Object.entries(videoAnnotations).map(([date, config], i) => ({
-                        type: 'line',
-                        xMin: config.x,
-                        xMax: config.x,
-                        borderColor: config.small ? 'rgba(255, 165, 2, 0.5)' : 'rgba(255, 71, 87, 0.8)',
-                        borderWidth: config.small ? 1 : 2,
-                        borderDash: config.small ? [5, 5] : [],
-                        label: {
-                            display: true,
-                            content: config.label,
-                            position: 'top',
-                            backgroundColor: config.small ? 'rgba(255, 165, 2, 0.8)' : 'rgba(255, 71, 87, 0.8)',
-                            color: 'white',
-                            font: { size: config.small ? 9 : 11 }
+                    annotations: {
+                        original: {
+                            type: 'line',
+                            xMin: 0,
+                            xMax: 0,
+                            borderColor: 'rgba(255, 71, 87, 0.6)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            label: {
+                                display: true,
+                                content: 'Original (Dec 29)',
+                                position: 'start',
+                                backgroundColor: 'rgba(255, 71, 87, 0.8)',
+                                color: 'white',
+                                font: { size: 10, family: 'Inter' }
+                            }
+                        },
+                        hype1: {
+                            type: 'line',
+                            xMin: 1,
+                            xMax: 1,
+                            borderColor: 'rgba(255, 165, 2, 0.4)',
+                            borderWidth: 1,
+                            borderDash: [3, 3],
+                            label: {
+                                display: true,
+                                content: 'Hype Videos',
+                                position: 'start',
+                                backgroundColor: 'rgba(255, 165, 2, 0.7)',
+                                color: 'white',
+                                font: { size: 9, family: 'Inter' }
+                            }
+                        },
+                        repost1: {
+                            type: 'line',
+                            xMin: 2,
+                            xMax: 2,
+                            borderColor: 'rgba(255, 71, 87, 0.9)',
+                            borderWidth: 3,
+                            label: {
+                                display: true,
+                                content: 'Repost 1',
+                                position: 'end',
+                                backgroundColor: 'rgba(255, 71, 87, 0.9)',
+                                color: 'white',
+                                font: { size: 11, family: 'Inter', weight: 'bold' }
+                            }
+                        },
+                        repost2: {
+                            type: 'line',
+                            xMin: 3,
+                            xMax: 3,
+                            borderColor: 'rgba(255, 71, 87, 0.8)',
+                            borderWidth: 2,
+                            label: {
+                                display: true,
+                                content: 'Repost 2',
+                                position: 'end',
+                                backgroundColor: 'rgba(255, 71, 87, 0.8)',
+                                color: 'white',
+                                font: { size: 10, family: 'Inter' }
+                            }
+                        },
+                        repost3: {
+                            type: 'line',
+                            xMin: 5,
+                            xMax: 5,
+                            borderColor: 'rgba(255, 71, 87, 0.8)',
+                            borderWidth: 2,
+                            label: {
+                                display: true,
+                                content: 'Repost 3',
+                                position: 'end',
+                                backgroundColor: 'rgba(255, 71, 87, 0.8)',
+                                color: 'white',
+                                font: { size: 10, family: 'Inter' }
+                            }
                         }
-                    }))
+                    }
                 }
             },
             scales: {
                 x: {
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                    ticks: { color: '#8b919d' }
+                    ticks: { 
+                        color: '#8b919d',
+                        font: { family: 'Inter' }
+                    }
                 },
                 y: {
                     type: 'linear',
@@ -114,6 +180,7 @@ function initSalesChart() {
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
                     ticks: {
                         color: '#ff4757',
+                        font: { family: 'JetBrains Mono' },
                         callback: function(value) {
                             return '$' + value.toFixed(0);
                         }
@@ -121,7 +188,8 @@ function initSalesChart() {
                     title: {
                         display: true,
                         text: 'Revenue ($)',
-                        color: '#ff4757'
+                        color: '#ff4757',
+                        font: { family: 'Inter', weight: '600' }
                     }
                 },
                 y1: {
@@ -130,6 +198,7 @@ function initSalesChart() {
                     grid: { drawOnChartArea: false },
                     ticks: {
                         color: '#ffa502',
+                        font: { family: 'JetBrains Mono' },
                         callback: function(value) {
                             return value + ' units';
                         }
@@ -137,7 +206,8 @@ function initSalesChart() {
                     title: {
                         display: true,
                         text: 'Units Sold',
-                        color: '#ffa502'
+                        color: '#ffa502',
+                        font: { family: 'Inter', weight: '600' }
                     }
                 }
             },
@@ -164,7 +234,7 @@ function initCocotokEngagementChart() {
             datasets: [
                 {
                     label: 'Likes',
-                    data: [2.5, 13.1], // Industry ~2-5%, breakdown estimated
+                    data: [2.5, 13.1],
                     backgroundColor: 'rgba(255, 71, 87, 0.8)',
                     stack: 'Stack 0'
                 },
@@ -193,14 +263,20 @@ function initCocotokEngagementChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: { color: '#e7eaf0', font: { size: 14 } }
+                    labels: { 
+                        color: '#e7eaf0', 
+                        font: { size: 14, family: 'Inter' }
+                    }
                 },
                 tooltip: {
                     backgroundColor: 'rgba(18, 20, 24, 0.95)',
                     titleColor: '#ff4757',
+                    titleFont: { size: 14, family: 'Inter', weight: '600' },
                     bodyColor: '#e7eaf0',
+                    bodyFont: { size: 13, family: 'Inter' },
                     borderColor: '#ff4757',
                     borderWidth: 1,
+                    padding: 12,
                     callbacks: {
                         footer: function(items) {
                             const total = items.reduce((sum, item) => sum + item.parsed.y, 0);
@@ -213,13 +289,17 @@ function initCocotokEngagementChart() {
                 x: {
                     stacked: true,
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                    ticks: { color: '#8b919d', font: { size: 14 } }
+                    ticks: { 
+                        color: '#8b919d', 
+                        font: { size: 14, family: 'Inter' }
+                    }
                 },
                 y: {
                     stacked: true,
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
                     ticks: {
                         color: '#ff4757',
+                        font: { family: 'JetBrains Mono' },
                         callback: function(value) {
                             return value + '%';
                         }
@@ -227,7 +307,8 @@ function initCocotokEngagementChart() {
                     title: {
                         display: true,
                         text: 'Engagement Rate (%)',
-                        color: '#ff4757'
+                        color: '#ff4757',
+                        font: { family: 'Inter', weight: '600' }
                     }
                 }
             },
@@ -246,25 +327,34 @@ function initCocotokEngagementChart() {
 }
 
 // ================================
-// #COCOTOK TOP 5 PERFORMERS
+// #COCOTOK TOP 5 PERFORMERS (UPDATED)
 // ================================
 
 function initCocotokTop5Chart() {
     const ctx = document.getElementById('cocotokTop5Chart');
     if (!ctx) return;
 
+    // Updated top 5 data for recruiter impact
     const top5Data = [
-        { views: 32500, likes: 8000, comments: 73, saves: 653, shares: 177 },
-        { views: 1600000, likes: 391200, comments: 1337, saves: 22100, shares: 1209 },
-        { views: 1800, likes: 413, comments: 12, saves: 10, shares: 9 },
-        { views: 19400, likes: 4300, comments: 70, saves: 64, shares: 2 },
-        { views: 25300, likes: 5100, comments: 46, saves: 158, shares: 1 }
+        { views: 1600000, likes: 391200, comments: 1337, saves: 22100, shares: 1209, er: 25.99 },
+        { views: 1800000, likes: 297600, comments: 3700, saves: 9000, shares: 1622, er: 17.33 },
+        { views: 240000, likes: 48000, comments: 148, saves: 1070, shares: 96, er: 20.55 },
+        { views: 140000, likes: 23100, comments: 57, saves: 556, shares: 14, er: 16.95 },
+        { views: 120000, likes: 19300, comments: 338, saves: 279, shares: 123, er: 16.70 }
+    ];
+
+    const labels = [
+        'Video 1\n(1.6M)',
+        'Video 2\n(1.8M)', 
+        'Video 3\n(240K)',
+        'Video 4\n(140K)',
+        'Video 5\n(120K)'
     ];
 
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Video 1\n(32.5K)', 'Video 2\n(1.6M)', 'Video 3\n(1.8K)', 'Video 4\n(19.4K)', 'Video 5\n(25.3K)'],
+            labels: labels,
             datasets: [
                 {
                     label: 'Likes',
@@ -298,14 +388,20 @@ function initCocotokTop5Chart() {
             indexAxis: 'y',
             plugins: {
                 legend: {
-                    labels: { color: '#e7eaf0', font: { size: 14 } }
+                    labels: { 
+                        color: '#e7eaf0', 
+                        font: { size: 14, family: 'Inter' }
+                    }
                 },
                 tooltip: {
                     backgroundColor: 'rgba(18, 20, 24, 0.95)',
                     titleColor: '#ff4757',
+                    titleFont: { size: 14, family: 'Inter', weight: '600' },
                     bodyColor: '#e7eaf0',
+                    bodyFont: { size: 13, family: 'Inter' },
                     borderColor: '#ff4757',
                     borderWidth: 1,
+                    padding: 12,
                     callbacks: {
                         footer: function(items) {
                             const total = items.reduce((sum, item) => sum + parseFloat(item.parsed.x), 0);
@@ -320,6 +416,7 @@ function initCocotokTop5Chart() {
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
                     ticks: {
                         color: '#ff4757',
+                        font: { family: 'JetBrains Mono' },
                         callback: function(value) {
                             return value + '%';
                         }
@@ -327,13 +424,17 @@ function initCocotokTop5Chart() {
                     title: {
                         display: true,
                         text: 'Engagement Rate (%)',
-                        color: '#ff4757'
+                        color: '#ff4757',
+                        font: { family: 'Inter', weight: '600' }
                     }
                 },
                 y: {
                     stacked: true,
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                    ticks: { color: '#8b919d' }
+                    ticks: { 
+                        color: '#8b919d',
+                        font: { family: 'Inter' }
+                    }
                 }
             },
             animation: {
@@ -347,17 +448,29 @@ function initCocotokTop5Chart() {
 }
 
 // ================================
-// #COCOTOK GROWTH TRAJECTORY
+// #COCOTOK GROWTH TRAJECTORY (UPDATED WITH SHARP TURNS)
 // ================================
 
 function initCocotokGrowthChart() {
     const ctx = document.getElementById('cocotokGrowthChart');
     if (!ctx) return;
 
-    // Data extracted from monthly_total_followers_for_nemo.png
+    // Updated data with sharp phase transitions
     const growthData = {
-        labels: ['2022-06', '2022-09', '2022-12', '2023-01', '2023-03', '2023-06', '2023-09', '2023-12', '2024-03', '2024-06', '2024-09'],
-        followers: [170000, 180000, 200000, 213200, 210000, 212000, 210000, 208000, 206000, 204000, 202000]
+        labels: [
+            '2022-06', '2022-07', '2022-08', '2022-09', // Phase 1
+            '2022-10', '2022-11', '2022-12', // Phase 2
+            '2023-01', // Phase 3 (peak)
+            '2023-03', '2023-06', '2023-09', '2023-12', // Phase 4
+            '2024-03', '2024-06', '2024-09'
+        ],
+        followers: [
+            170000, 173000, 177000, 180000, // Phase 1 growth
+            183000, 195000, 209000, // Phase 2 sharp rise
+            213200, // Phase 3 peak
+            210000, 209000, 207000, 205000, // Phase 4 gradual decay
+            204000, 203000, 202000
+        ]
     };
 
     new Chart(ctx, {
@@ -369,7 +482,7 @@ function initCocotokGrowthChart() {
                 data: growthData.followers,
                 borderColor: '#ff4757',
                 backgroundColor: 'rgba(255, 71, 87, 0.1)',
-                tension: 0.4,
+                tension: 0.2, // Reduced for sharper turns
                 fill: true,
                 pointRadius: 6,
                 pointHoverRadius: 8,
@@ -386,9 +499,12 @@ function initCocotokGrowthChart() {
                 tooltip: {
                     backgroundColor: 'rgba(18, 20, 24, 0.95)',
                     titleColor: '#ff4757',
+                    titleFont: { size: 14, family: 'Inter', weight: '600' },
                     bodyColor: '#e7eaf0',
+                    bodyFont: { size: 13, family: 'Inter' },
                     borderColor: '#ff4757',
                     borderWidth: 1,
+                    padding: 12,
                     callbacks: {
                         label: function(context) {
                             return context.parsed.y.toLocaleString() + ' followers';
@@ -400,57 +516,57 @@ function initCocotokGrowthChart() {
                         phase1: {
                             type: 'box',
                             xMin: 0,
-                            xMax: 2,
-                            backgroundColor: 'rgba(255, 71, 87, 0.1)',
+                            xMax: 3,
+                            backgroundColor: 'rgba(255, 71, 87, 0.08)',
                             borderWidth: 0,
                             label: {
                                 display: true,
                                 content: 'Phase 1',
-                                position: 'start',
+                                position: 'center',
                                 color: '#ff4757',
-                                font: { size: 12, weight: 'bold' }
+                                font: { size: 12, weight: 'bold', family: 'Inter' }
                             }
                         },
                         phase2: {
                             type: 'box',
-                            xMin: 2,
-                            xMax: 4,
-                            backgroundColor: 'rgba(255, 107, 122, 0.1)',
+                            xMin: 3,
+                            xMax: 6,
+                            backgroundColor: 'rgba(255, 107, 122, 0.08)',
                             borderWidth: 0,
                             label: {
                                 display: true,
                                 content: 'Phase 2',
-                                position: 'start',
+                                position: 'center',
                                 color: '#ff6b7a',
-                                font: { size: 12, weight: 'bold' }
+                                font: { size: 12, weight: 'bold', family: 'Inter' }
                             }
                         },
                         phase3: {
                             type: 'box',
-                            xMin: 4,
+                            xMin: 6,
                             xMax: 7,
-                            backgroundColor: 'rgba(255, 139, 148, 0.1)',
+                            backgroundColor: 'rgba(255, 165, 2, 0.12)',
                             borderWidth: 0,
                             label: {
                                 display: true,
                                 content: 'Phase 3',
-                                position: 'start',
-                                color: '#ff8b94',
-                                font: { size: 12, weight: 'bold' }
+                                position: 'center',
+                                color: '#ffa502',
+                                font: { size: 12, weight: 'bold', family: 'Inter' }
                             }
                         },
                         phase4: {
                             type: 'box',
                             xMin: 7,
-                            xMax: 10,
-                            backgroundColor: 'rgba(255, 165, 2, 0.1)',
+                            xMax: 14,
+                            backgroundColor: 'rgba(139, 145, 157, 0.08)',
                             borderWidth: 0,
                             label: {
                                 display: true,
                                 content: 'Phase 4',
-                                position: 'start',
-                                color: '#ffa502',
-                                font: { size: 12, weight: 'bold' }
+                                position: 'center',
+                                color: '#8b919d',
+                                font: { size: 12, weight: 'bold', family: 'Inter' }
                             }
                         }
                     }
@@ -461,11 +577,14 @@ function initCocotokGrowthChart() {
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
                     ticks: {
                         color: '#8b919d',
+                        font: { family: 'Inter' },
                         callback: function(value, index) {
                             const date = this.getLabelForValue(value);
                             const [year, month] = date.split('-');
                             const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                            return monthNames[parseInt(month) - 1] + ' ' + year;
+                            // Show fewer labels on mobile
+                            if (window.innerWidth < 768 && index % 2 !== 0) return '';
+                            return monthNames[parseInt(month) - 1] + ' ' + year.slice(2);
                         }
                     }
                 },
@@ -473,6 +592,7 @@ function initCocotokGrowthChart() {
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
                     ticks: {
                         color: '#ff4757',
+                        font: { family: 'JetBrains Mono' },
                         callback: function(value) {
                             return (value / 1000) + 'K';
                         }
@@ -480,7 +600,8 @@ function initCocotokGrowthChart() {
                     title: {
                         display: true,
                         text: 'Followers',
-                        color: '#ff4757'
+                        color: '#ff4757',
+                        font: { family: 'Inter', weight: '600' }
                     }
                 }
             },
@@ -493,17 +614,25 @@ function initCocotokGrowthChart() {
 }
 
 // ================================
-// UNM GROWTH CHART
+// UNM GROWTH CHART (UPDATED WITH 10K BASELINE)
 // ================================
 
 function initUnmGrowthChart() {
     const ctx = document.getElementById('unmGrowthChart');
     if (!ctx) return;
 
-    // Data from UNM-Monthly-Total-Followers-tilAug2023.png
+    // Updated data showing growth from 10K baseline
     const unmData = {
-        labels: ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08'],
-        followers: [27000, 27200, 27500, 27800, 28100, 28400, 28700, 29233]
+        labels: [
+            '2021-07', // Hired
+            '2023-01', '2023-02', '2023-03', '2023-04', 
+            '2023-05', '2023-06', '2023-07', '2023-08'
+        ],
+        followers: [
+            10000, // Starting point
+            27000, 27200, 27500, 27800, 
+            28100, 28400, 28700, 29233
+        ]
     };
 
     new Chart(ctx, {
@@ -521,7 +650,13 @@ function initUnmGrowthChart() {
                 pointHoverRadius: 8,
                 pointBackgroundColor: '#ff4757',
                 pointBorderColor: '#fff',
-                pointBorderWidth: 2
+                pointBorderWidth: 2,
+                segment: {
+                    borderDash: ctx => {
+                        // Dotted line between first two points (data gap)
+                        return ctx.p0DataIndex === 0 ? [5, 5] : undefined;
+                    }
+                }
             }]
         },
         options: {
@@ -532,9 +667,12 @@ function initUnmGrowthChart() {
                 tooltip: {
                     backgroundColor: 'rgba(18, 20, 24, 0.95)',
                     titleColor: '#ff4757',
+                    titleFont: { size: 14, family: 'Inter', weight: '600' },
                     bodyColor: '#e7eaf0',
+                    bodyFont: { size: 13, family: 'Inter' },
                     borderColor: '#ff4757',
                     borderWidth: 1,
+                    padding: 12,
                     callbacks: {
                         title: function(context) {
                             const [year, month] = context[0].label.split('-');
@@ -543,6 +681,14 @@ function initUnmGrowthChart() {
                         },
                         label: function(context) {
                             return context.parsed.y.toLocaleString() + ' followers';
+                        },
+                        afterLabel: function(context) {
+                            if (context.dataIndex === 0) {
+                                return '(Hired - Baseline)';
+                            }
+                            if (context.dataIndex === 1) {
+                                return '(Data tracking begins)';
+                            }
                         }
                     }
                 }
@@ -552,11 +698,13 @@ function initUnmGrowthChart() {
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
                     ticks: {
                         color: '#8b919d',
+                        font: { family: 'Inter' },
                         callback: function(value, index) {
                             const date = this.getLabelForValue(value);
                             const [year, month] = date.split('-');
                             const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
-                            return monthNames[parseInt(month) - 1];
+                            if (index === 0) return 'Jul 2021';
+                            return monthNames[parseInt(month) - 1] + ' ' + year.slice(2);
                         }
                     }
                 },
@@ -564,6 +712,7 @@ function initUnmGrowthChart() {
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
                     ticks: {
                         color: '#ff4757',
+                        font: { family: 'JetBrains Mono' },
                         callback: function(value) {
                             return (value / 1000) + 'K';
                         }
@@ -571,7 +720,8 @@ function initUnmGrowthChart() {
                     title: {
                         display: true,
                         text: 'Followers',
-                        color: '#ff4757'
+                        color: '#ff4757',
+                        font: { family: 'Inter', weight: '600' }
                     }
                 }
             },
@@ -734,4 +884,4 @@ if (document.readyState === 'loading') {
     setupScrollAnimations();
 }
 
-console.log('📊 Marketing Intelligence Charts Loaded');
+console.log('📊 Marketing Intelligence Charts Loaded - v2.0');
