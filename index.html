@@ -3,933 +3,654 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nehemiah Cionelo - Full-Stack Developer & Marketing Technologist with Computer Science degree. Production experience in JavaScript, web development, and AI-assisted workflows.">
-    <meta name="author" content="Nehemiah Cionelo">
+    <title>Nehemiah Cionelo - Marketing Technologist & Full-Stack Developer</title>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <title>Nehemiah Cionelo | Full-Stack Developer & Marketing Technologist</title>
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Nehemiah Cionelo - Developer Portfolio">
-    <meta property="og:description" content="Full-Stack Developer & Marketing Technologist">
-    <meta property="og:type" content="website">
-    
-    <!-- Favicon (you can add later) -->
-    <link rel="icon" type="image/png" href="assets/icons/favicon.png">
 </head>
 <body>
-    
-    <!-- NAVIGATION -->
-    <nav class="nav" id="nav">
-        <div class="nav-container">
-            <a href="#hero" class="nav-logo">NC</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#marketing" class="nav-link">Marketing</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="nav-cta" id="resumeBtn">Resume</button>
-            <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-        
-        <!-- Resume Dropdown -->
-        <div class="resume-dropdown" id="resumeDropdown">
-            <a href="assets/resume/Nehemiah_Cionelo_Resume_MarTech_Specialist.pdf" download class="resume-option">
-                <span class="resume-title">Marketing Technology Specialist</span>
-                <span class="resume-desc">Best for MarTech & hybrid roles</span>
-            </a>
-            <a href="assets/resume/Nehemiah_Cionelo_Resume_FullStack_Developer.pdf" download class="resume-option">
-                <span class="resume-title">Full-Stack Developer</span>
-                <span class="resume-desc">Best for software engineering roles</span>
-            </a>
-            <a href="assets/resume/Nehemiah_Cionelo_Resume_Frontend_Developer.pdf" download class="resume-option">
-                <span class="resume-title">Frontend Developer</span>
-                <span class="resume-desc">Best for UI/UX-focused roles</span>
-            </a>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="brand">
+                    <h1>Nehemiah Cionelo</h1>
+                    <p class="tagline">Marketing Technologist & Full-Stack Developer</p>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#marketing" class="nav-link">Marketing</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
-<!-- MINECRAFT HEARTH (F3 Mode) -->
-<div class="hearth-container" id="hearthContainer">
-    <!-- Layer 1: Back wall (deepest - cobblestone) -->
-    <div class="hearth-back-wall"></div>
 
-    <!-- Layer 2: Inner walls (stone brick) -->
-    <div class="hearth-inner-left"></div>
-    <div class="hearth-inner-right"></div>
-    <div class="hearth-inner-bottom"></div>
-
-    <!-- Layer 3: Fire animation (canvas) -->
-    <canvas id="fireCanvas" width="256" height="256"></canvas>
-
-    <!-- Layer 4: Frame pieces (stonebrick_carved for edges) -->
-    <div class="hearth-frame hearth-frame-top"></div>
-    <div class="hearth-frame hearth-frame-bottom"></div>
-    <div class="hearth-frame hearth-frame-left"></div>
-    <div class="hearth-frame hearth-frame-right"></div>
-
-    <!-- Layer 5: Corners (stonebrick_carved) -->
-    <div class="hearth-corner hearth-corner-tl"></div>
-    <div class="hearth-corner hearth-corner-tr"></div>
-    <div class="hearth-corner hearth-corner-bl"></div>
-    <div class="hearth-corner hearth-corner-br"></div>
-
-    <!-- Layer 6: Ember particles container -->
-    <div class="ember-container" id="emberContainer"></div>
-
-    <!-- Layer 7: Fire glow effect -->
-    <div class="fire-glow"></div>
-</div>
-    <!-- HERO SECTION -->
-    <section class="hero" id="hero">
-        <div class="hero-container">
-            <!-- TODO: Add your profile photo to assets/images/profile.jpg -->
-            <img src="assets/images/profile.jpg" alt="Nehemiah Cionelo" class="hero-image" loading="eager">
-            
-            <h1 class="hero-title">Nehemiah "Nemo" Cionelo</h1>
-            <p class="hero-subtitle">Full-Stack Developer | Marketing Technologist | Computer Science Graduate</p>
-            
-            <p class="hero-description">
-                I bridge technical development and marketing execution with production experience in JavaScript, 
-                modern web technologies, and AI-assisted workflows. Currently seeking opportunities in Colorado 
-                starting January 2026.
-            </p>
-            
-            <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                <a href="#projects" class="btn btn-secondary">View Projects</a>
-            </div>
-            
-            <div class="hero-social">
-                <a href="https://github.com/cionelo" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                </a>
-                <a href="https://www.linkedin.com/in/nehemiah-cionelo-9b1a281a9" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                </a>
-                <a href="mailto:nemocionelo@gmail.com" aria-label="Email">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section class="about" id="about">
+    <!-- Hero Section -->
+    <section class="hero" id="about">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
-            
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        I'm a Computer Science graduate with a unique combination of technical development skills 
-                        and marketing execution experience. With a proven track record in full-stack development 
-                        and digital marketing, I bridge the gap between technical teams and marketing objectives.
-                    </p>
-                    <p>
-                        I've shipped production web applications serving 240+ operational hours with JavaScript, 
-                        HTML/CSS, and SQL, while simultaneously growing organic social media audiences to 250K+ 
-                        followers through data-driven content strategy. My approach combines modern development 
-                        workflows—including AI-assisted development and prompt engineering—with deep understanding 
-                        of user behavior, performance optimization, and scalable architecture.
-                    </p>
-                    <p>
-                        Currently pursuing a Master's in Recreation and Sport Management at Coastal Carolina University 
-                        (graduating May 2025), I'm seeking opportunities in Colorado starting January 2026 where I can 
-                        contribute as a Marketing Technology Specialist, Full-Stack Developer, or Frontend Engineer. 
-                        I'm particularly drawn to roles that value creativity, technical depth, and the ability to 
-                        translate complex technical solutions into business impact.
-                    </p>
+            <div class="hero-content">
+                <h2>Building the Bridge Between Marketing & Technology</h2>
+                <p>Full-stack developer with proven marketing expertise. I architect data-driven solutions that drive both technical excellence and measurable business growth.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">6.4M+</span>
+                        <span class="stat-label">Content Views</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$1,067</span>
+                        <span class="stat-label">Campaign Revenue</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">2,300+</span>
+                        <span class="stat-label">Lines of Production Code</span>
+                    </div>
                 </div>
-                
-                <div class="about-stats">
-                    <div class="stat-card">
-                        <span class="stat-number">250K+</span>
-                        <span class="stat-label">Social Media Followers</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">240+</span>
-                        <span class="stat-label">Production Hours Served</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">3.62</span>
-                        <span class="stat-label">CS GPA (cum laude)</span>
-                    </div>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#projects" class="btn btn-ghost">View Projects</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PROJECTS SECTION -->
+    <!-- Projects Section -->
     <section class="projects" id="projects">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
-            
-            <!-- Featured Project: Tutor Dashboard -->
+            <p class="section-subtitle">Full-stack applications demonstrating end-to-end technical execution</p>
+
+            <!-- Student Tutor Dashboard -->
             <div class="project-featured">
-                <div class="project-image-wrapper">
-                    <!-- TODO: Add screenshot to assets/images/tutor-dashboard.png -->
-                    <img src="assets/images/tutor-dashboard.png" alt="Tutor Dashboard Application" class="project-image" loading="lazy">
-                </div>
                 <div class="project-content">
-                    <h3 class="project-title">Tutor Dashboard Web Application</h3>
-                    <p class="project-description">
-                        Full-stack web application serving 240+ operational hours with JavaScript frontend/backend, 
-                        RESTful API design, session management, and advanced caching strategies achieving sub-0.5 
-                        second load times.
-                    </p>
-                    <ul class="project-features">
-                        <li>2,300+ lines of production JavaScript, HTML, and CSS</li>
-                        <li>Role-based authentication with 60-minute session TTL</li>
-                        <li>90KB cache optimization for instant performance</li>
-                        <li>Responsive UI with modal systems, data pagination, and real-time updates</li>
-                        <li>RESTful API backend with proper error handling and security</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">HTML/CSS</span>
-                        <span class="tech-tag">REST API</span>
-                        <span class="tech-tag">SQL</span>
-                        <span class="tech-tag">Git</span>
-                        <span class="tech-tag">Google Apps Script</span>
+                    <div class="project-text">
+                        <h3>Student Tutor Dashboard</h3>
+                        <p class="project-tagline">Production web application serving 240+ operational hours</p>
+                        <p>Custom-built scheduling and operations dashboard integrating Google Apps Script, iCal feeds, and real-time data processing. Eliminated manual scheduling friction for tutoring operations team.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Google Apps Script</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">iCal Parsing</span>
+                            <span class="tech-tag">Automation</span>
+                        </div>
+                        <div class="project-metrics">
+                            <div class="metric">
+                                <span class="metric-value">15min</span>
+                                <span class="metric-label">Auto-Refresh</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">240+</span>
+                                <span class="metric-label">Hours Served</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">2,300+</span>
+                                <span class="metric-label">Lines of Code</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary">View Project</a>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/cionelo" target="_blank" class="btn btn-primary">View on GitHub</a>
-                        <!-- <a href="#" class="btn btn-secondary">Case Study</a> -->
-                    </div>
-                </div>
-            </div>
-            <!-- Add this AFTER the existing .project-featured section in your HTML -->
-            
-            <!-- ================================
-                 MARKETING INTELLIGENCE SECTION
-                 ================================ -->
-            <section class="marketing-intelligence" id="marketing">
-                <div class="container">
-                    <h2 class="section-title" style="color: var(--marketing-red);">Marketing Intelligence</h2>
-                    <p class="section-subtitle">Full-funnel campaigns demonstrating strategy, execution, and measurable revenue
-                        impact</p>
-            
-                    <!-- FEATURED: "Hang the Degree" Campaign -->
-                    <div class="campaign-featured">
-                        <div class="campaign-header">
-                            <h3>"Hang the Degree" - Full-Funnel Viral Campaign</h3>
-                            <p class="campaign-metric-hero">$1,067 Revenue • 159 Units Sold • 3.5M+ Views Across Iterations</p>
-                        </div>
-            
-                        <!-- Carousel Container -->
-                        <div class="campaign-carousel" id="hangDegreeCarousel">
-            
-                            <!-- Slide 1: Strategic Framework -->
-                            <div class="carousel-slide active" data-slide="1">
-                                <div class="slide-content">
-                                    <div class="slide-visual">
-                                        <img src="assets/images/strategy-framework-graphic.png" alt="SEO Strategy Framework"
-                                            loading="lazy">
-                                    </div>
-                                    <div class="slide-text">
-                                        <h4>Strategic Framework: AI-Assisted Multi-Niche Targeting</h4>
-                                        <ul class="campaign-bullets">
-                                            <li><strong>AI-Assisted SEO:</strong> Identified multi-niche keywords (CS, women in
-                                                STEM, finals week, coconut brand) for cross-community indexing</li>
-                                            <li><strong>Trend Intelligence:</strong> Integrated trending vocabulary + humor hooks
-                                                for retention optimization</li>
-                                            <li><strong>Demand Validation:</strong> Planted merch hook before product existed to
-                                                test market interest</li>
-                                            <li><strong>Multi-Phase Strategy:</strong> Viral launch → retention funnel → product
-                                                development → monetization</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- Slide 2: Original Viral Launch -->
-                            <div class="carousel-slide" data-slide="2">
-                                <div class="slide-content">
-                                    <div class="slide-visual">
-                                        <img src="assets/images/hang-degree-dec-29-2022.png"
-                                            alt="Original Viral Video - Dec 29, 2022" loading="lazy"
-                                            class="video-thumbnail clickable" data-modal="hangDegreeOriginal">
-                                    </div>
-                                    <div class="slide-text">
-                                        <h4>Original Viral Launch (Dec 29, 2022)</h4>
-                                        <div class="metric-grid">
-                                            <div class="metric-card">
-                                                <span class="metric-number">1.8M</span>
-                                                <span class="metric-label">Views</span>
-                                            </div>
-                                            <div class="metric-card">
-                                                <span class="metric-number">365K</span>
-                                                <span class="metric-label">Likes</span>
-                                            </div>
-                                            <div class="metric-card">
-                                                <span class="metric-number">64K</span>
-                                                <span class="metric-label">Saves</span>
-                                            </div>
-                                            <div class="metric-card highlight">
-                                                <span class="metric-number">23.9%</span>
-                                                <span class="metric-label">Engagement Rate</span>
-                                            </div>
-                                        </div>
-                                        <ul class="campaign-bullets">
-                                            <li>Organic reach across 6+ sub-niches</li>
-                                            <li>Merch demand validated before product launch</li>
-                                            <li>Planted conversion hook for future monetization</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- Slide 3: Retention Strategy -->
-                            <div class="carousel-slide" data-slide="3">
-                                <div class="slide-content">
-                                    <div class="slide-visual hype-grid">
-                                        <img src="assets/images/hype-vid-jan-21-2023.png" alt="Hype Video 1" loading="lazy">
-                                        <img src="assets/images/hype-vid-feb-10-2023.png" alt="Hype Video 2" loading="lazy">
-                                    </div>
-                                    <div class="slide-text">
-                                        <h4>Retention Strategy: Hype Funnel (Jan-Feb 2023)</h4>
-                                        <div class="metric-inline">
-                                            <span><strong>4 videos</strong> • 101K combined views</span>
-                                        </div>
-                                        <ul class="campaign-bullets">
-                                            <li><strong>Keep attention window open:</strong> Sustained algorithmic momentum during
-                                                product development</li>
-                                            <li><strong>Maintain algorithmic momentum:</strong> Consistent posting prevented
-                                                audience decay</li>
-                                            <li><strong>Build anticipation:</strong> Deliberately designed pre-launch hype for
-                                                sticker drop</li>
-                                            <li><strong>Expand emotional connection:</strong> Reinforced "coconut" identity cue
-                                                across audience touchpoints</li>
-                                            <li><strong>Organic authenticity:</strong> Non-sticker CocoToks posted between hype
-                                                videos to remain authentic with audience and connected to niche</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- Slide 4: A/B Testing Matrix -->
-                            <div class="carousel-slide" data-slide="4">
-                                <div class="slide-content">
-                                    <h4>A/B Testing Matrix: Viral Reposts</h4>
-                                    <div class="ab-test-grid">
-                                        <!-- Feb 22 -->
-                                        <div class="ab-test-card">
-                                            <img src="assets/images/hang-degree-feb-22-2023.png" alt="Feb 22 Repost"
-                                                class="video-thumbnail clickable" data-modal="hangDegreeFeb22" loading="lazy">
-                                            <div class="ab-metrics">
-                                                <h5>Feb 22, 2023</h5>
-                                                <p class="views">827K views</p>
-                                                <p class="engagement">113K likes • 18K saves</p>
-                                                <p class="er-badge">ER: 15.8%</p>
-                                            </div>
-                                            <div class="ab-test-info">
-                                                <p class="test-variable"><strong>Test:</strong> Shop launch timing</p>
-                                                <p class="test-result"><strong>Result:</strong> Peak engagement + sales spike</p>
-                                            </div>
-                                        </div>
-            
-                                        <!-- Mar 10 -->
-                                        <div class="ab-test-card">
-                                            <img src="assets/images/hang-degree-mar-10-2023.png" alt="Mar 10 Repost"
-                                                class="video-thumbnail clickable" data-modal="hangDegreeMar10" loading="lazy">
-                                            <div class="ab-metrics">
-                                                <h5>Mar 10, 2023</h5>
-                                                <p class="views">228K views</p>
-                                                <p class="engagement">31K likes • 3.5K saves</p>
-                                                <p class="er-badge">ER: 15.1%</p>
-                                            </div>
-                                            <div class="ab-test-info">
-                                                <p class="test-variable"><strong>Test:</strong> Word highlighting + pop-ups</p>
-                                                <p class="test-result"><strong>Result:</strong> Over-editing hurt performance</p>
-                                            </div>
-                                        </div>
-            
-                                        <!-- May 3 -->
-                                        <div class="ab-test-card">
-                                            <img src="assets/images/hang-degree-may-3-2023.png" alt="May 3 Repost"
-                                                class="video-thumbnail clickable" data-modal="hangDegreeMay3" loading="lazy">
-                                            <div class="ab-metrics">
-                                                <h5>May 3, 2023</h5>
-                                                <p class="views">292K views</p>
-                                                <p class="engagement">44K likes • 4.9K saves</p>
-                                                <p class="er-badge">ER: 16.7%</p>
-                                            </div>
-                                            <div class="ab-test-info">
-                                                <p class="test-variable"><strong>Test:</strong> Seasonal graduation targeting</p>
-                                                <p class="test-result"><strong>Result:</strong> Aging asset still viable seasonally
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- Slide 5: Conversion Funnel -->
-                            <div class="carousel-slide" data-slide="5">
-                                <div class="slide-content">
-                                    <h4>Conversion Funnel: Sales Impact</h4>
-                                    <div class="chart-container">
-                                        <canvas id="salesChart"></canvas>
-                                    </div>
-                                    <ul class="campaign-bullets">
-                                        <li><strong>Full funnel execution:</strong> Viral content → Product launch → Sustained sales
-                                        </li>
-                                        <li><strong>Peak performance:</strong> Feb 22 viral repost drove immediate sales spike ($418
-                                            in March)</li>
-                                        <li><strong>Product lifecycle management:</strong> Self-managed product design (Adobe
-                                            Illustrator/Photoshop), sourcing, fulfillment, and ecommerce setup</li>
-                                        <li><strong>Demonstrated product-market fit:</strong> Content validation translated to
-                                            actual revenue</li>
-                                    </ul>
-                                </div>
-                            </div>
-            
-                            <!-- Carousel Controls -->
-                            <button class="carousel-control prev" data-carousel="hangDegreeCarousel" aria-label="Previous slide">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                </svg>
-                            </button>
-                            <button class="carousel-control next" data-carousel="hangDegreeCarousel" aria-label="Next slide">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </button>
-            
-                            <!-- Carousel Indicators -->
-                            <div class="carousel-indicators">
-                                <button class="indicator active" data-slide-to="1" aria-label="Slide 1"></button>
-                                <button class="indicator" data-slide-to="2" aria-label="Slide 2"></button>
-                                <button class="indicator" data-slide-to="3" aria-label="Slide 3"></button>
-                                <button class="indicator" data-slide-to="4" aria-label="Slide 4"></button>
-                                <button class="indicator" data-slide-to="5" aria-label="Slide 5"></button>
-                            </div>
-                        </div>
-                    </div>
-            
-                    <!-- #CocoTok Campaign -->
-                    <div class="campaign-secondary">
-                        <div class="campaign-header">
-                            <h3>#CocoTok Community Building</h3>
-                            <p class="campaign-metric-hero">19.34% Engagement Rate • 898 Community Posts • 4.7M+ Views (n=50 sample)
-                            </p>
-                        </div>
-            
-                        <!-- Horizontal Scroll Container -->
-                        <div class="campaign-scroll" id="cocotokScroll">
-            
-                            <!-- Slide 1: Engagement Performance -->
-                            <div class="scroll-slide">
-                                <h4>Engagement Performance vs. Industry</h4>
-                                <div class="chart-container">
-                                    <canvas id="cocotokEngagementChart"></canvas>
-                                </div>
-                                <ul class="campaign-bullets">
-                                    <li><strong>19.34% engagement rate</strong> beats industry standard (2-5%) by 3.9x to 9.7x</li>
-                                    <li>High save rate indicates content with lasting value</li>
-                                    <li>Cross-niche appeal drove community adoption (898 posts using #cocotok)</li>
-                                </ul>
-                            </div>
-            
-                            <!-- Slide 2: Top 5 Performers -->
-                            <div class="scroll-slide">
-                                <h4>Top 5 Highest Performing Videos</h4>
-                                <div class="chart-container">
-                                    <canvas id="cocotokTop5Chart"></canvas>
-                                </div>
-                                <ul class="campaign-bullets">
-                                    <li>Videos with 20%+ engagement rate = 4-10x above industry standard</li>
-                                    <li>High saves indicate lasting value; high shares drive exponential reach</li>
-                                    <li>Repeatable performance across 50+ videos proves systematic content strategy</li>
-                                    <li><strong>Video #2 (1.6M views):</strong> Posted as test for engagement strategy - validated
-                                        viral scale with sustained engagement depth</li>
-                                </ul>
-                            </div>
-            
-                            <!-- Slide 3: Growth Trajectory -->
-                            <div class="scroll-slide">
-                                <h4>Growth Trajectory (0→213K Followers)</h4>
-                                <div class="chart-container">
-                                    <canvas id="cocotokGrowthChart"></canvas>
-                                </div>
-                                <ul class="campaign-bullets">
-                                    <li><strong>Phase 1:</strong> [Dates TBD - You'll fill in]</li>
-                                    <li><strong>Phase 2:</strong> [Dates TBD - You'll fill in]</li>
-                                    <li><strong>Phase 3:</strong> [Dates TBD - You'll fill in]</li>
-                                    <li><strong>Phase 4:</strong> [Dates TBD - You'll fill in]</li>
-                                </ul>
-                            </div>
-            
-                        </div>
-                    </div>
-            
-                    <!-- UNM Institutional Growth -->
-                    <div class="campaign-tertiary">
-                        <div class="campaign-header">
-                            <h3>UNM Institutional Growth</h3>
-                            <p class="campaign-metric-hero">143% TikTok Growth • 0→29K Instagram Followers • Organic-to-Paid Success
-                            </p>
-                        </div>
-            
-                        <div class="unm-content">
-                            <div class="chart-container">
-                                <canvas id="unmGrowthChart"></canvas>
-                            </div>
-                            <div class="unm-details">
-                                <img src="assets/images/unm-instagram-thumbnail.png" alt="UNM Man-on-the-Street Series"
-                                    class="unm-thumbnail" loading="lazy">
-                                <ul class="campaign-bullets">
-                                    <li><strong>TikTok:</strong> Grew from 7K to 17K followers (+143%)</li>
-                                    <li><strong>Instagram:</strong> Built presence from inception to 29K+ followers</li>
-                                    <li><strong>Innovation:</strong> Created man-on-the-street interview series still used by UNM
-                                        today</li>
-                                    <li><strong>Organic-to-paid success:</strong> Interview content became institutional ad campaign
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-            
-                </div>
-            </section>
-            
-            <!-- Modals for Video Details -->
-            <div class="modal-overlay" id="modalOverlay">
-                <!-- Modal: Original Video -->
-                <div class="modal" id="hangDegreeOriginal">
-                    <button class="modal-close" onclick="closeModal()">&times;</button>
-                    <div class="modal-content">
-                        <img src="assets/images/hang-degree-dec-29-2022.png" alt="Original Viral Video" class="modal-image">
-                        <h3>Original "Hang the Degree" Viral Post</h3>
-                        <p class="modal-date">December 29, 2022</p>
-                        <div class="modal-metrics-table">
-                            <table>
-                                <tr>
-                                    <th>Metric</th>
-                                    <th>Value</th>
-                                </tr>
-                                <tr>
-                                    <td>Views</td>
-                                    <td>1,800,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Likes</td>
-                                    <td>365,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Comments</td>
-                                    <td>1,147</td>
-                                </tr>
-                                <tr>
-                                    <td>Saves</td>
-                                    <td>64,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Engagement Rate</td>
-                                    <td><strong>23.9%</strong></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-strategy">
-                            <h4>Strategy Notes:</h4>
-                            <ul>
-                                <li><strong>Keywords:</strong> #coconut #computerscience #codinglife #womeninstem #stemeducation
-                                </li>
-                                <li><strong>Hook:</strong> "Put it on a sticker" planted before product existed</li>
-                                <li><strong>Multi-niche targeting:</strong> CS humor + STEM identity + coconut brand</li>
-                                <li><strong>Result:</strong> Validated merch demand organically</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Modal: Feb 22 Repost -->
-                <div class="modal" id="hangDegreeFeb22">
-                    <button class="modal-close" onclick="closeModal()">&times;</button>
-                    <div class="modal-content">
-                        <img src="assets/images/hang-degree-feb-22-2023.png" alt="Feb 22 Repost" class="modal-image">
-                        <h3>1st Viral Repost - Shop Launch</h3>
-                        <p class="modal-date">February 22, 2023</p>
-                        <div class="modal-metrics-table">
-                            <table>
-                                <tr>
-                                    <th>Metric</th>
-                                    <th>Value</th>
-                                </tr>
-                                <tr>
-                                    <td>Views</td>
-                                    <td>827,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Likes</td>
-                                    <td>113,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Comments</td>
-                                    <td>216</td>
-                                </tr>
-                                <tr>
-                                    <td>Saves</td>
-                                    <td>18,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Engagement Rate</td>
-                                    <td><strong>15.8%</strong></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-strategy">
-                            <h4>Strategy Notes:</h4>
-                            <ul>
-                                <li><strong>Variable Tested:</strong> Timed with ecommerce store launch</li>
-                                <li><strong>Caption Strategy:</strong> Direct CTA to shop link in bio</li>
-                                <li><strong>Hashtags:</strong> Leaned into CS identity (#computerscience #codinglife
-                                    #collegestudent)</li>
-                                <li><strong>Result:</strong> Drove immediate sales spike (43 units in Feb, 79 in March)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Modal: Mar 10 Repost -->
-                <div class="modal" id="hangDegreeMar10">
-                    <button class="modal-close" onclick="closeModal()">&times;</button>
-                    <div class="modal-content">
-                        <img src="assets/images/hang-degree-mar-10-2023.png" alt="Mar 10 Repost" class="modal-image">
-                        <h3>2nd Viral Repost - Over-Editing Test</h3>
-                        <p class="modal-date">March 10, 2023</p>
-                        <div class="modal-metrics-table">
-                            <table>
-                                <tr>
-                                    <th>Metric</th>
-                                    <th>Value</th>
-                                </tr>
-                                <tr>
-                                    <td>Views</td>
-                                    <td>228,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Likes</td>
-                                    <td>31,400</td>
-                                </tr>
-                                <tr>
-                                    <td>Comments</td>
-                                    <td>54</td>
-                                </tr>
-                                <tr>
-                                    <td>Saves</td>
-                                    <td>3,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Engagement Rate</td>
-                                    <td><strong>15.1%</strong></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-strategy">
-                            <h4>Strategy Notes:</h4>
-                            <ul>
-                                <li><strong>Variable Tested:</strong> Added word-highlighting + picture pop-ups</li>
-                                <li><strong>Hashtags:</strong> Expanded tech sub-niche (#java #python + #finalsweek)</li>
-                                <li><strong>Insight:</strong> Over-stimulation hurt performance (views dropped 72% from Feb repost)
-                                </li>
-                                <li><strong>Learning:</strong> Algorithm punishes high-density edits for this niche</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Modal: May 3 Repost -->
-                <div class="modal" id="hangDegreeMay3">
-                    <button class="modal-close" onclick="closeModal()">&times;</button>
-                    <div class="modal-content">
-                        <img src="assets/images/hang-degree-may-3-2023.png" alt="May 3 Repost" class="modal-image">
-                        <h3>3rd Viral Repost - Graduation Timing</h3>
-                        <p class="modal-date">May 3, 2023</p>
-                        <div class="modal-metrics-table">
-                            <table>
-                                <tr>
-                                    <th>Metric</th>
-                                    <th>Value</th>
-                                </tr>
-                                <tr>
-                                    <td>Views</td>
-                                    <td>292,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Likes</td>
-                                    <td>44,300</td>
-                                </tr>
-                                <tr>
-                                    <td>Comments</td>
-                                    <td>82</td>
-                                </tr>
-                                <tr>
-                                    <td>Saves</td>
-                                    <td>4,900</td>
-                                </tr>
-                                <tr>
-                                    <td>Engagement Rate</td>
-                                    <td><strong>16.7%</strong></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-strategy">
-                            <h4>Strategy Notes:</h4>
-                            <ul>
-                                <li><strong>Variable Tested:</strong> Seasonal caption tune-up for graduation cycle</li>
-                                <li><strong>Hashtags:</strong> Focused on #finalsweek and graduation-related tags</li>
-                                <li><strong>Result:</strong> Seasonal timing salvaged aging asset (28% rebound from Mar)</li>
-                                <li><strong>Insight:</strong> Content lifespan can be extended with strategic seasonal targeting
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="project-visual">
+                        <img src="assets/images/tutor-dashboard-placeholder.png" alt="Student Tutor Dashboard" loading="lazy">
                     </div>
                 </div>
             </div>
-            <!-- Secondary Projects Grid -->
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3 class="project-title">Social Media Growth Strategy</h3>
-                    <p class="project-description">
-                        Built and grew organic social media presence to 250K+ followers across TikTok (200K+) 
-                        and Instagram (50K+) through data-driven content strategy, algorithm optimization, and 
-                        consistent brand storytelling.
-                    </p>
-                    <ul class="project-features">
-                        <li>Grew UNM TikTok by 143% (7K to 17K followers)</li>
-                        <li>Created highest-performing content for UNM Instagram</li>
-                        <li>Monetized platform through NIL partnerships and sponsorships</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span class="tech-tag">Analytics</span>
-                        <span class="tech-tag">SEO</span>
-                        <span class="tech-tag">Content Strategy</span>
-                        <span class="tech-tag">Adobe Creative Suite</span>
+
+            <!-- PACE Project -->
+            <div class="project-featured">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>PACE - Performance Analysis & Coaching Engine</h3>
+                        <p class="project-tagline">Real-Time Race Data Intelligence for Cross Country & Track</p>
+                        <p>Multi-vendor ETL pipeline scraping 8+ NCAA timing systems, normalizing race data into unified schema, and delivering coach-facing analytics dashboard. Mirrors marketing technology data pipelines with cross-platform normalization.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Playwright</span>
+                            <span class="tech-tag">BeautifulSoup</span>
+                            <span class="tech-tag">Vite</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">ETL Pipeline</span>
+                        </div>
+                        <div class="project-metrics">
+                            <div class="metric">
+                                <span class="metric-value">8+</span>
+                                <span class="metric-label">Timing Vendors</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">pace.v1</span>
+                                <span class="metric-label">Unified Schema</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">Static</span>
+                                <span class="metric-label">No Backend</span>
+                            </div>
+                        </div>
+                        <a href="https://itsnemo.dev/pace" class="btn btn-primary" target="_blank" rel="noopener">View Demo</a>
                     </div>
-                    <div class="project-links">
-                        <a href="https://instagram.com/itsnemo.mp4" target="_blank" class="btn btn-secondary">View @itsnemo.mp4</a>
+                    <div class="project-visual">
+                        <img src="assets/images/pace-dashboard-placeholder.png" alt="PACE Dashboard" loading="lazy">
                     </div>
                 </div>
-                
-                <div class="project-card">
-                    <h3 class="project-title">Forensics Database System</h3>
-                    <p class="project-description">
-                        Led team development of full-stack application for UNM Office of Medical Investigator. 
-                        Designed SQL database schema from technical specifications and implemented web application 
-                        frontend for non-technical users.
-                    </p>
-                    <ul class="project-features">
-                        <li>Designed relational database architecture</li>
-                        <li>Built user-friendly interface for medical staff</li>
-                        <li>Collaborated with real client on requirements</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span class="tech-tag">SQL</span>
-                        <span class="tech-tag">Web Application</span>
-                        <span class="tech-tag">Team Project</span>
-                        <span class="tech-tag">Database Design</span>
+            </div>
+
+            <!-- Tutor Availability Dashboard -->
+            <div class="project-featured">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>Tutor Availability Dashboard</h3>
+                        <p class="project-tagline">Operational Scheduling Tool for Tutoring Operations</p>
+                        <p>Lightweight scheduling assistant filling workflow gaps in Teachworks platform. Transforms static availability data into live, cross-filterable dashboard with subject-based filtering and multi-tutor comparison.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Google Apps Script</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">iCal Integration</span>
+                            <span class="tech-tag">Automation</span>
+                            <span class="tech-tag">Zapier</span>
+                        </div>
+                        <div class="project-metrics">
+                            <div class="metric">
+                                <span class="metric-value">15min</span>
+                                <span class="metric-label">Refresh Rate</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">Multi</span>
+                                <span class="metric-label">Tutor Filtering</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">Real-Time</span>
+                                <span class="metric-label">Availability</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary">View Project</a>
+                    </div>
+                    <div class="project-visual">
+                        <img src="assets/images/tutor-availability-placeholder.png" alt="Tutor Availability Dashboard" loading="lazy">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SKILLS SECTION -->
+    <!-- ================================
+         MARKETING INTELLIGENCE SECTION
+         ================================ -->
+    <section class="marketing-intelligence" id="marketing">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--marketing-red);">Marketing Intelligence</h2>
+            <p class="section-subtitle">Full-funnel campaigns demonstrating strategy, execution, and measurable revenue impact</p>
+
+            <!-- FEATURED: "Hang the Degree" Campaign -->
+            <div class="campaign-featured">
+                <div class="campaign-header">
+                    <h3>"Hang the Degree" - Full-Funnel Viral Campaign</h3>
+                    <p class="campaign-metric-hero">$1,067 Revenue • 159 Units Sold • 3.5M+ Views Across Iterations</p>
+                </div>
+
+                <!-- Carousel Container -->
+                <div class="campaign-carousel" id="hangDegreeCarousel">
+                    
+                    <!-- Slide 1: Strategic Framework -->
+                    <div class="carousel-slide active" data-slide="1">
+                        <div class="slide-content">
+                            <div class="slide-visual">
+                                <iframe src="strategy-viz.html" width="100%" height="600" frameborder="0" loading="lazy"></iframe>
+                            </div>
+                            <div class="slide-text">
+                                <h4>Strategic Framework: AI-Assisted Multi-Niche Targeting</h4>
+                                <ul class="campaign-bullets">
+                                    <li><strong>AI-Assisted SEO:</strong> Identified multi-niche keywords (CS, women in STEM, finals week, coconut brand) for cross-community indexing</li>
+                                    <li><strong>Trend Intelligence:</strong> Integrated trending vocabulary + humor hooks for retention optimization</li>
+                                    <li><strong>Demand Validation:</strong> Planted merch hook before product existed to test market interest</li>
+                                    <li><strong>Multi-Phase Strategy:</strong> Viral launch → retention funnel → product development → monetization</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Original Viral Launch -->
+                    <div class="carousel-slide" data-slide="2">
+                        <div class="slide-content">
+                            <div class="slide-visual">
+                                <img src="assets/images/hang-degree-dec-29-2022.png" alt="Original Viral Video - Dec 29, 2022" loading="lazy" class="video-thumbnail clickable" data-modal="hangDegreeOriginal">
+                            </div>
+                            <div class="slide-text">
+                                <h4>Original Viral Launch (Dec 29, 2022)</h4>
+                                <div class="metric-grid">
+                                    <div class="metric-card">
+                                        <span class="metric-number">1.8M</span>
+                                        <span class="metric-label">Views</span>
+                                    </div>
+                                    <div class="metric-card">
+                                        <span class="metric-number">365K</span>
+                                        <span class="metric-label">Likes</span>
+                                    </div>
+                                    <div class="metric-card">
+                                        <span class="metric-number">64K</span>
+                                        <span class="metric-label">Saves</span>
+                                    </div>
+                                    <div class="metric-card highlight">
+                                        <span class="metric-number">23.9%</span>
+                                        <span class="metric-label">Engagement Rate</span>
+                                    </div>
+                                </div>
+                                <ul class="campaign-bullets">
+                                    <li>Organic reach across 6+ sub-niches</li>
+                                    <li>Merch demand validated before product launch</li>
+                                    <li>Planted conversion hook for future monetization</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Retention Strategy -->
+                    <div class="carousel-slide" data-slide="3">
+                        <div class="slide-content">
+                            <div class="slide-visual hype-grid">
+                                <img src="assets/images/hype-vid-jan-21-2023.png" alt="Hype Video 1" loading="lazy">
+                                <img src="assets/images/hype-vid-feb-10-2023.png" alt="Hype Video 2" loading="lazy">
+                            </div>
+                            <div class="slide-text">
+                                <h4>Retention Strategy: Hype Funnel (Jan-Feb 2023)</h4>
+                                <div class="metric-inline">
+                                    <span><strong>4 videos</strong> • 101K combined views</span>
+                                </div>
+                                <ul class="campaign-bullets">
+                                    <li><strong>Keep attention window open:</strong> Sustained algorithmic momentum during product development</li>
+                                    <li><strong>Maintain algorithmic momentum:</strong> Consistent posting prevented audience decay</li>
+                                    <li><strong>Build anticipation:</strong> Deliberately designed pre-launch hype for sticker drop</li>
+                                    <li><strong>Expand emotional connection:</strong> Reinforced "coconut" identity cue across audience touchpoints</li>
+                                    <li><strong>Organic authenticity:</strong> Non-sticker CocoToks posted between hype videos to remain authentic with audience and connected to niche</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: A/B Testing Matrix -->
+                    <div class="carousel-slide" data-slide="4">
+                        <div class="slide-content">
+                            <h4>A/B Testing Matrix: Viral Reposts</h4>
+                            <div class="ab-test-grid">
+                                <!-- Feb 22 -->
+                                <div class="ab-test-card">
+                                    <img src="assets/images/hang-degree-feb-22-2023.png" alt="Feb 22 Repost" class="video-thumbnail clickable" data-modal="hangDegreeFeb22" loading="lazy">
+                                    <div class="ab-metrics">
+                                        <h5>Feb 22, 2023</h5>
+                                        <p class="views">827K views</p>
+                                        <p class="engagement">113K likes • 18K saves</p>
+                                        <p class="er-badge">ER: 15.8%</p>
+                                    </div>
+                                    <div class="ab-test-info">
+                                        <p class="test-variable"><strong>Test:</strong> Shop launch timing</p>
+                                        <p class="test-result"><strong>Result:</strong> Peak engagement + sales spike</p>
+                                    </div>
+                                </div>
+
+                                <!-- Mar 10 -->
+                                <div class="ab-test-card">
+                                    <img src="assets/images/hang-degree-mar-10-2023.png" alt="Mar 10 Repost" class="video-thumbnail clickable" data-modal="hangDegreeMar10" loading="lazy">
+                                    <div class="ab-metrics">
+                                        <h5>Mar 10, 2023</h5>
+                                        <p class="views">228K views</p>
+                                        <p class="engagement">31K likes • 3.5K saves</p>
+                                        <p class="er-badge">ER: 15.1%</p>
+                                    </div>
+                                    <div class="ab-test-info">
+                                        <p class="test-variable"><strong>Test:</strong> Word highlighting + pop-ups</p>
+                                        <p class="test-result"><strong>Result:</strong> Over-editing hurt performance</p>
+                                    </div>
+                                </div>
+
+                                <!-- May 3 -->
+                                <div class="ab-test-card">
+                                    <img src="assets/images/hang-degree-may-3-2023.png" alt="May 3 Repost" class="video-thumbnail clickable" data-modal="hangDegreeMay3" loading="lazy">
+                                    <div class="ab-metrics">
+                                        <h5>May 3, 2023</h5>
+                                        <p class="views">292K views</p>
+                                        <p class="engagement">44K likes • 4.9K saves</p>
+                                        <p class="er-badge">ER: 16.7%</p>
+                                    </div>
+                                    <div class="ab-test-info">
+                                        <p class="test-variable"><strong>Test:</strong> Seasonal graduation targeting</p>
+                                        <p class="test-result"><strong>Result:</strong> Aging asset still viable seasonally</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Conversion Funnel -->
+                    <div class="carousel-slide" data-slide="5">
+                        <div class="slide-content">
+                            <h4>Conversion Funnel: Sales Impact</h4>
+                            <div class="chart-container">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                            <ul class="campaign-bullets">
+                                <li><strong>Full funnel execution:</strong> Viral content → Product launch → Sustained sales</li>
+                                <li><strong>Peak performance:</strong> Feb 22 viral repost drove immediate sales spike ($418 in March)</li>
+                                <li><strong>Product lifecycle management:</strong> Self-managed product design (Adobe Illustrator/Photoshop), sourcing, fulfillment, and ecommerce setup</li>
+                                <li><strong>Demonstrated product-market fit:</strong> Content validation translated to actual revenue</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <button class="carousel-control prev" data-carousel="hangDegreeCarousel" aria-label="Previous slide">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <button class="carousel-control next" data-carousel="hangDegreeCarousel" aria-label="Next slide">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+
+                    <!-- Carousel Indicators -->
+                    <div class="carousel-indicators">
+                        <button class="indicator active" data-slide-to="1" aria-label="Slide 1"></button>
+                        <button class="indicator" data-slide-to="2" aria-label="Slide 2"></button>
+                        <button class="indicator" data-slide-to="3" aria-label="Slide 3"></button>
+                        <button class="indicator" data-slide-to="4" aria-label="Slide 4"></button>
+                        <button class="indicator" data-slide-to="5" aria-label="Slide 5"></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- #CocoTok Campaign -->
+            <div class="campaign-secondary">
+                <div class="campaign-header">
+                    <h3>#CocoTok Community Building</h3>
+                    <p class="campaign-metric-hero">19.34% Engagement Rate • 898 Community Posts • 4.7M+ Views (n=50 sample)</p>
+                </div>
+
+                <!-- Horizontal Scroll Container -->
+                <div class="campaign-scroll" id="cocotokScroll">
+                    
+                    <!-- Slide 1: Engagement Performance -->
+                    <div class="scroll-slide">
+                        <h4>Engagement Performance vs. Industry</h4>
+                        <div class="chart-container">
+                            <canvas id="cocotokEngagementChart"></canvas>
+                        </div>
+                        <ul class="campaign-bullets">
+                            <li><strong>19.34% engagement rate</strong> beats industry standard (2-5%) by 3.9x to 9.7x</li>
+                            <li>High save rate indicates content with lasting value</li>
+                            <li>Cross-niche appeal drove community adoption (898 posts using #cocotok)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Slide 2: Top 5 Performers -->
+                    <div class="scroll-slide">
+                        <h4>Top 5 Highest Performing Videos</h4>
+                        <div class="chart-container">
+                            <canvas id="cocotokTop5Chart"></canvas>
+                        </div>
+                        <ul class="campaign-bullets">
+                            <li>Videos with 20%+ engagement rate = 4-10x above industry standard</li>
+                            <li>High saves indicate lasting value; high shares drive exponential reach</li>
+                            <li>Repeatable performance across 50+ videos proves systematic content strategy</li>
+                            <li><strong>Video #2 (1.6M views):</strong> Posted as test for engagement strategy - validated viral scale with sustained engagement depth</li>
+                        </ul>
+                    </div>
+
+                    <!-- Slide 3: Growth Trajectory -->
+                    <div class="scroll-slide">
+                        <h4>Growth Trajectory (0→213K Followers)</h4>
+                        <div class="chart-container">
+                            <canvas id="cocotokGrowthChart"></canvas>
+                        </div>
+                        <ul class="campaign-bullets">
+                            <li><strong>Phase 1 (Jun-Sep 2022):</strong> Audience foundation - tested trending content formats and refined niche positioning (170K→180K followers)</li>
+                            <li><strong>Phase 2 (Sep-Dec 2022):</strong> Retention optimization - plateaued growth while maintaining engagement and exploring content strategies (180K→209K)</li>
+                            <li><strong>Phase 3 (Dec 2022-Jan 2023):</strong> Strategic pivot - launched targeted #CocoTok campaign with daily posting cadence, achieving rapid growth (209K→213K peak)</li>
+                            <li><strong>Phase 4 (Jan 2023-Present):</strong> Sustainable maintenance - shifted to efficient content schedule while preserving audience engagement (213K→202K controlled decay)</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- UNM Institutional Growth -->
+            <div class="campaign-tertiary">
+                <div class="campaign-header">
+                    <h3>UNM Institutional Growth</h3>
+                    <p class="campaign-metric-hero">143% TikTok Growth • 0→29K Instagram Followers • Organic-to-Paid Success</p>
+                </div>
+
+                <div class="unm-content">
+                    <div class="chart-container">
+                        <canvas id="unmGrowthChart"></canvas>
+                    </div>
+                    <div class="unm-details">
+                        <img src="assets/images/unm-instagram-thumbnail.png" alt="UNM Man-on-the-Street Series" class="unm-thumbnail" loading="lazy">
+                        <ul class="campaign-bullets">
+                            <li><strong>TikTok:</strong> Grew from 7K to 17K followers (+143%)</li>
+                            <li><strong>Instagram:</strong> Built from 10K to 29K+ followers (+192% growth)</li>
+                            <li><strong>Innovation:</strong> Created man-on-the-street interview series still used by UNM today</li>
+                            <li><strong>Organic-to-paid success:</strong> Interview content became institutional ad campaign</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modals for Video Details -->
+    <div class="modal-overlay" id="modalOverlay">
+        <!-- Modal: Original Video -->
+        <div class="modal" id="hangDegreeOriginal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-content">
+                <img src="assets/images/hang-degree-dec-29-2022.png" alt="Original Viral Video" class="modal-image">
+                <h3>Original "Hang the Degree" Viral Post</h3>
+                <p class="modal-date">December 29, 2022</p>
+                <div class="modal-metrics-table">
+                    <table>
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Views</td><td>1,800,000</td></tr>
+                        <tr><td>Likes</td><td>365,000</td></tr>
+                        <tr><td>Comments</td><td>1,147</td></tr>
+                        <tr><td>Saves</td><td>64,000</td></tr>
+                        <tr><td>Engagement Rate</td><td><strong>23.9%</strong></td></tr>
+                    </table>
+                </div>
+                <div class="modal-strategy">
+                    <h4>Strategy Notes:</h4>
+                    <ul>
+                        <li><strong>Keywords:</strong> #coconut #computerscience #codinglife #womeninstem #stemeducation</li>
+                        <li><strong>Hook:</strong> "Put it on a sticker" planted before product existed</li>
+                        <li><strong>Multi-niche targeting:</strong> CS humor + STEM identity + coconut brand</li>
+                        <li><strong>Result:</strong> Validated merch demand organically</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: Feb 22 Repost -->
+        <div class="modal" id="hangDegreeFeb22">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-content">
+                <img src="assets/images/hang-degree-feb-22-2023.png" alt="Feb 22 Repost" class="modal-image">
+                <h3>1st Viral Repost - Shop Launch</h3>
+                <p class="modal-date">February 22, 2023</p>
+                <div class="modal-metrics-table">
+                    <table>
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Views</td><td>827,000</td></tr>
+                        <tr><td>Likes</td><td>113,000</td></tr>
+                        <tr><td>Comments</td><td>216</td></tr>
+                        <tr><td>Saves</td><td>18,000</td></tr>
+                        <tr><td>Engagement Rate</td><td><strong>15.8%</strong></td></tr>
+                    </table>
+                </div>
+                <div class="modal-strategy">
+                    <h4>Strategy Notes:</h4>
+                    <ul>
+                        <li><strong>Variable Tested:</strong> Timed with ecommerce store launch</li>
+                        <li><strong>Caption Strategy:</strong> Direct CTA to shop link in bio</li>
+                        <li><strong>Hashtags:</strong> Leaned into CS identity (#computerscience #codinglife #collegestudent)</li>
+                        <li><strong>Result:</strong> Drove immediate sales spike (43 units in Feb, 79 in March)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: Mar 10 Repost -->
+        <div class="modal" id="hangDegreeMar10">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-content">
+                <img src="assets/images/hang-degree-mar-10-2023.png" alt="Mar 10 Repost" class="modal-image">
+                <h3>2nd Viral Repost - Over-Editing Test</h3>
+                <p class="modal-date">March 10, 2023</p>
+                <div class="modal-metrics-table">
+                    <table>
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Views</td><td>228,000</td></tr>
+                        <tr><td>Likes</td><td>31,400</td></tr>
+                        <tr><td>Comments</td><td>54</td></tr>
+                        <tr><td>Saves</td><td>3,500</td></tr>
+                        <tr><td>Engagement Rate</td><td><strong>15.1%</strong></td></tr>
+                    </table>
+                </div>
+                <div class="modal-strategy">
+                    <h4>Strategy Notes:</h4>
+                    <ul>
+                        <li><strong>Variable Tested:</strong> Added word-highlighting + picture pop-ups</li>
+                        <li><strong>Hashtags:</strong> Expanded tech sub-niche (#java #python + #finalsweek)</li>
+                        <li><strong>Insight:</strong> Over-stimulation hurt performance (views dropped 72% from Feb repost)</li>
+                        <li><strong>Learning:</strong> Algorithm punishes high-density edits for this niche</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: May 3 Repost -->
+        <div class="modal" id="hangDegreeMay3">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-content">
+                <img src="assets/images/hang-degree-may-3-2023.png" alt="May 3 Repost" class="modal-image">
+                <h3>3rd Viral Repost - Graduation Timing</h3>
+                <p class="modal-date">May 3, 2023</p>
+                <div class="modal-metrics-table">
+                    <table>
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Views</td><td>292,000</td></tr>
+                        <tr><td>Likes</td><td>44,300</td></tr>
+                        <tr><td>Comments</td><td>82</td></tr>
+                        <tr><td>Saves</td><td>4,900</td></tr>
+                        <tr><td>Engagement Rate</td><td><strong>16.7%</strong></td></tr>
+                    </table>
+                </div>
+                <div class="modal-strategy">
+                    <h4>Strategy Notes:</h4>
+                    <ul>
+                        <li><strong>Variable Tested:</strong> Seasonal caption tune-up for graduation cycle</li>
+                        <li><strong>Hashtags:</strong> Focused on #finalsweek and graduation-related tags</li>
+                        <li><strong>Result:</strong> Seasonal timing salvaged aging asset (28% rebound from Mar)</li>
+                        <li><strong>Insight:</strong> Content lifespan can be extended with strategic seasonal targeting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Section -->
     <section class="skills" id="skills">
         <div class="container">
             <h2 class="section-title">Technical Skills</h2>
-            
-            <div class="skills-categories">
-                <div class="skills-category">
-                    <h3 class="category-title">Languages & Core</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">JavaScript</div>
-                        <div class="skill-item">HTML/CSS</div>
-                        <div class="skill-item">SQL</div>
-                        <div class="skill-item">Python</div>
-                        <div class="skill-item">Java</div>
-                    </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Development</h3>
+                    <ul>
+                        <li>JavaScript (ES6+)</li>
+                        <li>HTML5 & CSS3</li>
+                        <li>Python</li>
+                        <li>SQL</li>
+                        <li>Google Apps Script</li>
+                    </ul>
                 </div>
-                
-                <div class="skills-category">
-                    <h3 class="category-title">Web Development</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">REST APIs</div>
-                        <div class="skill-item">Responsive Design</div>
-                        <div class="skill-item">Git/Version Control</div>
-                        <div class="skill-item">Performance Optimization</div>
-                        <div class="skill-item">Session Management</div>
-                        <div class="skill-item">Authentication</div>
-                    </div>
+                <div class="skill-category">
+                    <h3>Frameworks & Tools</h3>
+                    <ul>
+                        <li>Chart.js</li>
+                        <li>Vite</li>
+                        <li>Git & GitHub</li>
+                        <li>VS Code</li>
+                        <li>Playwright</li>
+                    </ul>
                 </div>
-                
-                <div class="skills-category">
-                    <h3 class="category-title">Marketing Technology</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">SEO</div>
-                        <div class="skill-item">Google Analytics</div>
-                        <div class="skill-item">Social Media Marketing</div>
-                        <div class="skill-item">Content Strategy</div>
-                        <div class="skill-item">Marketing Automation</div>
-                        <div class="skill-item">Data Analysis</div>
-                    </div>
+                <div class="skill-category">
+                    <h3>Marketing Technology</h3>
+                    <ul>
+                        <li>Google Analytics 4</li>
+                        <li>SEO Strategy</li>
+                        <li>Social Media Analytics</li>
+                        <li>Content Strategy</li>
+                        <li>A/B Testing</li>
+                    </ul>
                 </div>
-                
-                <div class="skills-category">
-                    <h3 class="category-title">Tools & Design</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">Adobe Creative Suite</div>
-                        <div class="skill-item">AI-Assisted Development</div>
-                        <div class="skill-item">Agile Workflows</div>
-                        <div class="skill-item">Video Editing</div>
-                        <div class="skill-item">Graphic Design</div>
-                    </div>
+                <div class="skill-category">
+                    <h3>Design & Content</h3>
+                    <ul>
+                        <li>Adobe Illustrator</li>
+                        <li>Adobe Photoshop</li>
+                        <li>Video Editing</li>
+                        <li>UI/UX Design</li>
+                        <li>Data Visualization</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- EXPERIENCE SECTION -->
-    <section class="experience" id="experience">
-        <div class="container">
-            <h2 class="section-title">Experience Highlights</h2>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Aug 2024 - Dec 2024</div>
-                        <h3 class="timeline-title">Full-Stack Developer (Freelance)</h3>
-                        <p class="timeline-company">Tutoring Services Company | Remote</p>
-                        <ul class="timeline-details">
-                            <li>Architected and deployed production web application serving 240+ operational hours with RESTful API backend and responsive UI frontend</li>
-                            <li>Implemented advanced caching (90KB optimization), session management, and role-based authentication</li>
-                            <li>Developed AI-assisted development workflow using structured prompt engineering to accelerate delivery</li>
-                            <li>Optimized performance to achieve sub-0.5 second load times through strategic caching and pagination</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Jan 2025 - May 2025</div>
-                        <h3 class="timeline-title">Graduate Intern - Recreation and Sport Management</h3>
-                        <p class="timeline-company">Coastal Carolina University | Conway, SC</p>
-                        <ul class="timeline-details">
-                            <li>Developed and executed social media marketing strategies for Division I Track and Field program</li>
-                            <li>Produced high-performing video content and graphics using Adobe Creative Suite</li>
-                            <li>Implemented SEO strategies and data analysis workflows to track campaign performance</li>
-                            <li>Managed internal communications and coordinated media teams at competitions</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Jul 2021 - Jul 2023</div>
-                        <h3 class="timeline-title">Student Social Media Associate</h3>
-                        <p class="timeline-company">University of New Mexico, Communications and Marketing | Albuquerque, NM</p>
-                        <ul class="timeline-details">
-                            <li>Grew UNM TikTok from 7K to 17K followers (+143%) through data-driven content strategy</li>
-                            <li>Created highest-performing videos for UNM's Instagram account</li>
-                            <li>Analyzed social media algorithms and engagement metrics to optimize posting strategy</li>
-                            <li>Produced multimedia content using Adobe Creative Suite (Premiere Pro, After Effects, Photoshop)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="experience-cta">
-                <button class="btn btn-secondary" id="resumeBtnBottom">Download Full Resume</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
+    <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title">Let's Connect</h2>
-            <p class="contact-subtitle">
-                I'm currently seeking opportunities in Colorado starting January 2026. 
-                Available for remote work or Denver/Boulder locations.
-            </p>
-            
-            <div class="contact-methods">
-                <a href="mailto:nemocionelo@gmail.com" class="contact-card">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/>
-                    </svg>
-                    <div>
-                        <strong>Email</strong>
-                        <span>nemocionelo@gmail.com</span>
-                    </div>
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Open to remote opportunities • Relocating to Colorado (Feb 2026)</p>
+            <div class="contact-links">
+                <a href="mailto:nemocionelo@gmail.com" class="contact-link">
+                    <span>Email</span>
+                    <span class="link-arrow">→</span>
                 </a>
-                
-                <a href="https://www.linkedin.com/in/nehemiah-cionelo-9b1a281a9" target="_blank" rel="noopener noreferrer" class="contact-card">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                    <div>
-                        <strong>LinkedIn</strong>
-                        <span>Connect with me</span>
-                    </div>
+                <a href="https://linkedin.com/in/nehemiah-cionelo" class="contact-link" target="_blank" rel="noopener">
+                    <span>LinkedIn</span>
+                    <span class="link-arrow">→</span>
                 </a>
-                
-                <a href="https://github.com/cionelo" target="_blank" rel="noopener noreferrer" class="contact-card">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    <div>
-                        <strong>GitHub</strong>
-                        <span>View my code</span>
-                    </div>
+                <a href="https://github.com/cionelo" class="contact-link" target="_blank" rel="noopener">
+                    <span>GitHub</span>
+                    <span class="link-arrow">→</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <p>&copy; 2025 Nehemiah Cionelo. All rights reserved.</p>
-                    <a href="https://www.flaticon.com/free-icons/ocean" title="ocean icons">Ocean icons created by Freepik - Flaticon</a>
-                </div>
-                <div class="footer-social">
-                    <a href="https://instagram.com/nemocionelo" target="_blank" rel="noopener noreferrer" aria-label="Instagram Personal">@nemocionelo</a>
-                    <a href="https://instagram.com/itsnemo.mp4" target="_blank" rel="noopener noreferrer" aria-label="Instagram Branded">@itsnemo.mp4</a>
-                </div>
-            </div>
-            <div class="easter-egg-hint">
-                <small>Psst... try pressing F3 👀</small>
-            </div>
+            <p>&copy; 2024 Nehemiah Cionelo. Built with intention.</p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
     <!-- Chart.js Library -->
-     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 
-    <!-- Marketing Intelligence Charts -->
+    <!-- Scripts -->
+    <script src="script.js"></script>
     <script src="charts.js"></script>
 </body>
 </html>
