@@ -1,3 +1,67 @@
+/*
+═══════════════════════════════════════════════════════════════════════════════
+Portfolio Website - Main Stylesheet
+Author: Nehemiah Cionelo
+Last Updated: 2024-11-21
+Version: 2.1.0
+
+CHANGELOG:
+- Added resume dropdown styles with hover states
+- Integrated Minecraft hearth (F3 mode) animations and textures
+- Added nested A/B test slideshow styles with touch support
+- Enhanced mobile responsiveness for hearth and slideshow
+- Added ember particle animations
+- Fire glow pulse animation for hearth
+
+DESIGN SYSTEM:
+Color Palette:
+  --bg: #0b0c0e (Background)
+  --panel: #121418 (Secondary background)
+  --card: #161922 (Card backgrounds)
+  --muted: #8b919d (Muted text)
+  --text: #e7eaf0 (Primary text)
+  --brand: #65b2ff (Tech/primary accent)
+  --brand-ink: #0b2139 (Brand dark)
+  --marketing-red: #ff4757 (Marketing accent)
+  --marketing-red-dark: #c23444
+  --marketing-red-light: #ff6b7a
+  --ok: #5ce0a3 (Success)
+  --warn: #ffd666 (Warning)
+  --danger: #ff7a7a (Error)
+
+Typography:
+  Primary: 'Inter' (sans-serif)
+  Code/Mono: 'JetBrains Mono' (monospace)
+
+Effects:
+  --radius: 16px
+  --shadow: 0 10px 30px rgba(0,0,0,.35)
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+
+STRUCTURE:
+1. Global Variables & Reset
+2. Typography
+3. Buttons
+4. Navigation (with resume dropdown)
+5. Hero Section
+6. Projects Section
+7. Marketing Intelligence (carousels, A/B slideshow)
+8. Charts & Modals
+9. Skills Section
+10. Contact Section
+11. Footer
+12. Minecraft Hearth (F3 Mode)
+13. Responsive Design (768px, 480px, 375px breakpoints)
+
+SPECIAL FEATURES:
+- F3 mode hearth with layered textures
+- Nested slideshow for A/B test cards
+- Hover-triggered chart annotations
+- Touch swipe support for mobile carousels
+- Image rendering: pixelated for Minecraft textures
+═══════════════════════════════════════════════════════════════════════════════
+*/
+
 /* ================================
    GLOBAL VARIABLES & RESET
    ================================ */
@@ -199,6 +263,60 @@ p {
     height: 2px;
     background: var(--text);
     transition: var(--transition);
+}
+
+/* ================================
+   RESUME DROPDOWN
+   ================================ */
+
+.resume-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 2rem;
+    background: var(--card);
+    border: 1px solid rgba(101, 178, 255, 0.3);
+    border-radius: 12px;
+    padding: 0.5rem;
+    min-width: 320px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+}
+
+.resume-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.resume-option {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: var(--transition);
+    border: 1px solid transparent;
+}
+
+.resume-option:hover {
+    background: rgba(101, 178, 255, 0.1);
+    border-color: var(--brand);
+}
+
+.resume-title {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.resume-desc {
+    color: var(--muted);
+    font-size: 0.875rem;
 }
 
 /* ================================
@@ -506,7 +624,77 @@ p {
     margin-bottom: 1.5rem;
 }
 
-/* A/B Testing Grid */
+/* A/B Testing Nested Slideshow */
+.ab-test-slideshow {
+    position: relative;
+    min-height: 450px;
+    margin-top: 2rem;
+}
+
+.ab-test-slide {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ab-test-slide.active {
+    display: block;
+    opacity: 1;
+}
+
+.ab-test-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.ab-control {
+    background: rgba(255, 71, 87, 0.9);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.ab-control:hover {
+    background: var(--marketing-red);
+    transform: scale(1.1);
+}
+
+.ab-indicators {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.ab-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 71, 87, 0.3);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.ab-indicator.active {
+    background: var(--marketing-red);
+    width: 28px;
+    border-radius: 5px;
+}
+
+.ab-indicator:hover {
+    background: var(--marketing-red-light);
+}
+
+/* A/B Testing Grid (Legacy - kept for fallback) */
 .ab-test-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -980,6 +1168,187 @@ p {
 }
 
 /* ================================
+   MINECRAFT HEARTH (F3 MODE)
+   ================================ */
+
+.hearth-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+body.minecraft-theme .hearth-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hearth-back-wall {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('textures/cobblestone.png');
+    background-size: 128px 128px;
+    image-rendering: pixelated;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.hearth-inner-left,
+.hearth-inner-right,
+.hearth-inner-bottom {
+    position: absolute;
+    background-image: url('textures/stonebrick.png');
+    background-size: 128px 128px;
+    image-rendering: pixelated;
+    z-index: 2;
+}
+
+.hearth-inner-left {
+    top: 50px;
+    left: 0;
+    width: 60px;
+    height: 400px;
+}
+
+.hearth-inner-right {
+    top: 50px;
+    right: 0;
+    width: 60px;
+    height: 400px;
+}
+
+.hearth-inner-bottom {
+    bottom: 0;
+    left: 60px;
+    right: 60px;
+    height: 60px;
+}
+
+#fireCanvas {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    image-rendering: pixelated;
+    z-index: 3;
+}
+
+.hearth-frame {
+    position: absolute;
+    background-image: url('textures/stonebrick_carved.png');
+    background-size: 128px 128px;
+    image-rendering: pixelated;
+    z-index: 4;
+}
+
+.hearth-frame-top {
+    top: 40px;
+    left: 50px;
+    right: 50px;
+    height: 20px;
+}
+
+.hearth-frame-bottom {
+    bottom: 50px;
+    left: 50px;
+    right: 50px;
+    height: 20px;
+}
+
+.hearth-frame-left {
+    top: 50px;
+    left: 40px;
+    width: 20px;
+    bottom: 60px;
+}
+
+.hearth-frame-right {
+    top: 50px;
+    right: 40px;
+    width: 20px;
+    bottom: 60px;
+}
+
+.hearth-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url('textures/stonebrick_carved.png');
+    background-size: 128px 128px;
+    image-rendering: pixelated;
+    z-index: 5;
+}
+
+.hearth-corner-tl { top: 40px; left: 40px; }
+.hearth-corner-tr { top: 40px; right: 40px; }
+.hearth-corner-bl { bottom: 50px; left: 40px; }
+.hearth-corner-br { bottom: 50px; right: 40px; }
+
+.ember-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 6;
+}
+
+.ember {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ff8c00;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff8c00;
+    opacity: 0;
+}
+
+.ember.active {
+    animation: ember-float 3s ease-out forwards;
+}
+
+@keyframes ember-float {
+    0% {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-300px) translateX(calc(-50px + 100px * var(--random)));
+    }
+}
+
+.fire-glow {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.3) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 2;
+    animation: fire-glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes fire-glow-pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.9; }
+}
+
+/* ================================
    RESPONSIVE DESIGN
    ================================ */
 
@@ -1078,6 +1447,19 @@ p {
 
     .section-title {
         font-size: 2rem;
+    }
+    
+    /* Hearth mobile adjustments */
+    .hearth-container {
+        width: 350px;
+        height: 350px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    #fireCanvas {
+        width: 280px;
+        height: 280px;
     }
 }
 

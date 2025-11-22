@@ -1,10 +1,60 @@
 /**
- * Marketing Intelligence Charts
- * Chart.js Animated Graphs
- * Version: 2.0
- * Date: 2024-11-20
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * Marketing Intelligence Charts & Interactive Data Visualizations
+ * Author: Nehemiah Cionelo
+ * Last Updated: 2024-11-21
+ * Version: 2.1.0
+ * 
+ * CHANGELOG:
+ * - Added hover-only annotation labels for sales chart markers
+ * - Implemented nested A/B test slideshow with touch swipe support
+ * - Updated CocoTok growth chart with sharper phase transitions
+ * - Fixed UNM growth chart baseline (10K starting point)
+ * - Added initAbTestSlideshow() function for nested carousel
+ * - Enhanced mobile touch interaction for slideshows
+ * 
+ * DEPENDENCIES:
+ * - Chart.js v4.4.0 (must be loaded via CDN in HTML)
+ * - chartjs-plugin-annotation v3.0.1 (must be loaded via CDN in HTML)
+ * 
+ * CHARTS INCLUDED:
+ * 1. salesChart - "Hang the Degree" revenue & units sold (dual-axis line chart)
+ * 2. cocotokEngagementChart - Engagement rate comparison (stacked bar)
+ * 3. cocotokTop5Chart - Top 5 performing videos (horizontal stacked bar)
+ * 4. cocotokGrowthChart - Follower growth trajectory (line chart with phase annotations)
+ * 5. unmGrowthChart - UNM Instagram growth (line chart with data gap notation)
+ * 
+ * INTERACTIVE FEATURES:
+ * - Main carousel system (initCarousel)
+ * - Nested A/B test slideshow (initAbTestSlideshow)
+ * - Modal system for detailed video metrics (initModals)
+ * - Scroll-triggered chart animations (setupScrollAnimations)
+ * - Touch swipe support for mobile devices
+ * - Hover-triggered annotation labels on sales chart
+ * 
+ * INITIALIZATION:
+ * All charts and interactive elements initialize on DOMContentLoaded or immediately
+ * if document is already loaded. Call order:
+ * 1. initAllCharts()
+ * 2. initCarousel()
+ * 3. initModals()
+ * 4. initAbTestSlideshow()
+ * 5. setupScrollAnimations()
+ * 
+ * COLOR SCHEME:
+ * Marketing Red: #ff4757 (primary)
+ * Marketing Red Dark: #c23444
+ * Marketing Red Light: #ff6b7a
+ * Orange Accent: #ffa502
+ * Background: rgba(18, 20, 24, 0.95) for tooltips
+ * 
+ * NOTES:
+ * - All charts use Inter font for labels, JetBrains Mono for data values
+ * - Chart animations use easeInOutQuart easing
+ * - Tooltips have custom styling with marketing red borders
+ * - Annotations support enter/leave events for hover-triggered labels
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
-
 // ================================
 // SALES CHART (Hang the Degree)
 // ================================
@@ -687,7 +737,7 @@ function initUnmGrowthChart() {
                                 return '(Hired - Baseline)';
                             }
                             if (context.dataIndex === 1) {
-                                return '(Data tracking begins)';
+                                return '(Social Blade Tracking Begins)';
                             }
                         }
                     }
@@ -875,13 +925,75 @@ if (document.readyState === 'loading') {
         initAllCharts();
         initCarousel();
         initModals();
+        initAbTestSlideshow();
         setupScrollAnimations();
     });
 } else {
     initAllCharts();
     initCarousel();
     initModals();
+    initAbTestSlideshow();
     setupScrollAnimations();
 }
 
-console.log('📊 Marketing Intelligence Charts Loaded - v2.0');
+// ================================
+// NESTED A/B TEST SLIDESHOW
+// ================================
+
+function initAbTestSlideshow() {
+    const slides = document.querySelectorAll('.ab-test-slide');
+    const indicators = document.querySelectorAll('.ab-indicator');
+    const prevBtn = document.querySelector('.ab-control.prev');
+    const nextBtn = document.querySelector('.ab-control.next');
+    
+    if (!slides.length) return;
+    
+    let currentSlide = 0;
+    
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === index);
+        });
+        currentSlide = index;
+    }
+    
+    function nextSlide() {
+        const next = (currentSlide + 1) % slides.length;
+        showSlide(next);
+    }
+    
+    function prevSlide() {
+        const prev = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prev);
+    }
+    
+    prevBtn?.addEventListener('click', prevSlide);
+    nextBtn?.addEventListener('click', nextSlide);
+    
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => showSlide(index));
+    });
+    
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const slideshow = document.querySelector('.ab-test-slideshow');
+    if (slideshow) {
+        slideshow.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        slideshow.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) nextSlide();
+            if (touchEndX - touchStartX > 50) prevSlide();
+        });
+    }
+}
+
+console.log('📊 Marketing Intelligence Charts Loaded - v2.1');
+console.log('🔥 Nested A/B slideshow initialized');

@@ -1,8 +1,79 @@
 /**
- * MC MODE HEARTH ANIMATION
- * CORRECT JS ANIMATION CODE 
- * 11-8-25 (10-28 revised)
- * -chatgpt sesh "portfolio site hearth"
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * Portfolio Website - Core JavaScript & Minecraft Hearth Animation
+ * Author: Nehemiah Cionelo
+ * Last Updated: 2024-11-21
+ * Version: 2.1.0
+ * 
+ * CHANGELOG:
+ * - Added resume dropdow n toggle functionality
+ * - Integrated F3 debug mode activation system
+ * - Implemented HearthFireAnimation class for Minecraft easter egg
+ * - Added debug stats overlay with real-time metrics
+ * - Enhanced navigation scroll detection
+ * - Added mobile menu toggle support
+ * - Implemented smooth scroll for anchor links
+ * - Added intersection observer for fade-in animations
+ * 
+ * CORE FEATURES:
+ * 1. Navigation (scroll shadow, mobile toggle, active link highlighting)
+ * 2. Resume Dropdown (toggle on click, close on outside click)
+ * 3. F3 Debug Mode (Minecraft-themed easter egg)
+ * 4. HearthFireAnimation (dual-fire canvas animation with ember particles)
+ * 5. Intersection Observer (fade-in animations for sections)
+ * 6. Smooth Scroll Navigation
+ * 7. Email Copy to Clipboard
+ * 8. Image Lazy Loading Error Handling
+ * 
+ * F3 MODE (MINECRAFT HEARTH):
+ * - Activation: Press F3 key
+ * - Features: Debug stats overlay, animated fire textures, floating ember particles
+ * - Fire Animation: 32-frame sprite sheet with dual-layer rendering
+ * - Performance: ~60 FPS target with requestAnimationFrame loop
+ * - Textures Required:
+ *   - textures/fire_layer_0.png (base fire layer)
+ *   - textures/fire_layer_1.png (overlay fire layer)
+ *   - textures/cobblestone.png (back wall)
+ *   - textures/stonebrick.png (inner walls)
+ *   - textures/stonebrick_carved.png (frame/corners)
+ * 
+ * HEARTH ANIMATION SPECS:
+ * - Canvas Size: 512x512px
+ * - Frame Count: 32 frames
+ * - Frame Size: 32x32px
+ * - Animation Speed: 3 FPS (configurable)
+ * - Ember Spawn Rate: 1500ms intervals
+ * - Max Embers: 4 concurrent
+ * - Ember Lifetime: 3000ms
+ * 
+ * DEBUG COMMANDS (console):
+ * - testHearth() - Activate F3 mode and log hearth status
+ * - spawnTestEmber() - Manually spawn an ember particle
+ * - setFireSpeed(fps) - Adjust fire animation speed
+ * - setEmberRate(ms) - Adjust ember spawn interval
+ * 
+ * EASTER EGG HINTS:
+ * - Console message on page load
+ * - Footer hint: "Psst... try pressing F3 👀"
+ * - localStorage tracks F3 discovery
+ * 
+ * DEPENDENCIES:
+ * - No external libraries (vanilla JS)
+ * - Requires textures in /textures/ directory
+ * - Coordinates with styles.css for .minecraft-theme class
+ * 
+ * BROWSER SUPPORT:
+ * - Modern browsers with Canvas API support
+ * - requestAnimationFrame support
+ * - IntersectionObserver API support
+ * - localStorage support (for F3 discovery tracking)
+ * 
+ * PERFORMANCE NOTES:
+ * - Fire animation uses imageSmoothingEnabled: false for pixel-perfect rendering
+ * - Canvas cleared and redrawn only when frame updates
+ * - Ember particles use CSS animations (GPU-accelerated)
+ * - Debug stats update on 1-second interval when active
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 // ================================
 // NAVIGATION - Scroll & Mobile (safe)
