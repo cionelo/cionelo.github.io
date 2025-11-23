@@ -2,24 +2,24 @@
 ═══════════════════════════════════════════════════════════════════════════════
 Portfolio Website - Main HTML Structure
 Author: Nehemiah Cionelo
-Last Updated: 2024-11-21
-Version: 2.1.0
+Last Updated: 2024-11-23
+Version: 2.2.0
 
 CHANGELOG:
-- Added resume dropdown system with three resume variants
-- Integrated Minecraft hearth easter egg (F3 mode activation)
-- Added "View Marketing" CTA button in hero section
-- Updated operational hours: 240+ → 1,215+ for tutor dashboard
-- Converted A/B testing matrix to nested slideshow for improved UX
-- Added favicon links and attribution in footer
-- Updated copyright year to 2025
+- Fixed A/B testing layout: converted back to grid format on single carousel slide
+- Fixed carousel control positioning (no longer stuck in hero section)
+- Combined engagement charts into single unified visualization
+- Updated TikTok growth chart with complete timeline and toggleable monthly gains
+- Improved mobile responsiveness for A/B testing grid
+- Preserved Minecraft hearth easter egg (F3 mode)
+- Removed nested slideshow complexity for better UX
 
 FEATURES:
 - Responsive navigation with mobile menu toggle
 - Multi-variant resume download system
 - F3 debug mode with animated Minecraft hearth
-- Marketing intelligence carousel with nested A/B test slideshow
-- Chart.js data visualizations with hover-triggered annotations
+- Marketing intelligence carousel with grid A/B test layout
+- Chart.js data visualizations with toggleable datasets
 - Modal system for detailed campaign metrics
 - Smooth scroll navigation
 - SEO-optimized meta tags
@@ -375,16 +375,15 @@ STRUCTURE:
                         </div>
                     </div>
 
-                    <!-- Slide 4: A/B Testing Matrix -->
+                    <!-- Slide 4: A/B Testing Matrix (FIXED GRID LAYOUT) -->
                     <div class="carousel-slide" data-slide="4">
-                        <div class="slide-content">
-                            <h4>A/B Testing Matrix: Viral Reposts</h4>
+                        <div class="slide-content" style="display: block;">
+                            <h4 style="margin-bottom: 2rem;">A/B Testing Matrix: Viral Reposts</h4>
                             
-                            <!-- Nested Slideshow Container -->
-                            <div class="ab-test-slideshow" id="abTestSlideshow">
+                            <!-- Grid Layout for 3 A/B Tests -->
+                            <div class="ab-test-grid">
                                 <!-- Feb 22 -->
-                                <div class="ab-test-slide active" data-ab-slide="1">
-                                    <div class="ab-test-card">
+                                <div class="ab-test-card">
                                     <img src="assets/images/hang-degree-feb-22-2023.png" alt="Feb 22 Repost" class="video-thumbnail clickable" data-modal="hangDegreeFeb22" loading="lazy">
                                     <div class="ab-metrics">
                                         <h5>Feb 22, 2023</h5>
@@ -398,12 +397,8 @@ STRUCTURE:
                                     </div>
                                 </div>
 
-                                </div>
-                                </div>
-                                
                                 <!-- Mar 10 -->
-                                <div class="ab-test-slide" data-ab-slide="2">
-                                    <div class="ab-test-card">
+                                <div class="ab-test-card">
                                     <img src="assets/images/hang-degree-mar-10-2023.png" alt="Mar 10 Repost" class="video-thumbnail clickable" data-modal="hangDegreeMar10" loading="lazy">
                                     <div class="ab-metrics">
                                         <h5>Mar 10, 2023</h5>
@@ -417,12 +412,8 @@ STRUCTURE:
                                     </div>
                                 </div>
 
-                                </div>
-                                </div>
-                                
                                 <!-- May 3 -->
-                                <div class="ab-test-slide" data-ab-slide="3">
-                                    <div class="ab-test-card">
+                                <div class="ab-test-card">
                                     <img src="assets/images/hang-degree-may-3-2023.png" alt="May 3 Repost" class="video-thumbnail clickable" data-modal="hangDegreeMay3" loading="lazy">
                                     <div class="ab-metrics">
                                         <h5>May 3, 2023</h5>
@@ -434,18 +425,6 @@ STRUCTURE:
                                         <p class="test-variable"><strong>Test:</strong> Seasonal graduation targeting</p>
                                         <p class="test-result"><strong>Result:</strong> Aging asset still viable seasonally</p>
                                     </div>
-                                </div>
-                                </div>
-                                
-                                <!-- Nested Slideshow Controls -->
-                                <div class="ab-test-controls">
-                                    <button class="ab-control prev" aria-label="Previous test">←</button>
-                                    <div class="ab-indicators">
-                                        <span class="ab-indicator active" data-ab-slide="1"></span>
-                                        <span class="ab-indicator" data-ab-slide="2"></span>
-                                        <span class="ab-indicator" data-ab-slide="3"></span>
-                                    </div>
-                                    <button class="ab-control next" aria-label="Next test">→</button>
                                 </div>
                             </div>
                         </div>
@@ -494,50 +473,40 @@ STRUCTURE:
             <div class="campaign-secondary">
                 <div class="campaign-header">
                     <h3>#CocoTok Community Building</h3>
-                    <p class="campaign-metric-hero">19.34% Engagement Rate • 898 Community Posts • 4.7M+ Views (n=50 sample)</p>
+                    <p class="campaign-metric-hero">19.34% Engagement Rate • 898 Community Posts • 199K+ Followers Gained</p>
                 </div>
 
                 <!-- Horizontal Scroll Container -->
                 <div class="campaign-scroll" id="cocotokScroll">
                     
-                    <!-- Slide 1: Engagement Performance -->
+                    <!-- Slide 1: Combined Engagement Performance -->
                     <div class="scroll-slide">
-                        <h4>Engagement Performance vs. Industry</h4>
+                        <h4>Engagement Performance: Demonstrating Consistency & Variability</h4>
                         <div class="chart-container">
                             <canvas id="cocotokEngagementChart"></canvas>
                         </div>
                         <ul class="campaign-bullets">
-                            <li><strong>19.34% engagement rate</strong> beats industry standard (2-5%) by 3.9x to 9.7x</li>
-                            <li>High save rate indicates content with lasting value</li>
-                            <li>Cross-niche appeal drove community adoption (898 posts using #cocotok)</li>
+                            <li><strong>Average 19.34% engagement rate</strong> outperforms industry standard (2-5%) by 3.9x to 9.7x</li>
+                            <li><strong>Top performer (Video 1):</strong> 25.99% ER demonstrates peak content quality</li>
+                            <li><strong>Consistent execution:</strong> All Top 5 videos exceed 16% ER, proving repeatable strategy</li>
+                            <li><strong>High save rates</strong> indicate lasting content value, driving algorithmic amplification</li>
+                            <li><strong>Community adoption:</strong> 898 user-generated posts using #cocotok hashtag</li>
                         </ul>
                     </div>
 
-                    <!-- Slide 2: Top 5 Performers -->
+                    <!-- Slide 2: Growth Trajectory -->
                     <div class="scroll-slide">
-                        <h4>Top 5 Highest Performing Videos</h4>
-                        <div class="chart-container">
-                            <canvas id="cocotokTop5Chart"></canvas>
-                        </div>
-                        <ul class="campaign-bullets">
-                            <li>Videos with 20%+ engagement rate = 4-10x above industry standard</li>
-                            <li>High saves indicate lasting value; high shares drive exponential reach</li>
-                            <li>Repeatable performance across 50+ videos proves systematic content strategy</li>
-                            <li><strong>Video #2 (1.6M views):</strong> Posted as test for engagement strategy - validated viral scale with sustained engagement depth</li>
-                        </ul>
-                    </div>
-
-                    <!-- Slide 3: Growth Trajectory -->
-                    <div class="scroll-slide">
-                        <h4>Growth Trajectory (0→213K Followers)</h4>
+                        <h4>Growth Trajectory: 0→213K Followers Through Strategic Pivots</h4>
                         <div class="chart-container">
                             <canvas id="cocotokGrowthChart"></canvas>
                         </div>
                         <ul class="campaign-bullets">
-                            <li><strong>Phase 1 (Jun-Sep 2022):</strong> Audience foundation - tested trending content formats and refined niche positioning (170K→180K followers)</li>
-                            <li><strong>Phase 2 (Sep-Dec 2022):</strong> Retention optimization - plateaued growth while maintaining engagement and exploring content strategies (180K→209K)</li>
-                            <li><strong>Phase 3 (Dec 2022-Jan 2023):</strong> Strategic pivot - launched targeted #CocoTok campaign with daily posting cadence, achieving rapid growth (209K→213K peak)</li>
-                            <li><strong>Phase 4 (Jan 2023-Present):</strong> Sustainable maintenance - shifted to efficient content schedule while preserving audience engagement (213K→202K controlled decay)</li>
+                            <li><strong>Genesis (May-Dec 2020):</strong> Niche discovery through ASMR-style content, established "CocoTok" brand identity (1K→3K followers)</li>
+                            <li><strong>CocoTok 1.0 (Dec 2020-Jun 2021):</strong> Explosive growth via 5-7x/week posting cadence and niche dominance (+77K in 6 months)</li>
+                            <li><strong>Strategic Pivots (Jul 2021-Feb 2022):</strong> Broke two growth plateaus by adapting content format—integrated personality, humor, and storytelling</li>
+                            <li><strong>CocoTok 3.0 (Mar 2022-Jan 2023):</strong> Multi-format A/B testing and scripted content drove final surge to 213K peak (+34K in 10 months)</li>
+                            <li><strong>Retention (Jan 2023-Present):</strong> Maintained 95% of peak audience (202K) with reduced posting frequency—demonstrating strong community foundation</li>
+                            <li><strong>Click legend to toggle monthly gains overlay</strong> (light blue line shows granular Social Blade data from Nov 2021-Jan 2023)</li>
                         </ul>
                     </div>
 
