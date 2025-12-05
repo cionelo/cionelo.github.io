@@ -254,6 +254,13 @@
       opacity: 1;
     }
     
+    .curric-btn-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
     .curric-btn-title {
       font-size: 20px;
       font-weight: 700;
@@ -266,6 +273,47 @@
       font-size: 14px;
       color: var(--text-secondary);
       font-weight: 500;
+    }
+    
+    /* Pin/Star Button */
+    .pin-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 10;
+      opacity: 0;
+    }
+    
+    .curric-btn:hover .pin-btn {
+      opacity: 1;
+    }
+    
+    .pin-btn:hover {
+      background: var(--reddit-orange);
+      border-color: var(--reddit-orange);
+      transform: scale(1.1) rotate(15deg);
+    }
+    
+    .pin-btn.pinned {
+      opacity: 1;
+      background: var(--reddit-orange);
+      border-color: var(--reddit-orange);
+    }
+    
+    .pin-btn.pinned:hover {
+      background: #ff5722;
+      border-color: #ff5722;
     }
     
     /* Category-specific colors */
@@ -393,7 +441,8 @@
       <!-- Quick Jump Navigation -->
       <nav class="quick-nav">
         <span class="quick-nav-label">Jump to:</span>
-        <button class="quick-nav-btn" onclick="scrollToSection('admin')">Admin</button>
+        <button class="quick-nav-btn" onclick="openFolder('STUDENT_WORK_ID')">📁 Student Work</button>
+        <button class="quick-nav-btn" onclick="scrollToSection('favorites')">⭐ Favorites</button>
         <button class="quick-nav-btn" onclick="scrollToSection('math')">Math</button>
         <button class="quick-nav-btn" onclick="scrollToSection('reading')">Reading</button>
         <button class="quick-nav-btn" onclick="scrollToSection('test-prep')">Test Prep</button>
@@ -406,23 +455,21 @@
   <!-- MAIN CONTENT -->
   <main class="container">
     
-    <!-- ADMIN & RESOURCES SECTION -->
-    <section id="admin" class="section">
+    <!-- PINNED FAVORITES SECTION -->
+    <section id="favorites" class="section">
       <div class="section-header">
-        <span class="section-icon">🏛️</span>
-        <h2 class="section-title">Admin & Resources</h2>
+        <span class="section-icon">⭐</span>
+        <h2 class="section-title">Pinned Favorites</h2>
       </div>
       
-      <div class="curric-grid admin-grid">
-        <button class="curric-btn" data-category="admin" data-name="Student Work" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Student Work</div>
-          <div class="curric-btn-meta">Access student submissions and completed work</div>
-        </button>
-        
-        <button class="curric-btn" data-category="admin" data-name="Special Education" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Special Education</div>
-          <div class="curric-btn-meta">Specialized resources and accommodations</div>
-        </button>
+      <div id="favoritesGrid" class="curric-grid admin-grid">
+        <!-- Pinned curricula will be dynamically inserted here -->
+      </div>
+      
+      <div id="favoritesEmpty" class="empty-state">
+        <div class="empty-state-icon">📌</div>
+        <p><strong>No favorites pinned yet</strong></p>
+        <p>Click the ⭐ star icon on any curriculum below to pin it here for quick access.</p>
       </div>
     </section>
     
@@ -434,39 +481,60 @@
       </div>
       
       <div class="curric-grid">
-        <button class="curric-btn" data-category="math" data-name="Grade 6 Math" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Grade 6 Math</div>
-          <div class="curric-btn-meta">6th grade mathematics curriculum</div>
+        <button class="curric-btn" data-category="math" data-name="Grade 6 Math" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Grade 6 Math</div>
+            <div class="curric-btn-meta">6th grade mathematics curriculum</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="math" data-name="Elementary Units" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Elementary Units</div>
-          <div class="curric-btn-meta">Elementary-level math units</div>
+        <button class="curric-btn" data-category="math" data-name="Elementary Units" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Elementary Units</div>
+            <div class="curric-btn-meta">Elementary-level math units</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="math" data-name="PreAlgebra" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">PreAlgebra</div>
-          <div class="curric-btn-meta">Pre-algebra concepts and foundations</div>
+        <button class="curric-btn" data-category="math" data-name="PreAlgebra" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">PreAlgebra</div>
+            <div class="curric-btn-meta">Pre-algebra concepts and foundations</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="math" data-name="Algebra 1" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Algebra 1</div>
-          <div class="curric-btn-meta">First-year algebra curriculum</div>
+        <button class="curric-btn" data-category="math" data-name="Algebra 1" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Algebra 1</div>
+            <div class="curric-btn-meta">First-year algebra curriculum</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="math" data-name="Algebra 2" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Algebra 2</div>
-          <div class="curric-btn-meta">Second-year algebra curriculum</div>
+        <button class="curric-btn" data-category="math" data-name="Algebra 2" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Algebra 2</div>
+            <div class="curric-btn-meta">Second-year algebra curriculum</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="math" data-name="Geometry" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Geometry</div>
-          <div class="curric-btn-meta">Geometry concepts and proofs</div>
+        <button class="curric-btn" data-category="math" data-name="Geometry" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Geometry</div>
+            <div class="curric-btn-meta">Geometry concepts and proofs</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="math" data-name="Math (SM)" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Math (SM)</div>
-          <div class="curric-btn-meta">SM's specialized math resources</div>
+        <button class="curric-btn" data-category="math" data-name="Math (SM)" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Math (SM)</div>
+            <div class="curric-btn-meta">SM's specialized math resources</div>
+          </div>
         </button>
       </div>
     </section>
@@ -479,39 +547,60 @@
       </div>
       
       <div class="curric-grid">
-        <button class="curric-btn" data-category="reading" data-name="Dibels" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Dibels</div>
-          <div class="curric-btn-meta">Dynamic Indicators of Basic Early Literacy Skills</div>
+        <button class="curric-btn" data-category="reading" data-name="Dibels" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Dibels</div>
+            <div class="curric-btn-meta">Dynamic Indicators of Basic Early Literacy Skills</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="reading" data-name="Bridges (SM)" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Bridges (SM)</div>
-          <div class="curric-btn-meta">SM's Bridges curriculum resources</div>
+        <button class="curric-btn" data-category="reading" data-name="Bridges (SM)" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Bridges (SM)</div>
+            <div class="curric-btn-meta">SM's Bridges curriculum resources</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="reading" data-name="Decodable Books (SM)" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Decodable Books (SM)</div>
-          <div class="curric-btn-meta">SM's phonics-focused reading materials</div>
+        <button class="curric-btn" data-category="reading" data-name="Decodable Books (SM)" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Decodable Books (SM)</div>
+            <div class="curric-btn-meta">SM's phonics-focused reading materials</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="reading" data-name="Orton Gillingham (SM)" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Orton Gillingham (SM)</div>
-          <div class="curric-btn-meta">SM's structured literacy approach</div>
+        <button class="curric-btn" data-category="reading" data-name="Orton Gillingham (SM)" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Orton Gillingham (SM)</div>
+            <div class="curric-btn-meta">SM's structured literacy approach</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="reading" data-name="Story and Comprehension" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Story and Comprehension</div>
-          <div class="curric-btn-meta">Reading comprehension strategies and materials</div>
+        <button class="curric-btn" data-category="reading" data-name="Story and Comprehension" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Story and Comprehension</div>
+            <div class="curric-btn-meta">Reading comprehension strategies and materials</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="reading" data-name="Word Study" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Word Study</div>
-          <div class="curric-btn-meta">Vocabulary and word analysis</div>
+        <button class="curric-btn" data-category="reading" data-name="Word Study" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Word Study</div>
+            <div class="curric-btn-meta">Vocabulary and word analysis</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="reading" data-name="Fountas and Pinnell (SM)" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Fountas and Pinnell (SM)</div>
-          <div class="curric-btn-meta">SM's guided reading resources</div>
+        <button class="curric-btn" data-category="reading" data-name="Fountas and Pinnell (SM)" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Fountas and Pinnell (SM)</div>
+            <div class="curric-btn-meta">SM's guided reading resources</div>
+          </div>
         </button>
       </div>
     </section>
@@ -527,14 +616,20 @@
       <div class="subsection">
         <h3 class="subsection-title">📊 Math</h3>
         <div class="curric-grid">
-          <button class="curric-btn" data-category="test-prep" data-name="SAT/ACT Math" onclick="openFolder('FOLDER_ID_HERE')">
-            <div class="curric-btn-title">SAT/ACT Math</div>
-            <div class="curric-btn-meta">Standardized test math prep</div>
+          <button class="curric-btn" data-category="test-prep" data-name="SAT/ACT Math" data-folder-id="FOLDER_ID_HERE">
+            <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+            <div class="curric-btn-content">
+              <div class="curric-btn-title">SAT/ACT Math</div>
+              <div class="curric-btn-meta">Standardized test math prep</div>
+            </div>
           </button>
           
-          <button class="curric-btn" data-category="test-prep" data-name="PSAT Math" onclick="openFolder('FOLDER_ID_HERE')">
-            <div class="curric-btn-title">PSAT Math</div>
-            <div class="curric-btn-meta">PSAT-focused math preparation</div>
+          <button class="curric-btn" data-category="test-prep" data-name="PSAT Math" data-folder-id="FOLDER_ID_HERE">
+            <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+            <div class="curric-btn-content">
+              <div class="curric-btn-title">PSAT Math</div>
+              <div class="curric-btn-meta">PSAT-focused math preparation</div>
+            </div>
           </button>
         </div>
       </div>
@@ -543,14 +638,20 @@
       <div class="subsection">
         <h3 class="subsection-title">✍️ Reading & Writing</h3>
         <div class="curric-grid">
-          <button class="curric-btn" data-category="test-prep" data-name="SAT/ACT Reading & Writing" onclick="openFolder('FOLDER_ID_HERE')">
-            <div class="curric-btn-title">SAT/ACT Reading & Writing</div>
-            <div class="curric-btn-meta">Evidence-based reading and writing prep</div>
+          <button class="curric-btn" data-category="test-prep" data-name="SAT/ACT Reading & Writing" data-folder-id="FOLDER_ID_HERE">
+            <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+            <div class="curric-btn-content">
+              <div class="curric-btn-title">SAT/ACT Reading & Writing</div>
+              <div class="curric-btn-meta">Evidence-based reading and writing prep</div>
+            </div>
           </button>
           
-          <button class="curric-btn" data-category="test-prep" data-name="PSAT Reading & Writing" onclick="openFolder('FOLDER_ID_HERE')">
-            <div class="curric-btn-title">PSAT Reading & Writing</div>
-            <div class="curric-btn-meta">PSAT verbal section preparation</div>
+          <button class="curric-btn" data-category="test-prep" data-name="PSAT Reading & Writing" data-folder-id="FOLDER_ID_HERE">
+            <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+            <div class="curric-btn-content">
+              <div class="curric-btn-title">PSAT Reading & Writing</div>
+              <div class="curric-btn-meta">PSAT verbal section preparation</div>
+            </div>
           </button>
         </div>
       </div>
@@ -559,9 +660,12 @@
       <div class="subsection">
         <h3 class="subsection-title">🎯 PSAT-Focused Resources</h3>
         <div class="curric-grid">
-          <button class="curric-btn" data-category="test-prep" data-name="PSAT Comprehensive" onclick="openFolder('FOLDER_ID_HERE')">
-            <div class="curric-btn-title">PSAT Comprehensive</div>
-            <div class="curric-btn-meta">Full PSAT preparation materials and strategies</div>
+          <button class="curric-btn" data-category="test-prep" data-name="PSAT Comprehensive" data-folder-id="FOLDER_ID_HERE">
+            <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+            <div class="curric-btn-content">
+              <div class="curric-btn-title">PSAT Comprehensive</div>
+              <div class="curric-btn-meta">Full PSAT preparation materials and strategies</div>
+            </div>
           </button>
         </div>
       </div>
@@ -575,14 +679,20 @@
       </div>
       
       <div class="curric-grid">
-        <button class="curric-btn" data-category="social" data-name="AP Human Geography" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">AP Human Geography</div>
-          <div class="curric-btn-meta">Advanced Placement human geography course</div>
+        <button class="curric-btn" data-category="social" data-name="AP Human Geography" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">AP Human Geography</div>
+            <div class="curric-btn-meta">Advanced Placement human geography course</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="social" data-name="Social Studies Content" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Social Studies Content</div>
-          <div class="curric-btn-meta">General social studies materials</div>
+        <button class="curric-btn" data-category="social" data-name="Social Studies Content" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Social Studies Content</div>
+            <div class="curric-btn-meta">General social studies materials</div>
+          </div>
         </button>
       </div>
     </section>
@@ -595,19 +705,36 @@
       </div>
       
       <div class="curric-grid">
-        <button class="curric-btn" data-category="other" data-name="Middle & High School Resources" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Middle & High School Resources</div>
-          <div class="curric-btn-meta">General secondary education materials</div>
+        <button class="curric-btn" data-category="other" data-name="Special Education" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Special Education</div>
+            <div class="curric-btn-meta">Specialized resources and accommodations</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="other" data-name="Post-Secondary Planning" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Post-Secondary Planning</div>
-          <div class="curric-btn-meta">College and career readiness resources</div>
+        <button class="curric-btn" data-category="other" data-name="Middle & High School Resources" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Middle & High School Resources</div>
+            <div class="curric-btn-meta">General secondary education materials</div>
+          </div>
         </button>
         
-        <button class="curric-btn" data-category="other" data-name="Mote Audio" onclick="openFolder('FOLDER_ID_HERE')">
-          <div class="curric-btn-title">Mote Audio</div>
-          <div class="curric-btn-meta">Audio feedback and communication tools</div>
+        <button class="curric-btn" data-category="other" data-name="Post-Secondary Planning" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Post-Secondary Planning</div>
+            <div class="curric-btn-meta">College and career readiness resources</div>
+          </div>
+        </button>
+        
+        <button class="curric-btn" data-category="other" data-name="Mote Audio" data-folder-id="FOLDER_ID_HERE">
+          <button class="pin-btn" onclick="event.stopPropagation(); togglePin(this);" title="Pin to favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">Mote Audio</div>
+            <div class="curric-btn-meta">Audio feedback and communication tools</div>
+          </div>
         </button>
       </div>
     </section>
@@ -619,15 +746,14 @@
     /**
      * STD Curriculum Directory - Client Logic
      * Version: 1.0
-     * Features: Instant search filter, smooth scroll navigation, folder opening
+     * Features: localStorage-based pinning (Option 1), instant search filter, smooth scroll navigation
+     * Future: Ready for Option 3 (backend sync when logged in)
      */
     
     // ==================== CONFIGURATION ====================
-    // TODO: Replace these with actual Google Drive folder IDs
     const FOLDER_IDS = {
-      // Admin
-      'Student Work': 'YOUR_FOLDER_ID_HERE',
-      'Special Education': 'YOUR_FOLDER_ID_HERE',
+      // Student Work (in quick nav)
+      'STUDENT_WORK_ID': 'YOUR_FOLDER_ID_HERE',
       
       // Math
       'Grade 6 Math': 'YOUR_FOLDER_ID_HERE',
@@ -659,17 +785,166 @@
       'Social Studies Content': 'YOUR_FOLDER_ID_HERE',
       
       // Other
+      'Special Education': 'YOUR_FOLDER_ID_HERE',
       'Middle & High School Resources': 'YOUR_FOLDER_ID_HERE',
       'Post-Secondary Planning': 'YOUR_FOLDER_ID_HERE',
       'Mote Audio': 'YOUR_FOLDER_ID_HERE'
     };
     
+    // LocalStorage key for pinned curricula
+    const STORAGE_KEY = 'std_pinned_curricula';
+    
     // ==================== DOM ELEMENTS ====================
     const searchInput = document.getElementById('curricSearch');
-    const allButtons = document.querySelectorAll('.curric-btn');
+    const allButtons = document.querySelectorAll('.curric-btn[data-name]');
     const allSections = document.querySelectorAll('.section');
+    const favoritesGrid = document.getElementById('favoritesGrid');
+    const favoritesEmpty = document.getElementById('favoritesEmpty');
+    
+    // ==================== PINNING SYSTEM (localStorage) ====================
+    
+    /**
+     * Get pinned curricula from localStorage
+     * Returns array of curriculum names
+     */
+    function getPinnedCurricula() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return stored ? JSON.parse(stored) : [];
+      } catch (e) {
+        console.error('Failed to load pinned curricula:', e);
+        return [];
+      }
+    }
+    
+    /**
+     * Save pinned curricula to localStorage
+     */
+    function savePinnedCurricula(pinnedArray) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(pinnedArray));
+      } catch (e) {
+        console.error('Failed to save pinned curricula:', e);
+      }
+    }
+    
+    /**
+     * Toggle pin status for a curriculum
+     * Called when star button is clicked
+     */
+    function togglePin(pinButton) {
+      const curricBtn = pinButton.closest('.curric-btn');
+      const name = curricBtn.getAttribute('data-name');
+      
+      let pinned = getPinnedCurricula();
+      
+      if (pinned.includes(name)) {
+        // Unpin
+        pinned = pinned.filter(n => n !== name);
+        pinButton.classList.remove('pinned');
+      } else {
+        // Pin
+        pinned.push(name);
+        pinButton.classList.add('pinned');
+      }
+      
+      savePinnedCurricula(pinned);
+      renderFavorites();
+    }
+    
+    /**
+     * Render favorites section at top of page
+     */
+    function renderFavorites() {
+      const pinned = getPinnedCurricula();
+      
+      if (pinned.length === 0) {
+        favoritesGrid.style.display = 'none';
+        favoritesEmpty.style.display = 'block';
+        return;
+      }
+      
+      favoritesGrid.style.display = 'grid';
+      favoritesEmpty.style.display = 'none';
+      favoritesGrid.innerHTML = '';
+      
+      pinned.forEach(name => {
+        // Find the original button to clone its data
+        const originalBtn = document.querySelector(`.curric-btn[data-name="${name}"]`);
+        if (!originalBtn) return;
+        
+        const category = originalBtn.getAttribute('data-category');
+        const folderId = originalBtn.getAttribute('data-folder-id');
+        const title = originalBtn.querySelector('.curric-btn-title').textContent;
+        const meta = originalBtn.querySelector('.curric-btn-meta').textContent;
+        
+        // Create favorite button (clone)
+        const favBtn = document.createElement('button');
+        favBtn.className = 'curric-btn';
+        favBtn.setAttribute('data-category', category);
+        favBtn.setAttribute('data-name', name);
+        favBtn.setAttribute('data-folder-id', folderId);
+        
+        favBtn.innerHTML = `
+          <button class="pin-btn pinned" onclick="event.stopPropagation(); togglePin(this);" title="Unpin from favorites">⭐</button>
+          <div class="curric-btn-content">
+            <div class="curric-btn-title">${title}</div>
+            <div class="curric-btn-meta">${meta}</div>
+          </div>
+        `;
+        
+        // Add click handler to open folder
+        favBtn.addEventListener('click', () => {
+          openFolder(folderId);
+        });
+        
+        favoritesGrid.appendChild(favBtn);
+      });
+    }
+    
+    /**
+     * Initialize pin button states based on localStorage
+     */
+    function initializePinStates() {
+      const pinned = getPinnedCurricula();
+      
+      allButtons.forEach(btn => {
+        const name = btn.getAttribute('data-name');
+        const pinBtn = btn.querySelector('.pin-btn');
+        
+        if (pinned.includes(name)) {
+          pinBtn.classList.add('pinned');
+        }
+      });
+      
+      renderFavorites();
+    }
+    
+    // ==================== FOLDER OPENING ====================
+    
+    /**
+     * Open Google Drive folder in new tab
+     */
+    function openFolder(folderId) {
+      if (!folderId || folderId === 'FOLDER_ID_HERE' || folderId === 'YOUR_FOLDER_ID_HERE') {
+        alert('⚠️ Folder ID not configured yet!\n\nPlease update the FOLDER_IDS configuration in the script.');
+        return;
+      }
+      
+      const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
+      window.open(driveUrl, '_blank');
+    }
+    
+    // Add click handlers to all curriculum buttons
+    allButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const folderId = btn.getAttribute('data-folder-id');
+        openFolder(folderId);
+      });
+    });
     
     // ==================== INSTANT SEARCH FILTER ====================
+    
     searchInput.addEventListener('input', (e) => {
       const query = e.target.value.toLowerCase().trim();
       
@@ -710,6 +985,7 @@
     });
     
     // ==================== SMOOTH SCROLL NAVIGATION ====================
+    
     function scrollToSection(sectionId) {
       const section = document.getElementById(sectionId);
       if (section) {
@@ -717,19 +993,8 @@
       }
     }
     
-    // ==================== FOLDER OPENING ====================
-    function openFolder(folderId) {
-      if (!folderId || folderId === 'FOLDER_ID_HERE' || folderId === 'YOUR_FOLDER_ID_HERE') {
-        alert('⚠️ Folder ID not configured yet!\n\nPlease update the FOLDER_IDS configuration in the script.');
-        return;
-      }
-      
-      // Open Google Drive folder in new tab
-      const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
-      window.open(driveUrl, '_blank');
-    }
-    
     // ==================== KEYBOARD SHORTCUTS ====================
+    
     document.addEventListener('keydown', (e) => {
       // Focus search with "/" key
       if (e.key === '/' && document.activeElement !== searchInput) {
@@ -744,9 +1009,51 @@
       }
     });
     
+    // ==================== FUTURE: BACKEND SYNC (Option 3) ====================
+    
+    /**
+     * PLACEHOLDER for future implementation
+     * When dashboard integration happens, check if user is logged in
+     * and sync pins with backend
+     */
+    async function syncPinsWithBackend() {
+      // TODO: Implement when integrating with STD dashboard
+      // Check for session token
+      // If logged in:
+      //   - Fetch pins from backend
+      //   - Merge with localStorage
+      //   - Save to backend
+      // If not logged in:
+      //   - Use localStorage only
+      
+      // Example structure:
+      /*
+      const sessionToken = getSessionToken(); // From STD
+      if (sessionToken) {
+        try {
+          const backendPins = await fetchPinsFromBackend(sessionToken);
+          const localPins = getPinnedCurricula();
+          const mergedPins = [...new Set([...backendPins, ...localPins])];
+          savePinnedCurricula(mergedPins);
+          await savePinsToBackend(sessionToken, mergedPins);
+        } catch (e) {
+          console.warn('Backend sync failed, using localStorage only:', e);
+        }
+      }
+      */
+    }
+    
     // ==================== INITIALIZATION ====================
+    
     console.log('STD Curriculum Directory v1.0 loaded');
     console.log(`Total curricula: ${allButtons.length}`);
+    console.log(`Pinned curricula: ${getPinnedCurricula().length}`);
+    
+    // Initialize pin states from localStorage
+    initializePinStates();
+    
+    // Future: Call syncPinsWithBackend() when integrated with dashboard
+    // syncPinsWithBackend();
   </script>
 </body>
 </html>
