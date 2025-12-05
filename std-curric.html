@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculum Directory - Student Tutor Dashboard</title>
+  <style>
+    /**
+     * STD Curriculum Directory
+     * Version: 1.0
+     * Date: 2025-12-05
+     * Standalone curriculum navigation page
+     * Design: Matches STD v3.10 theme with 15% larger elements
+     */
+    
+    :root {
+      --reddit-orange: #FF4500;
+      --reddit-blue: #0079D3;
+      --card-bg: #ffffff;
+      --hover-bg: #f6f7f8;
+      --border: #ccc;
+      --text-primary: #1c1c1c;
+      --text-secondary: #7c7c7c;
+      --shadow: 0 2px 4px rgba(0,0,0,0.1);
+      
+      /* Category colors */
+      --color-admin: #6B46C1;
+      --color-math: #2563EB;
+      --color-reading: #059669;
+      --color-test-prep: #DC2626;
+      --color-social: #D97706;
+      --color-other: #64748B;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #DAE0E6;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    /* ==================== HEADER ==================== */
+    .header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--reddit-orange);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    
+    .search-container {
+      flex: 1;
+      max-width: 600px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 12px 20px;
+      border: 2px solid var(--border);
+      border-radius: 28px;
+      font-size: 17px;
+      background: var(--hover-bg);
+      transition: all 0.2s;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      background: white;
+      border-color: var(--reddit-blue);
+      box-shadow: 0 0 0 3px rgba(0, 121, 211, 0.1);
+    }
+    
+    .back-link {
+      padding: 10px 24px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 24px;
+      font-size: 16px;
+      color: var(--text-primary);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
+    .back-link:hover {
+      background: var(--hover-bg);
+      border-color: var(--reddit-orange);
+      color: var(--reddit-orange);
+    }
+    
+    /* ==================== QUICK JUMP NAVIGATION ==================== */
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .quick-nav-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .quick-nav-btn {
+      padding: 8px 16px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .quick-nav-btn:hover {
+      border-color: var(--reddit-orange);
+      color: var(--reddit-orange);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(255, 69, 0, 0.2);
+    }
+    
+    /* ==================== MAIN CONTENT ==================== */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+    
+    .section {
+      margin-bottom: 48px;
+      scroll-margin-top: 100px; /* Account for sticky header */
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--border);
+    }
+    
+    .section-icon {
+      font-size: 32px;
+    }
+    
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .subsection {
+      margin-top: 24px;
+    }
+    
+    .subsection-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      padding-left: 4px;
+    }
+    
+    /* ==================== CURRICULUM GRID ==================== */
+    .curric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    
+    /* Admin section always 2 columns */
+    .curric-grid.admin-grid {
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+    
+    /* ==================== CURRICULUM BUTTONS ==================== */
+    .curric-btn {
+      background: var(--card-bg);
+      border: 3px solid transparent;
+      border-radius: 16px;
+      padding: 24px 28px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .curric-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--category-color, var(--reddit-orange));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    
+    .curric-btn:hover {
+      border-color: var(--category-color, var(--reddit-orange));
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .curric-btn:hover::before {
+      opacity: 1;
+    }
+    
+    .curric-btn-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    
+    .curric-btn-meta {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    /* Category-specific colors */
+    .curric-btn[data-category="admin"] {
+      --category-color: var(--color-admin);
+    }
+    
+    .curric-btn[data-category="math"] {
+      --category-color: var(--color-math);
+    }
+    
+    .curric-btn[data-category="reading"] {
+      --category-color: var(--color-reading);
+    }
+    
+    .curric-btn[data-category="test-prep"] {
+      --category-color: var(--color-test-prep);
+    }
+    
+    .curric-btn[data-category="social"] {
+      --category-color: var(--color-social);
+    }
+    
+    .curric-btn[data-category="other"] {
+      --category-color: var(--color-other);
+    }
+    
+    /* ==================== EMPTY STATE ==================== */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-secondary);
+      font-size: 18px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 2px dashed var(--border);
+    }
+    
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+    
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .search-container {
+        max-width: 100%;
+      }
+      
+      .quick-nav {
+        justify-content: center;
+      }
+      
+      .curric-grid,
+      .curric-grid.admin-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header {
+        padding: 16px 20px;
+      }
+      
+      .container {
+        padding: 24px 16px;
+      }
+      
+      .curric-btn {
+        padding: 20px 24px;
+      }
+      
+      .curric-btn-title {
+        font-size: 18px;
+      }
+    }
+    
+    /* ==================== UTILITIES ==================== */
+    .hidden {
+      display: none !important;
+    }
+    
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <!-- Top Row: Logo, Search, Back Button -->
+      <div class="header-top">
+        <div class="logo">
+          📚 Curriculum Directory
+        </div>
+        
+        <div class="search-container">
+          <input 
+            type="text" 
+            id="curricSearch" 
+            class="search-input" 
+            placeholder="🔍 Quick filter curricula..." 
+            autocomplete="off"
+          />
+        </div>
+        
+        <a href="#" class="back-link" onclick="window.history.back(); return false;">
+          ← Back to Dashboard
+        </a>
+      </div>
+      
+      <!-- Quick Jump Navigation -->
+      <nav class="quick-nav">
+        <span class="quick-nav-label">Jump to:</span>
+        <button class="quick-nav-btn" onclick="scrollToSection('admin')">Admin</button>
+        <button class="quick-nav-btn" onclick="scrollToSection('math')">Math</button>
+        <button class="quick-nav-btn" onclick="scrollToSection('reading')">Reading</button>
+        <button class="quick-nav-btn" onclick="scrollToSection('test-prep')">Test Prep</button>
+        <button class="quick-nav-btn" onclick="scrollToSection('social')">Social Studies</button>
+        <button class="quick-nav-btn" onclick="scrollToSection('other')">Other</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    
+    <!-- ADMIN & RESOURCES SECTION -->
+    <section id="admin" class="section">
+      <div class="section-header">
+        <span class="section-icon">🏛️</span>
+        <h2 class="section-title">Admin & Resources</h2>
+      </div>
+      
+      <div class="curric-grid admin-grid">
+        <button class="curric-btn" data-category="admin" data-name="Student Work" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Student Work</div>
+          <div class="curric-btn-meta">Access student submissions and completed work</div>
+        </button>
+        
+        <button class="curric-btn" data-category="admin" data-name="Special Education" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Special Education</div>
+          <div class="curric-btn-meta">Specialized resources and accommodations</div>
+        </button>
+      </div>
+    </section>
+    
+    <!-- MATH CURRICULA SECTION -->
+    <section id="math" class="section">
+      <div class="section-header">
+        <span class="section-icon">📐</span>
+        <h2 class="section-title">Math Curricula</h2>
+      </div>
+      
+      <div class="curric-grid">
+        <button class="curric-btn" data-category="math" data-name="Grade 6 Math" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Grade 6 Math</div>
+          <div class="curric-btn-meta">6th grade mathematics curriculum</div>
+        </button>
+        
+        <button class="curric-btn" data-category="math" data-name="Elementary Units" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Elementary Units</div>
+          <div class="curric-btn-meta">Elementary-level math units</div>
+        </button>
+        
+        <button class="curric-btn" data-category="math" data-name="PreAlgebra" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">PreAlgebra</div>
+          <div class="curric-btn-meta">Pre-algebra concepts and foundations</div>
+        </button>
+        
+        <button class="curric-btn" data-category="math" data-name="Algebra 1" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Algebra 1</div>
+          <div class="curric-btn-meta">First-year algebra curriculum</div>
+        </button>
+        
+        <button class="curric-btn" data-category="math" data-name="Algebra 2" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Algebra 2</div>
+          <div class="curric-btn-meta">Second-year algebra curriculum</div>
+        </button>
+        
+        <button class="curric-btn" data-category="math" data-name="Geometry" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Geometry</div>
+          <div class="curric-btn-meta">Geometry concepts and proofs</div>
+        </button>
+        
+        <button class="curric-btn" data-category="math" data-name="Math (SM)" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Math (SM)</div>
+          <div class="curric-btn-meta">SM's specialized math resources</div>
+        </button>
+      </div>
+    </section>
+    
+    <!-- READING & LITERACY SECTION -->
+    <section id="reading" class="section">
+      <div class="section-header">
+        <span class="section-icon">📚</span>
+        <h2 class="section-title">Reading & Literacy</h2>
+      </div>
+      
+      <div class="curric-grid">
+        <button class="curric-btn" data-category="reading" data-name="Dibels" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Dibels</div>
+          <div class="curric-btn-meta">Dynamic Indicators of Basic Early Literacy Skills</div>
+        </button>
+        
+        <button class="curric-btn" data-category="reading" data-name="Bridges (SM)" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Bridges (SM)</div>
+          <div class="curric-btn-meta">SM's Bridges curriculum resources</div>
+        </button>
+        
+        <button class="curric-btn" data-category="reading" data-name="Decodable Books (SM)" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Decodable Books (SM)</div>
+          <div class="curric-btn-meta">SM's phonics-focused reading materials</div>
+        </button>
+        
+        <button class="curric-btn" data-category="reading" data-name="Orton Gillingham (SM)" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Orton Gillingham (SM)</div>
+          <div class="curric-btn-meta">SM's structured literacy approach</div>
+        </button>
+        
+        <button class="curric-btn" data-category="reading" data-name="Story and Comprehension" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Story and Comprehension</div>
+          <div class="curric-btn-meta">Reading comprehension strategies and materials</div>
+        </button>
+        
+        <button class="curric-btn" data-category="reading" data-name="Word Study" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Word Study</div>
+          <div class="curric-btn-meta">Vocabulary and word analysis</div>
+        </button>
+        
+        <button class="curric-btn" data-category="reading" data-name="Fountas and Pinnell (SM)" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Fountas and Pinnell (SM)</div>
+          <div class="curric-btn-meta">SM's guided reading resources</div>
+        </button>
+      </div>
+    </section>
+    
+    <!-- TEST PREP SECTION -->
+    <section id="test-prep" class="section">
+      <div class="section-header">
+        <span class="section-icon">📝</span>
+        <h2 class="section-title">Test Prep</h2>
+      </div>
+      
+      <!-- SAT/ACT/PSAT Math -->
+      <div class="subsection">
+        <h3 class="subsection-title">📊 Math</h3>
+        <div class="curric-grid">
+          <button class="curric-btn" data-category="test-prep" data-name="SAT/ACT Math" onclick="openFolder('FOLDER_ID_HERE')">
+            <div class="curric-btn-title">SAT/ACT Math</div>
+            <div class="curric-btn-meta">Standardized test math prep</div>
+          </button>
+          
+          <button class="curric-btn" data-category="test-prep" data-name="PSAT Math" onclick="openFolder('FOLDER_ID_HERE')">
+            <div class="curric-btn-title">PSAT Math</div>
+            <div class="curric-btn-meta">PSAT-focused math preparation</div>
+          </button>
+        </div>
+      </div>
+      
+      <!-- SAT/ACT/PSAT Reading & Writing -->
+      <div class="subsection">
+        <h3 class="subsection-title">✍️ Reading & Writing</h3>
+        <div class="curric-grid">
+          <button class="curric-btn" data-category="test-prep" data-name="SAT/ACT Reading & Writing" onclick="openFolder('FOLDER_ID_HERE')">
+            <div class="curric-btn-title">SAT/ACT Reading & Writing</div>
+            <div class="curric-btn-meta">Evidence-based reading and writing prep</div>
+          </button>
+          
+          <button class="curric-btn" data-category="test-prep" data-name="PSAT Reading & Writing" onclick="openFolder('FOLDER_ID_HERE')">
+            <div class="curric-btn-title">PSAT Reading & Writing</div>
+            <div class="curric-btn-meta">PSAT verbal section preparation</div>
+          </button>
+        </div>
+      </div>
+      
+      <!-- PSAT Focused Resources -->
+      <div class="subsection">
+        <h3 class="subsection-title">🎯 PSAT-Focused Resources</h3>
+        <div class="curric-grid">
+          <button class="curric-btn" data-category="test-prep" data-name="PSAT Comprehensive" onclick="openFolder('FOLDER_ID_HERE')">
+            <div class="curric-btn-title">PSAT Comprehensive</div>
+            <div class="curric-btn-meta">Full PSAT preparation materials and strategies</div>
+          </button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- SOCIAL STUDIES SECTION -->
+    <section id="social" class="section">
+      <div class="section-header">
+        <span class="section-icon">🌍</span>
+        <h2 class="section-title">Social Studies</h2>
+      </div>
+      
+      <div class="curric-grid">
+        <button class="curric-btn" data-category="social" data-name="AP Human Geography" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">AP Human Geography</div>
+          <div class="curric-btn-meta">Advanced Placement human geography course</div>
+        </button>
+        
+        <button class="curric-btn" data-category="social" data-name="Social Studies Content" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Social Studies Content</div>
+          <div class="curric-btn-meta">General social studies materials</div>
+        </button>
+      </div>
+    </section>
+    
+    <!-- OTHER RESOURCES SECTION -->
+    <section id="other" class="section">
+      <div class="section-header">
+        <span class="section-icon">📦</span>
+        <h2 class="section-title">Other Resources</h2>
+      </div>
+      
+      <div class="curric-grid">
+        <button class="curric-btn" data-category="other" data-name="Middle & High School Resources" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Middle & High School Resources</div>
+          <div class="curric-btn-meta">General secondary education materials</div>
+        </button>
+        
+        <button class="curric-btn" data-category="other" data-name="Post-Secondary Planning" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Post-Secondary Planning</div>
+          <div class="curric-btn-meta">College and career readiness resources</div>
+        </button>
+        
+        <button class="curric-btn" data-category="other" data-name="Mote Audio" onclick="openFolder('FOLDER_ID_HERE')">
+          <div class="curric-btn-title">Mote Audio</div>
+          <div class="curric-btn-meta">Audio feedback and communication tools</div>
+        </button>
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    /**
+     * STD Curriculum Directory - Client Logic
+     * Version: 1.0
+     * Features: Instant search filter, smooth scroll navigation, folder opening
+     */
+    
+    // ==================== CONFIGURATION ====================
+    // TODO: Replace these with actual Google Drive folder IDs
+    const FOLDER_IDS = {
+      // Admin
+      'Student Work': 'YOUR_FOLDER_ID_HERE',
+      'Special Education': 'YOUR_FOLDER_ID_HERE',
+      
+      // Math
+      'Grade 6 Math': 'YOUR_FOLDER_ID_HERE',
+      'Elementary Units': 'YOUR_FOLDER_ID_HERE',
+      'PreAlgebra': 'YOUR_FOLDER_ID_HERE',
+      'Algebra 1': 'YOUR_FOLDER_ID_HERE',
+      'Algebra 2': 'YOUR_FOLDER_ID_HERE',
+      'Geometry': 'YOUR_FOLDER_ID_HERE',
+      'Math (SM)': 'YOUR_FOLDER_ID_HERE',
+      
+      // Reading
+      'Dibels': 'YOUR_FOLDER_ID_HERE',
+      'Bridges (SM)': 'YOUR_FOLDER_ID_HERE',
+      'Decodable Books (SM)': 'YOUR_FOLDER_ID_HERE',
+      'Orton Gillingham (SM)': 'YOUR_FOLDER_ID_HERE',
+      'Story and Comprehension': 'YOUR_FOLDER_ID_HERE',
+      'Word Study': 'YOUR_FOLDER_ID_HERE',
+      'Fountas and Pinnell (SM)': 'YOUR_FOLDER_ID_HERE',
+      
+      // Test Prep
+      'SAT/ACT Math': 'YOUR_FOLDER_ID_HERE',
+      'PSAT Math': 'YOUR_FOLDER_ID_HERE',
+      'SAT/ACT Reading & Writing': 'YOUR_FOLDER_ID_HERE',
+      'PSAT Reading & Writing': 'YOUR_FOLDER_ID_HERE',
+      'PSAT Comprehensive': 'YOUR_FOLDER_ID_HERE',
+      
+      // Social Studies
+      'AP Human Geography': 'YOUR_FOLDER_ID_HERE',
+      'Social Studies Content': 'YOUR_FOLDER_ID_HERE',
+      
+      // Other
+      'Middle & High School Resources': 'YOUR_FOLDER_ID_HERE',
+      'Post-Secondary Planning': 'YOUR_FOLDER_ID_HERE',
+      'Mote Audio': 'YOUR_FOLDER_ID_HERE'
+    };
+    
+    // ==================== DOM ELEMENTS ====================
+    const searchInput = document.getElementById('curricSearch');
+    const allButtons = document.querySelectorAll('.curric-btn');
+    const allSections = document.querySelectorAll('.section');
+    
+    // ==================== INSTANT SEARCH FILTER ====================
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      
+      if (!query) {
+        // Show all buttons and sections
+        allButtons.forEach(btn => btn.style.display = 'flex');
+        allSections.forEach(section => section.style.display = 'block');
+        return;
+      }
+      
+      let visibleSections = new Set();
+      
+      allButtons.forEach(btn => {
+        const name = btn.getAttribute('data-name').toLowerCase();
+        const title = btn.querySelector('.curric-btn-title').textContent.toLowerCase();
+        const meta = btn.querySelector('.curric-btn-meta').textContent.toLowerCase();
+        
+        const matches = name.includes(query) || title.includes(query) || meta.includes(query);
+        
+        if (matches) {
+          btn.style.display = 'flex';
+          // Track which section this button belongs to
+          const section = btn.closest('.section');
+          if (section) visibleSections.add(section);
+        } else {
+          btn.style.display = 'none';
+        }
+      });
+      
+      // Show/hide sections based on whether they have visible buttons
+      allSections.forEach(section => {
+        if (visibleSections.has(section)) {
+          section.style.display = 'block';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    });
+    
+    // ==================== SMOOTH SCROLL NAVIGATION ====================
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    
+    // ==================== FOLDER OPENING ====================
+    function openFolder(folderId) {
+      if (!folderId || folderId === 'FOLDER_ID_HERE' || folderId === 'YOUR_FOLDER_ID_HERE') {
+        alert('⚠️ Folder ID not configured yet!\n\nPlease update the FOLDER_IDS configuration in the script.');
+        return;
+      }
+      
+      // Open Google Drive folder in new tab
+      const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
+      window.open(driveUrl, '_blank');
+    }
+    
+    // ==================== KEYBOARD SHORTCUTS ====================
+    document.addEventListener('keydown', (e) => {
+      // Focus search with "/" key
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+      
+      // Clear search with "Escape" key
+      if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input'));
+      }
+    });
+    
+    // ==================== INITIALIZATION ====================
+    console.log('STD Curriculum Directory v1.0 loaded');
+    console.log(`Total curricula: ${allButtons.length}`);
+  </script>
+</body>
+</html>
