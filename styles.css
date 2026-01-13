@@ -328,18 +328,41 @@ p {
 }
 
 .portfolio-banner-link {
+    position: relative;
     color: var(--marketing-red);
     text-decoration: underline;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.125rem;
     transition: var(--transition);
     display: inline-block;
     font-style: italic;
+    background: linear-gradient(
+        90deg,
+        var(--marketing-red) 0%,
+        var(--marketing-red-light) 25%,
+        #ff8b99 50%,
+        var(--marketing-red-light) 75%,
+        var(--marketing-red) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
 }
 
 .portfolio-banner-link:hover {
-    color: var(--marketing-red-light);
-    text-decoration: underline;
+    animation: shimmer 1.5s linear infinite;
+    transform: scale(1.02);
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
 }
 
 /* ================================
@@ -1438,7 +1461,7 @@ body.minecraft-theme .hearth-container {
 /* Small Mobile (480px and below) */
 @media (max-width: 480px) {
     .portfolio-banner-link {
-        font-size: 0.875rem;
+        font-size: 1rem;
     }
 
     .campaign-header h3 {
