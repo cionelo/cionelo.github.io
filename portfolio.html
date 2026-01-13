@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Nehemiah Cionelo</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+    <link rel="apple-touch-icon" href="assets/icons/favicon.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="portfolio-styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="brand">
+                    <h1>Nehemiah Cionelo</h1>
+                    <p class="tagline">Marketing Technologist & Full-Stack Developer</p>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                    <li><a href="index.html#marketing" class="nav-link">Marketing</a></li>
+                    <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                    <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="btn btn-primary" id="resumeBtn" style="margin-left: 2rem;">Resume</button>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <!-- Resume Dropdown -->
+            <div class="resume-dropdown" id="resumeDropdown">
+                <a href="assets/resume/Nehemiah_Cionelo_Resume_MarTech_Specialist.pdf" download class="resume-option">
+                    <span class="resume-title">Marketing Technology Specialist</span>
+                    <span class="resume-desc">Best for MarTech & hybrid roles</span>
+                </a>
+                <a href="assets/resume/Nehemiah_Cionelo_Resume_FullStack_Developer.pdf" download class="resume-option">
+                    <span class="resume-title">Full-Stack Developer</span>
+                    <span class="resume-desc">Best for software engineering roles</span>
+                </a>
+                <a href="assets/resume/Nehemiah_Cionelo_Resume_Frontend_Developer.pdf" download class="resume-option">
+                    <span class="resume-title">Frontend Developer</span>
+                    <span class="resume-desc">Best for UI/UX-focused roles</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-section">
+        <!-- Background Video -->
+        <div class="portfolio-bg-video">
+            <video class="bg-video-player" autoplay muted loop playsinline>
+                <source src="assets/videos/portfolio-bg.mp4" type="video/mp4">
+                <!-- Fallback for browsers that don't support video -->
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <div class="container">
+            <h2 class="portfolio-title">View Multimedia Examples Of:</h2>
+
+            <div class="portfolio-categories">
+
+                <!-- College Sports (Expandable) -->
+                <div class="category-item expandable">
+                    <button class="category-btn dropdown-trigger" data-target="college-sports">
+                        <span class="category-label">College Sports</span>
+                        <span class="category-icon dropdown-arrow">▼</span>
+                    </button>
+                    <p class="category-info">
+                        Branding Guidelines, Video Highlights, Event Graphics, & Organic Team Content for DI Athletic Programs (Coastal Carolina 2024-25)
+                    </p>
+
+                    <div class="dropdown-content" id="college-sports">
+                        <!-- Organic Fan Engagement -->
+                        <a href="https://www.instagram.com/reels/C0U66GpP-RG/" target="_blank" rel="noopener" class="sub-category-btn">
+                            <span class="sub-category-label">Organic Fan Engagement - Men's Basketball</span>
+                            <span class="sub-category-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- University Branding (Expandable) -->
+                <div class="category-item expandable">
+                    <button class="category-btn dropdown-trigger" data-target="university-branding">
+                        <span class="category-label">University Branding</span>
+                        <span class="category-icon dropdown-arrow">▼</span>
+                    </button>
+
+                    <div class="dropdown-content" id="university-branding">
+                        <!-- Mic'd Up, Man-On-The-Street Campaign (Nested Expandable) -->
+                        <div class="sub-category-item expandable">
+                            <button class="sub-category-btn dropdown-trigger" data-target="micd-up">
+                                <span class="sub-category-label">
+                                    Mic'd Up, Man-On-The-Street Campaign
+                                    <span class="ugc-subtitle">User Generated Content</span>
+                                </span>
+                                <span class="sub-category-icon dropdown-arrow">▼</span>
+                            </button>
+
+                            <div class="dropdown-content nested" id="micd-up">
+                                <a href="https://www.instagram.com/reel/CpOKPogJLpZ/?utm_source=ig_web_copy_link" target="_blank" rel="noopener" class="video-link-btn">
+                                    <span class="video-label">UNM man-on-the-street Ad Campaign</span>
+                                    <span class="video-icon">→</span>
+                                </a>
+                                <a href="https://www.instagram.com/reels/CuIrbTkLCnz/" target="_blank" rel="noopener" class="video-link-btn">
+                                    <span class="video-label">UGC Marketing Student Life</span>
+                                    <span class="video-icon">→</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Informative -->
+                        <button class="sub-category-btn disabled">
+                            <span class="sub-category-label">Informative</span>
+                            <span class="coming-soon">Coming Soon</span>
+                        </button>
+
+                        <!-- Building Student Narrative -->
+                        <a href="https://www.instagram.com/reels/CvfgBWHJEIf/" target="_blank" rel="noopener" class="sub-category-btn">
+                            <span class="sub-category-label">Building Student Narrative</span>
+                            <span class="sub-category-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Professional Editing -->
+                <div class="category-item">
+                    <a href="https://www.instagram.com/reel/DPjTwnnDUy4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener" class="category-btn">
+                        <span class="category-label">Professional Editing</span>
+                        <span class="category-icon">→</span>
+                    </a>
+                </div>
+
+                <!-- Organic Recap (Disabled) -->
+                <div class="category-item">
+                    <button class="category-btn disabled">
+                        <span class="category-label">Organic Recap</span>
+                        <span class="coming-soon">Coming Soon</span>
+                    </button>
+                </div>
+
+                <!-- Personal Branding -->
+                <div class="category-item">
+                    <a href="https://www.instagram.com/itsnemo.mp4" target="_blank" rel="noopener" class="category-btn">
+                        <span class="category-label">Personal Branding</span>
+                        <span class="category-icon">→</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Nehemiah Cionelo. Built with intention.</p>
+            <p style="font-size: 0.875rem; color: var(--muted); margin-top: 0.5rem;">
+                <a href="https://www.flaticon.com/free-icons/ocean" title="ocean icons" style="color: var(--muted); text-decoration: none;">Ocean icons created by Freepik - Flaticon</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="portfolio.js"></script>
+</body>
+</html>

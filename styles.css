@@ -2,16 +2,15 @@
 ═══════════════════════════════════════════════════════════════════════════════
 Portfolio Website - Main Stylesheet
 Author: Nehemiah Cionelo
-Last Updated: 2024-11-21
-Version: 2.1.0
+    Last Updated: 2024-11-23
+    Version: 2.2.0
 
-CHANGELOG:
-- Added resume dropdown styles with hover states
-- Integrated Minecraft hearth (F3 mode) animations and textures
-- Added nested A/B test slideshow styles with touch support
-- Enhanced mobile responsiveness for hearth and slideshow
-- Added ember particle animations
-- Fire glow pulse animation for hearth
+    CHANGELOG:
+    - Fixed carousel control positioning (relative to campaign-carousel, not fixed)
+    - Removed nested A/B test slideshow styles (reverted to grid layout)
+    - Cleaned up unused slideshow control styles
+    - Preserved resume dropdown and Minecraft hearth styles
+    - Optimized A/B testing grid for mobile responsiveness
 
 DESIGN SYSTEM:
 Color Palette:
@@ -320,6 +319,30 @@ p {
 }
 
 /* ================================
+   PORTFOLIO BANNER (INLINE IN HERO)
+   ================================ */
+
+.portfolio-banner-inline {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.portfolio-banner-link {
+    color: var(--marketing-red);
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    display: inline-block;
+    font-style: italic;
+}
+
+.portfolio-banner-link:hover {
+    color: var(--marketing-red-light);
+    text-decoration: underline;
+}
+
+/* ================================
    HERO SECTION
    ================================ */
 
@@ -496,7 +519,7 @@ p {
    ================================ */
 
 .campaign-carousel {
-    position: relative;
+    position: relative; /* CRITICAL: ensures controls position relative to carousel, not viewport */
     background: var(--card);
     border-radius: var(--radius);
     padding: 3rem;
@@ -624,76 +647,6 @@ p {
     margin-bottom: 1.5rem;
 }
 
-/* A/B Testing Nested Slideshow */
-.ab-test-slideshow {
-    position: relative;
-    min-height: 450px;
-    margin-top: 2rem;
-}
-
-.ab-test-slide {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.ab-test-slide.active {
-    display: block;
-    opacity: 1;
-}
-
-.ab-test-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.ab-control {
-    background: rgba(255, 71, 87, 0.9);
-    border: none;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 1.25rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-}
-
-.ab-control:hover {
-    background: var(--marketing-red);
-    transform: scale(1.1);
-}
-
-.ab-indicators {
-    display: flex;
-    gap: 0.75rem;
-}
-
-.ab-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 71, 87, 0.3);
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.ab-indicator.active {
-    background: var(--marketing-red);
-    width: 28px;
-    border-radius: 5px;
-}
-
-.ab-indicator:hover {
-    background: var(--marketing-red-light);
-}
-
 /* A/B Testing Grid (Legacy - kept for fallback) */
 .ab-test-grid {
     display: grid;
@@ -771,7 +724,7 @@ p {
 
 /* Carousel Controls */
 .carousel-control {
-    position: absolute;
+    position: absolute; /* NOT fixed - positions relative to nearest positioned ancestor */
     top: 50%;
     transform: translateY(-50%);
     background: rgba(255, 71, 87, 0.9);
@@ -1360,6 +1313,7 @@ body.minecraft-theme .hearth-container {
 
     .ab-test-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .unm-content {
@@ -1391,6 +1345,24 @@ body.minecraft-theme .hearth-container {
 
     .menu-toggle {
         display: flex;
+    }
+
+    .carousel-control {
+        width: 36px;
+        height: 36px;
+    }
+
+    .carousel-control.prev {
+        left: 0.5rem;
+    }
+
+    .carousel-control.next {
+        right: 0.5rem;
+    }
+
+    .ab-test-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .hero-content h2 {
@@ -1465,6 +1437,10 @@ body.minecraft-theme .hearth-container {
 
 /* Small Mobile (480px and below) */
 @media (max-width: 480px) {
+    .portfolio-banner-link {
+        font-size: 0.875rem;
+    }
+
     .campaign-header h3 {
         font-size: 1.5rem;
     }
