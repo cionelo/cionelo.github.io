@@ -1,7 +1,11 @@
 # Portfolio Background Video Setup Guide
 
-## Video File Location
-Place your portfolio video at: `assets/videos/portfolio-bg.mp4`
+## Video File Locations
+Place your portfolio videos at:
+- `assets/videos/portfolio-bg.mp4` (primary video)
+- `assets/videos/portfolio-bg-2.mp4` (secondary video)
+
+**Note:** The portfolio page randomly selects one of these videos on each page load.
 
 ## Video Specifications
 
@@ -56,7 +60,8 @@ If video doesn't load or isn't supported:
 cionelo.github.io-master/
 ├── assets/
 │   ├── videos/
-│   │   └── portfolio-bg.mp4  ← Place your video here
+│   │   ├── portfolio-bg.mp4    ← Primary video
+│   │   └── portfolio-bg-2.mp4  ← Secondary video (random selection)
 ```
 
 ## Alternative Video Formats (Optional)

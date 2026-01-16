@@ -2,8 +2,8 @@
 ═══════════════════════════════════════════════════════════════════════════════
 Portfolio Page - Custom Stylesheet
 Author: Nehemiah Cionelo
-Last Updated: 2026-01-12
-Version: 1.0.0
+Last Updated: 2026-01-16
+Version: 1.1.0
 
 FEATURES:
 - Custom animated category buttons
@@ -191,6 +191,7 @@ FEATURES:
    ================================ */
 
 .category-info {
+    display: block;
     margin-top: 1rem;
     padding: 1rem 1.5rem;
     background: rgba(255, 71, 87, 0.05);
@@ -200,6 +201,25 @@ FEATURES:
     font-size: 0.95rem;
     line-height: 1.6;
     animation: slideDown 0.4s ease;
+}
+
+/* Clickable category info link */
+.category-info-link {
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.category-info-link:hover {
+    background: rgba(255, 71, 87, 0.1);
+    border-left-color: var(--marketing-red-light);
+    color: var(--text);
+    transform: translateX(4px);
+}
+
+.category-info-prefix {
+    color: var(--marketing-red);
+    font-weight: 600;
 }
 
 /* ================================

@@ -2,8 +2,8 @@
 ═══════════════════════════════════════════════════════════════════════════════
 Portfolio Page - Interactive Dropdown Functionality
 Author: Nehemiah Cionelo
-Last Updated: 2026-01-12
-Version: 1.0.0
+Last Updated: 2026-01-16
+Version: 1.1.0
 
 FEATURES:
 - Expandable/collapsible dropdowns with smooth animations
@@ -11,12 +11,39 @@ FEATURES:
 - Active state management with arrow rotation
 - Mobile-friendly touch interactions
 - Auto-close siblings when opening new dropdown
+- Random background video selection on page load
 ═══════════════════════════════════════════════════════════════════════════════
 */
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeDropdowns();
+    initializeRandomBackgroundVideo();
 });
+
+/**
+ * Randomly select and set background video on page load
+ * Alternates between portfolio-bg.mp4 and portfolio-bg-2.mp4
+ */
+function initializeRandomBackgroundVideo() {
+    const videoPlayer = document.querySelector('.bg-video-player');
+    if (!videoPlayer) return;
+
+    const videos = [
+        'assets/videos/portfolio-bg.mp4',
+        'assets/videos/portfolio-bg-2.mp4'
+    ];
+
+    // Randomly select a video
+    const randomIndex = Math.floor(Math.random() * videos.length);
+    const selectedVideo = videos[randomIndex];
+
+    // Update the video source
+    const source = videoPlayer.querySelector('source');
+    if (source) {
+        source.src = selectedVideo;
+        videoPlayer.load(); // Reload with new source
+    }
+}
 
 /**
  * Initialize all dropdown triggers on the page
