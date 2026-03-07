@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nemo | Custom Websites & Business Tools</title>
+  <meta name="description" content="I build affordable custom websites and digital tools for small businesses. Online ordering, booking systems, and automation — without enterprise pricing.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Nemo | Custom Websites & Business Tools">
+  <meta property="og:description" content="Custom websites and digital tools for small businesses that have outgrown Google Forms and spreadsheets.">
+  <meta property="og:image" content="https://itsnemo.dev/work/assets/og-image.png">
+  <meta property="og:url" content="https://itsnemo.dev/work">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://itsnemo.dev/work">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="icon" href="assets/logo-mark.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Inline SVG noise filter -->
+  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <defs>
+      <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+        <feBlend in="SourceGraphic" mode="overlay" result="blend"/>
+        <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+      </filter>
+    </defs>
+  </svg>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="itsnemo.dev home">
+        <img src="assets/logo-full.png" alt="itsnemo.dev logo" class="nav-logo-img" onerror="this.style.display='none'">
+        <span class="nav-logo-text">🐟 itsnemo.dev</span>
+      </a>
+      <a href="#contact" class="btn-ghost nav-cta">Let's Talk ↓</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+  <section id="hero">
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">Custom Digital Tools · Colorado &amp; Beyond</p>
+        <h1 class="hero-headline">
+          Your business<br>runs on duct tape.<br>
+          <span class="headline-accent">Let's change that.</span>
+        </h1>
+        <p class="hero-subline">Custom websites and digital tools for small businesses — built around how you already work, not how software wants you to.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Let's Talk</a>
+          <a href="#what-i-build" class="btn-text">See what I build ↓</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-logo-wrap">
+          <div class="hero-glow-ring"></div>
+          <img src="assets/logo-full.png" alt="" class="hero-logo-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ BEFORE / AFTER ═══════════════════════════════ -->
+  <section id="before-after" class="section-surface">
+    <div class="container">
+      <div class="arc-grid">
+        <div class="arc-col arc-before reveal">
+          <p class="eyebrow">Where most businesses are</p>
+          <ul class="arc-list arc-list--before">
+            <li>Google Forms for everything</li>
+            <li>Venmo and Cash App for payments</li>
+            <li>Spreadsheets that only you understand</li>
+            <li>Bookings managed over text message</li>
+            <li>No idea what's actually working</li>
+          </ul>
+        </div>
+
+        <div class="arc-divider" aria-hidden="true"></div>
+
+        <div class="arc-col arc-after reveal" style="transition-delay:0.15s">
+          <p class="eyebrow eyebrow--accent">Where they end up</p>
+          <ul class="arc-list arc-list--after">
+            <li>One system that runs itself</li>
+            <li>Payments handled automatically</li>
+            <li>Customer info you can actually use</li>
+            <li>Bookings without the back-and-forth</li>
+            <li>Time back in your week</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="arc-anchor reveal" style="transition-delay:0.25s">
+        Most businesses wait until the chaos is unbearable.<br class="br-desktop"> You don't have to.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ WHO I HELP ═══════════════════════════════ -->
+  <section id="who-i-help" class="section-bg">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="eyebrow">Who I Help</p>
+        <h2 class="section-title">You don't need a dev team.<br>You need someone who gets your business.</h2>
+      </div>
+
+      <div class="card-grid" id="who-grid">
+        <div class="card reveal" style="transition-delay:0.05s">
+          <i data-lucide="utensils" class="card-icon"></i>
+          <h3 class="card-title">Restaurants</h3>
+          <p class="card-desc">Stop taking orders over the phone.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.10s">
+          <i data-lucide="graduation-cap" class="card-icon"></i>
+          <h3 class="card-title">Coaches &amp; Tutors</h3>
+          <p class="card-desc">Manage sessions without the spreadsheet chaos.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.15s">
+          <i data-lucide="dumbbell" class="card-icon"></i>
+          <h3 class="card-title">Gyms &amp; Studios</h3>
+          <p class="card-desc">Automate bookings and memberships.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.20s">
+          <i data-lucide="wrench" class="card-icon"></i>
+          <h3 class="card-title">Local Service Businesses</h3>
+          <p class="card-desc">Quote, book, and invoice from one place.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.25s">
+          <i data-lucide="shopping-bag" class="card-icon"></i>
+          <h3 class="card-title">Small Retail</h3>
+          <p class="card-desc">Sell online without the Shopify monthly bill.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.30s">
+          <i data-lucide="calendar" class="card-icon"></i>
+          <h3 class="card-title">Event Organizers</h3>
+          <p class="card-desc">Registration and payments that don't break.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ WHAT I BUILD ═══════════════════════════════ -->
+  <section id="what-i-build" class="section-surface">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="eyebrow">What I Build</p>
+      </div>
+
+      <div class="card-grid card-grid--5" id="build-grid">
+        <div class="card reveal" style="transition-delay:0.05s">
+          <i data-lucide="shopping-cart" class="card-icon"></i>
+          <h3 class="card-title">Online Ordering Systems</h3>
+          <p class="card-desc">Custom order flows for restaurants and retail.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.10s">
+          <i data-lucide="calendar-check" class="card-icon"></i>
+          <h3 class="card-title">Booking &amp; Scheduling</h3>
+          <p class="card-desc">Client-facing booking without the back-and-forth.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.15s">
+          <i data-lucide="layout-dashboard" class="card-icon"></i>
+          <h3 class="card-title">Customer Dashboards</h3>
+          <p class="card-desc">Manage your clients and history in one place.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.20s">
+          <i data-lucide="credit-card" class="card-icon"></i>
+          <h3 class="card-title">Payment Integrations</h3>
+          <p class="card-desc">Accept payments the way your business works.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:0.25s">
+          <i data-lucide="zap" class="card-icon"></i>
+          <h3 class="card-title">Custom Tools &amp; Automation</h3>
+          <p class="card-desc">If you're doing it manually, let's automate it.</p>
+        </div>
+      </div>
+
+      <p class="section-anchor reveal" style="transition-delay:0.3s">
+        Not just websites — systems that actually run your business.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ CONTACT ═══════════════════════════════ -->
+  <section id="contact" class="section-contact">
+    <div class="container container--narrow">
+      <div class="contact-header reveal">
+        <h2 class="contact-headline">Ready to simplify<br>your operations?</h2>
+        <p class="contact-subline">Tell me what you're working with. No tech knowledge required.</p>
+      </div>
+
+      <form id="contact-form" class="contact-form reveal" style="transition-delay:0.15s"
+            action="https://formspree.io/f/mqeykwbq" method="POST">
+        <input type="hidden" name="_subject" value="New inquiry from itsnemo.dev">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name" class="sr-only">Your name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="business" class="sr-only">Your business</label>
+            <input type="text" id="business" name="business" placeholder="Your business" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="sr-only">Your email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message" class="sr-only">Your message</label>
+          <textarea id="message" name="message" rows="4"
+            placeholder="What's the most annoying part of running your business right now?" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Let's Talk</button>
+      </form>
+
+      <div id="form-success" class="form-success" aria-live="polite" hidden>
+        Got it! I'll be in touch within 24 hours.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+  <footer id="footer">
+    <div class="container">
+      <img src="assets/logo-full.png" alt="itsnemo.dev" class="footer-logo">
+      <p class="footer-text">itsnemo.dev</p>
+      <p class="footer-copy">© 2026 Nemo <span class="footer-dot" aria-hidden="true">·</span> All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
