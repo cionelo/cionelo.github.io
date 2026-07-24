@@ -404,3 +404,21 @@ h1, h2, h3, .display {
   color: var(--muted);
 }
 .reach__gap { color: var(--muted); font-size: 12px; }
+
+/* ===== The runner ===== */
+.runner { padding-block: var(--space-xl); background: var(--surface); border-block: 1px solid var(--line); }
+.runner__heading { font-size: clamp(1.5rem, 2.5vw + 1rem, 2.25rem); margin-block: var(--space-sm) var(--space-lg); max-width: 24ch; }
+.runner__prs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.runner__pr dt { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-xs); }
+.runner__pr dd { font-size: clamp(1.25rem, 2vw + 1rem, 1.75rem); }
+.runner__pr-note { display: block; color: var(--muted); font-size: 11px; text-transform: uppercase; }
+.runner__body { color: var(--muted); max-width: 60ch; }
+
+@media (min-width: 600px) {
+  .runner__prs { grid-template-columns: repeat(5, 1fr); }
+}
