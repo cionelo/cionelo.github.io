@@ -66,3 +66,28 @@ test('parseCountUpTarget reads the numeric target from a data attribute', () => 
   const fakeEl = { dataset: { countTarget: '240000' } };
   assert.equal(parseCountUpTarget(fakeEl), 240000);
 });
+
+test('buildMailtoHref encodes newlines and special characters so they cannot inject extra mailto headers', () => {
+  const href = buildMailtoHref({
+    to: 'hello@itsnemo.dev',
+    name: 'Evil\nBcc: leak@example.com',
+    brand: 'Trail Co',
+    need: 'Test',
+    timeline: 'Q4 2026',
+  });
+  const query = href.split('?')[1];
+  assert.ok(!/&(cc|bcc|to)=/i.test(query));
+});
+
+test('formatCompactNumber handles the 1 million boundary', () => {
+  assert.equal(formatCompactNumber(1_000_000), '1.0M');
+});
+
+test('formatCompactNumber rounds thousands up at the .5 boundary', () => {
+  assert.equal(formatCompactNumber(1500), '2K');
+});
+
+test('formatCompactNumber handles the 999/1000 boundary', () => {
+  assert.equal(formatCompactNumber(999), '999');
+  assert.equal(formatCompactNumber(1000), '1K');
+});

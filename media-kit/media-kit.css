@@ -536,4 +536,8 @@ h1, h2, h3, .display {
   .hero { min-height: auto; }
   .hero__scrim { display: none; }
   section { break-inside: avoid; padding-block: 16px; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .case-study, .runner, .how, .asset-placeholder {
+    background: transparent !important;
+  }
 }

@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="media-kit.css">
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -42,7 +43,7 @@
     <section id="stats" class="stats reveal">
       <div class="container stats__grid">
         <div class="stats__item">
-          <span class="stats__value mono" data-count-target="240000">0</span>
+          <span class="stats__value mono" data-count-target="240000">0</span><span>+</span>
           <span class="stats__label">Combined audience</span>
         </div>
         <div class="stats__item">
@@ -291,7 +292,7 @@
         <div class="contact__direct">
           <a class="mono" href="mailto:[GAP: contact email]">[GAP: contact email]</a>
           <a class="mono" href="[GAP: Instagram DM link]">DM on Instagram ↗</a>
-          <a class="btn btn--secondary" href="javascript:window.print()">Download PDF</a>
+          <button class="btn btn--secondary" type="button" onclick="window.print()">Download PDF</button>
         </div>
       </div>
     </section>
