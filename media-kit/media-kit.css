@@ -354,3 +354,28 @@ h1, h2, h3, .display {
   border-radius: var(--radius);
   color: var(--ink);
 }
+
+/* ===== Case study ===== */
+.case-study {
+  padding-block: var(--space-xl);
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+.case-study__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+.case-study__heading { font-size: clamp(1.5rem, 2.5vw + 1rem, 2rem); margin-block: var(--space-sm) var(--space-md); }
+.case-study__body { color: var(--muted); max-width: 52ch; margin-bottom: var(--space-md); }
+.case-study__stat { color: var(--muted); font-size: 13px; }
+.case-study__funnel {
+  display: flex;
+  gap: var(--space-lg);
+}
+.case-study__funnel dt { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-xs); }
+.case-study__funnel dd { font-size: clamp(1.25rem, 2vw + 1rem, 1.75rem); color: var(--crimson); }
+
+@media (min-width: 1024px) {
+  .case-study__grid { grid-template-columns: repeat(2, 1fr); }
+}
