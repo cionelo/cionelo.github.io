@@ -21,6 +21,7 @@ a { color: inherit; }
 /* ===== Tokens ===== */
 :root {
   --bg: #0A0C0E;
+  --bg-rgb: 10, 12, 14;
   --surface: #12161A;
   --surface-2: #171B1F;
   --line: rgba(255, 255, 255, .09);
@@ -142,7 +143,7 @@ h1, h2, h3, .display {
   font-size: 14px;
   text-decoration: none;
   border: 1px solid transparent;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease;
 }
 .btn:hover { transform: translateY(-1px); }
 .btn--primary {
@@ -177,7 +178,7 @@ h1, h2, h3, .display {
 .hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10,12,14,.25) 0%, rgba(10,12,14,.55) 55%, rgba(10,12,14,.92) 100%);
+  background: linear-gradient(180deg, rgba(var(--bg-rgb), .25) 0%, rgba(var(--bg-rgb), .55) 55%, rgba(var(--bg-rgb), .92) 100%);
 }
 .hero__content {
   position: relative;
