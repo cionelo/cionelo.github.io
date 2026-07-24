@@ -67,16 +67,17 @@ test('parseCountUpTarget reads the numeric target from a data attribute', () => 
   assert.equal(parseCountUpTarget(fakeEl), 240000);
 });
 
-test('buildMailtoHref encodes newlines and special characters so they cannot inject extra mailto headers', () => {
+test('buildMailtoHref encodes special characters so a form field cannot inject extra mailto query params', () => {
   const href = buildMailtoHref({
     to: 'hello@itsnemo.dev',
-    name: 'Evil\nBcc: leak@example.com',
+    name: 'Evil&bcc=leak@example.com',
     brand: 'Trail Co',
     need: 'Test',
     timeline: 'Q4 2026',
   });
   const query = href.split('?')[1];
   assert.ok(!/&(cc|bcc|to)=/i.test(query));
+  assert.ok(query.includes('Evil%26bcc%3Dleak%40example.com'));
 });
 
 test('formatCompactNumber handles the 1 million boundary', () => {
