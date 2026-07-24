@@ -250,3 +250,33 @@ h1, h2, h3, .display {
 @media (min-width: 600px) {
   .stats__grid { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* ===== Section eyebrow (shared by all remaining sections) ===== */
+.section-eyebrow {
+  color: var(--teal);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+/* ===== Logo wall ===== */
+.logos {
+  padding-block: var(--space-xl);
+}
+.logos__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+.logos__item {
+  aspect-ratio: 3 / 1;
+  font-size: 11px;
+}
+
+@media (min-width: 600px) {
+  .logos__grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1024px) {
+  .logos__grid { grid-template-columns: repeat(6, 1fr); }
+}
