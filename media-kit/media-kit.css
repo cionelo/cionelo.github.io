@@ -427,3 +427,39 @@ h1, h2, h3, .display {
 .beyond { padding-block: var(--space-xl); }
 .beyond__heading { font-size: clamp(1.5rem, 2.5vw + 1rem, 2.25rem); margin-block: var(--space-sm) var(--space-md); max-width: 22ch; }
 .beyond__body { color: var(--muted); max-width: 60ch; }
+
+/* ===== How we work together ===== */
+.how { padding-block: var(--space-xl); background: var(--surface); border-block: 1px solid var(--line); }
+.how__heading { font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem); margin-block: var(--space-sm) var(--space-md); }
+.how__body { color: var(--muted); max-width: 60ch; margin-bottom: var(--space-lg); }
+.how__ladder {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+.how__tier {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+}
+.how__tier-title { font-family: var(--font-display); font-size: 15px; margin-bottom: var(--space-xs); }
+.how__tier-body { color: var(--muted); font-size: 13px; }
+.how__deliverables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+.how__deliverables li {
+  font-size: 13px;
+  color: var(--teal);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-xs) var(--space-sm);
+}
+.how__note { color: var(--muted); font-size: 13px; }
+
+@media (min-width: 600px) {
+  .how__ladder { grid-template-columns: repeat(3, 1fr); }
+}
