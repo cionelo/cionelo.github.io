@@ -162,10 +162,26 @@ export function initScrollReveal() {
   items.forEach((el) => observer.observe(el));
 }
 
+export function initPraiseToggle() {
+  const button = document.querySelector('[data-praise-toggle]');
+  const panel = document.getElementById('praise-original');
+  if (!button || !panel) return;
+  button.addEventListener('click', () => {
+    const isHidden = panel.hasAttribute('hidden');
+    if (isHidden) {
+      panel.removeAttribute('hidden');
+    } else {
+      panel.setAttribute('hidden', '');
+    }
+    button.setAttribute('aria-expanded', String(isHidden));
+  });
+}
+
 if (typeof document !== 'undefined') {
   initHeroMedia();
   initCountUp();
   initGalleryModal();
   initContactForm();
   initScrollReveal();
+  initPraiseToggle();
 }

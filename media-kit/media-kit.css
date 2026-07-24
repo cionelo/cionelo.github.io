@@ -502,6 +502,33 @@ h1, h2, h3, .display {
 }
 .site-footer__stamp { margin-left: auto; }
 
+/* ===== Partner praise ===== */
+.praise { padding-block: var(--space-xl); }
+.praise__quote {
+  margin: 0 0 var(--space-md);
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--teal);
+  max-width: 56ch;
+}
+.praise__quote p {
+  font-size: clamp(1.1rem, 1.5vw + 0.75rem, 1.5rem);
+  color: var(--ink);
+  margin-bottom: var(--space-sm);
+}
+.praise__attribution { color: var(--muted); font-size: 13px; }
+.praise__toggle {
+  min-height: 44px;
+  padding-inline: var(--space-sm);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: var(--space-md);
+}
+.praise__original { aspect-ratio: 16 / 10; max-width: 420px; }
+.praise__original[hidden] { display: none; }
+
 /* ===== Print ===== */
 @media print {
   .site-bar, .contact__form, .btn, dialog { display: none !important; }
