@@ -463,3 +463,50 @@ h1, h2, h3, .display {
 @media (min-width: 600px) {
   .how__ladder { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ===== Contact ===== */
+.contact { padding-block: var(--space-xl); }
+.contact__heading { font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem); margin-block: var(--space-sm) var(--space-lg); }
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 480px;
+  margin-bottom: var(--space-lg);
+}
+.contact__field { display: flex; flex-direction: column; gap: var(--space-xs); font-size: 13px; color: var(--muted); }
+.contact__field input, .contact__field textarea {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-sm);
+  color: var(--ink);
+  min-height: 44px;
+}
+.contact__direct {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+/* ===== Footer ===== */
+.site-footer { padding-block: var(--space-lg); border-top: 1px solid var(--line); }
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+.site-footer__stamp { margin-left: auto; }
+
+/* ===== Print ===== */
+@media print {
+  .site-bar, .contact__form, .btn, dialog { display: none !important; }
+  body { background: #fff; color: #000; }
+  .hero { min-height: auto; }
+  .hero__scrim { display: none; }
+  section { break-inside: avoid; padding-block: 16px; }
+}

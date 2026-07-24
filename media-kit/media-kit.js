@@ -123,8 +123,26 @@ export function initGalleryModal() {
   });
 }
 
+export function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const href = buildMailtoHref({
+      to: '[GAP: contact email]',
+      name: data.get('name'),
+      brand: data.get('brand'),
+      need: data.get('need'),
+      timeline: data.get('timeline') || 'Not specified',
+    });
+    window.location.href = href;
+  });
+}
+
 if (typeof document !== 'undefined') {
   initHeroMedia();
   initCountUp();
   initGalleryModal();
+  initContactForm();
 }

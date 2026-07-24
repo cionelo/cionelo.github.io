@@ -250,8 +250,45 @@
         <p class="how__note">Usage rights and whitelisting available on request.</p>
       </div>
     </section>
-    <!-- Sections added in Task 12, in spine order -->
+    <section id="contact" class="contact reveal">
+      <div class="container">
+        <p class="section-eyebrow mono">Get in touch</p>
+        <h2 class="contact__heading">Work with me</h2>
+        <form class="contact__form" id="contact-form">
+          <label class="contact__field">
+            <span>Name</span>
+            <input type="text" name="name" required>
+          </label>
+          <label class="contact__field">
+            <span>Brand</span>
+            <input type="text" name="brand" required>
+          </label>
+          <label class="contact__field">
+            <span>What are you looking for?</span>
+            <textarea name="need" rows="3" required></textarea>
+          </label>
+          <label class="contact__field">
+            <span>Timeline</span>
+            <input type="text" name="timeline" placeholder="e.g. Q4 2026">
+          </label>
+          <button class="btn btn--primary" type="submit">Send</button>
+        </form>
+        <div class="contact__direct">
+          <a class="mono" href="mailto:[GAP: contact email]">[GAP: contact email]</a>
+          <a class="mono" href="[GAP: Instagram DM link]">DM on Instagram ↗</a>
+          <a class="btn btn--secondary" href="javascript:window.print()">Download PDF</a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span class="site-bar__wordmark">NEMO</span>
+      <a href="https://itsnemo.dev">itsnemo.dev</a>
+      <span class="mono site-footer__stamp">Updated [GAP: Month YYYY]</span>
+    </div>
+  </footer>
 
   <dialog id="work-modal" class="work-modal">
     <button class="work-modal__close" type="button" aria-label="Close">×</button>
