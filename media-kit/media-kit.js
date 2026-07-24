@@ -82,7 +82,49 @@ export function initCountUp() {
   items.forEach((el) => observer.observe(el));
 }
 
+export function initGalleryModal() {
+  const cards = Array.from(document.querySelectorAll('.work-card'));
+  const modal = document.getElementById('work-modal');
+  if (!cards.length || !modal) return;
+
+  const titleEl = document.getElementById('work-modal-title');
+  const brandEl = document.getElementById('work-modal-brand');
+  const metricsEl = document.getElementById('work-modal-metrics');
+  const linkEl = document.getElementById('work-modal-link');
+  const closeBtn = modal.querySelector('.work-modal__close');
+  const prevBtn = modal.querySelector('.work-modal__prev');
+  const nextBtn = modal.querySelector('.work-modal__next');
+
+  let currentIndex = 0;
+
+  function render(index) {
+    currentIndex = index;
+    const card = cards[currentIndex];
+    titleEl.textContent = card.dataset.title;
+    brandEl.textContent = card.dataset.brand;
+    metricsEl.textContent = card.dataset.metrics;
+    linkEl.href = card.dataset.link;
+  }
+
+  function open(index) {
+    render(index);
+    modal.showModal();
+  }
+
+  cards.forEach((card, index) => {
+    card.addEventListener('click', () => open(index));
+  });
+  closeBtn.addEventListener('click', () => modal.close());
+  prevBtn.addEventListener('click', () => render(getAdjacentIndex(currentIndex, -1, cards.length)));
+  nextBtn.addEventListener('click', () => render(getAdjacentIndex(currentIndex, 1, cards.length)));
+  modal.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') render(getAdjacentIndex(currentIndex, -1, cards.length));
+    if (event.key === 'ArrowRight') render(getAdjacentIndex(currentIndex, 1, cards.length));
+  });
+}
+
 if (typeof document !== 'undefined') {
   initHeroMedia();
   initCountUp();
+  initGalleryModal();
 }

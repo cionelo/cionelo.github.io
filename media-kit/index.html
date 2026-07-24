@@ -72,8 +72,84 @@
         </ul>
       </div>
     </section>
-    <!-- Sections added in Tasks 6–12, in spine order -->
+    <section id="work" class="work reveal">
+      <div class="container">
+        <p class="section-eyebrow mono">Selected work</p>
+        <h2 class="work__heading">The proof, not the pitch</h2>
+        <ul class="work__grid" id="work-grid">
+          <li>
+            <button class="work-card" type="button"
+              data-title="Heartbreak Run"
+              data-brand="Heartbreak Run"
+              data-link="[GAP: working link]"
+              data-metrics="Reposted to brand's official channel · [GAP: views] · [GAP: engagement]">
+              <span class="work-card__thumb asset-placeholder" data-asset="work-heartbreak-run">[GAP: clip]</span>
+              <span class="work-card__title">Heartbreak Run</span>
+              <span class="work-card__brand mono">Heartbreak Run — guerrilla piece</span>
+            </button>
+          </li>
+          <li>
+            <button class="work-card" type="button"
+              data-title="Barefoot shoe education"
+              data-brand="Splay Athletics"
+              data-link="[GAP: working link]"
+              data-metrics="[GAP: views] · [GAP: engagement] · [GAP: saves/comments]">
+              <span class="work-card__thumb asset-placeholder" data-asset="work-splay">[GAP: clip]</span>
+              <span class="work-card__title">Barefoot shoe education</span>
+              <span class="work-card__brand mono">Splay Athletics</span>
+            </button>
+          </li>
+          <li>
+            <button class="work-card" type="button"
+              data-title="Competition winner"
+              data-brand="Athletes.Org"
+              data-link="[GAP: working link]"
+              data-metrics="[GAP: views] · [GAP: engagement] · [GAP: saves/comments]">
+              <span class="work-card__thumb asset-placeholder" data-asset="work-athletes-org">[GAP: clip]</span>
+              <span class="work-card__title">Competition winner</span>
+              <span class="work-card__brand mono">Athletes.Org</span>
+            </button>
+          </li>
+          <li>
+            <button class="work-card" type="button"
+              data-title="Race and product content"
+              data-brand="Hammer"
+              data-link="[GAP: working link]"
+              data-metrics="[GAP: views] · [GAP: engagement] · [GAP: saves/comments]">
+              <span class="work-card__thumb asset-placeholder" data-asset="work-hammer">[GAP: clip]</span>
+              <span class="work-card__title">Race and product content</span>
+              <span class="work-card__brand mono">Hammer</span>
+            </button>
+          </li>
+          <li>
+            <button class="work-card" type="button"
+              data-title="[GAP: gallery pick 5]"
+              data-brand="[GAP: brand]"
+              data-link="[GAP: working link]"
+              data-metrics="[GAP: metrics]">
+              <span class="work-card__thumb asset-placeholder" data-asset="work-gap-5">[GAP: clip]</span>
+              <span class="work-card__title">[GAP: gallery pick 5]</span>
+              <span class="work-card__brand mono">[GAP: brand]</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- Sections added in Tasks 7–12, in spine order -->
   </main>
+
+  <dialog id="work-modal" class="work-modal">
+    <button class="work-modal__close" type="button" aria-label="Close">×</button>
+    <div class="work-modal__thumb asset-placeholder" data-asset="work-modal-thumb">[GAP: clip]</div>
+    <h3 class="work-modal__title" id="work-modal-title"></h3>
+    <p class="work-modal__brand mono" id="work-modal-brand"></p>
+    <p class="work-modal__metrics" id="work-modal-metrics"></p>
+    <a class="btn btn--secondary work-modal__link" id="work-modal-link" href="#" target="_blank" rel="noopener">Watch full video ↗</a>
+    <div class="work-modal__nav">
+      <button class="work-modal__prev" type="button" aria-label="Previous">←</button>
+      <button class="work-modal__next" type="button" aria-label="Next">→</button>
+    </div>
+  </dialog>
 
   <script type="module" src="media-kit.js"></script>
 </body>

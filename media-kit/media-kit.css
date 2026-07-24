@@ -280,3 +280,77 @@ h1, h2, h3, .display {
 @media (min-width: 1024px) {
   .logos__grid { grid-template-columns: repeat(6, 1fr); }
 }
+
+/* ===== Selected work ===== */
+.work { padding-block: var(--space-xl); }
+.work__heading { font-size: clamp(1.5rem, 2.5vw + 1rem, 2.25rem); margin-bottom: var(--space-lg); }
+.work__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+.work-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-sm);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.work-card:hover, .work-card:focus-visible {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+}
+.work-card__thumb { aspect-ratio: 16 / 10; }
+.work-card__title { font-weight: 600; }
+.work-card__brand { color: var(--muted); font-size: 12px; }
+
+@media (min-width: 600px) {
+  .work__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .work__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ===== Work modal ===== */
+.work-modal {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--ink);
+  padding: var(--space-lg);
+  max-width: 560px;
+  width: 90vw;
+}
+.work-modal::backdrop { background: rgba(var(--bg-rgb), .8); }
+.work-modal__close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 24px;
+  min-width: 44px;
+  min-height: 44px;
+}
+.work-modal__thumb { aspect-ratio: 16 / 10; margin-bottom: var(--space-md); }
+.work-modal__brand { color: var(--muted); font-size: 12px; margin-bottom: var(--space-sm); }
+.work-modal__metrics { color: var(--muted); font-size: 14px; margin-bottom: var(--space-md); }
+.work-modal__nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-md);
+}
+.work-modal__prev, .work-modal__next {
+  min-width: 44px;
+  min-height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+}
