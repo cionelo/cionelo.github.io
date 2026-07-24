@@ -34,6 +34,10 @@ export function shouldReveal(isIntersecting, alreadyRevealed) {
   return isIntersecting || alreadyRevealed;
 }
 
+export function parseCountUpTarget(el) {
+  return Number(el.dataset.countTarget);
+}
+
 // ===== DOM wiring =====
 
 export function initHeroMedia() {
@@ -43,6 +47,42 @@ export function initHeroMedia() {
   // (see Task 14). Until then the CSS asset-placeholder carries the section.
 }
 
+export function animateCountUp(el, { duration = 1200 } = {}) {
+  const target = parseCountUpTarget(el);
+  if (!Number.isFinite(target)) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    el.textContent = formatCompactNumber(target);
+    return;
+  }
+  const start = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const value = Math.round(easeOutCubic(progress) * target);
+    el.textContent = formatCompactNumber(value);
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+export function initCountUp() {
+  const items = document.querySelectorAll('[data-count-target]');
+  if (!items.length || !('IntersectionObserver' in window)) {
+    items.forEach((el) => { el.textContent = formatCompactNumber(parseCountUpTarget(el)); });
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCountUp(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  items.forEach((el) => observer.observe(el));
+}
+
 if (typeof document !== 'undefined') {
   initHeroMedia();
+  initCountUp();
 }

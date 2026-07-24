@@ -6,6 +6,7 @@ import {
   getAdjacentIndex,
   buildMailtoHref,
   shouldReveal,
+  parseCountUpTarget,
 } from './media-kit.js';
 
 test('easeOutCubic returns 0 at t=0 and 1 at t=1', () => {
@@ -59,4 +60,9 @@ test('shouldReveal reveals on intersect and stays revealed once shown', () => {
   assert.equal(shouldReveal(true, false), true);
   assert.equal(shouldReveal(false, true), true);
   assert.equal(shouldReveal(false, false), false);
+});
+
+test('parseCountUpTarget reads the numeric target from a data attribute', () => {
+  const fakeEl = { dataset: { countTarget: '240000' } };
+  assert.equal(parseCountUpTarget(fakeEl), 240000);
 });
