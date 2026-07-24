@@ -33,3 +33,16 @@ export function buildMailtoHref({ to, name, brand, need, timeline }) {
 export function shouldReveal(isIntersecting, alreadyRevealed) {
   return isIntersecting || alreadyRevealed;
 }
+
+// ===== DOM wiring =====
+
+export function initHeroMedia() {
+  const slot = document.querySelector('[data-asset="hero-loop"]');
+  if (!slot) return;
+  // Real <video> gets swapped in here once hero-loop.mp4/hero-poster.jpg exist
+  // (see Task 14). Until then the CSS asset-placeholder carries the section.
+}
+
+if (typeof document !== 'undefined') {
+  initHeroMedia();
+}
