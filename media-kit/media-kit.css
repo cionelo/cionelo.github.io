@@ -422,3 +422,8 @@ h1, h2, h3, .display {
 @media (min-width: 600px) {
   .runner__prs { grid-template-columns: repeat(5, 1fr); }
 }
+
+/* ===== Beyond my own audience ===== */
+.beyond { padding-block: var(--space-xl); }
+.beyond__heading { font-size: clamp(1.5rem, 2.5vw + 1rem, 2.25rem); margin-block: var(--space-sm) var(--space-md); max-width: 22ch; }
+.beyond__body { color: var(--muted); max-width: 60ch; }
