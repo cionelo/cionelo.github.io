@@ -140,9 +140,32 @@ export function initContactForm() {
   });
 }
 
+export function initScrollReveal() {
+  const items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    items.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+  const revealed = new WeakSet();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const isVisible = shouldReveal(entry.isIntersecting, revealed.has(entry.target));
+      if (isVisible) {
+        entry.target.classList.add('is-visible');
+        revealed.add(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  items.forEach((el) => observer.observe(el));
+}
+
 if (typeof document !== 'undefined') {
   initHeroMedia();
   initCountUp();
   initGalleryModal();
   initContactForm();
+  initScrollReveal();
 }
