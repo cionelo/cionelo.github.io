@@ -379,3 +379,28 @@ h1, h2, h3, .display {
 @media (min-width: 1024px) {
   .case-study__grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ===== Who I reach ===== */
+.reach { padding-block: var(--space-xl); }
+.reach__heading { font-size: clamp(1.5rem, 2.5vw + 1rem, 2.25rem); margin-block: var(--space-sm) var(--space-lg); max-width: 20ch; }
+.reach__platforms {
+  display: flex;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+.reach__value { font-size: clamp(1.5rem, 2.5vw + 1rem, 2rem); display: block; }
+.reach__label { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+.reach__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+.reach__chip {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 13px;
+  color: var(--muted);
+}
+.reach__gap { color: var(--muted); font-size: 12px; }
