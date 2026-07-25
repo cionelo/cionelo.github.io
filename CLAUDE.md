@@ -43,7 +43,6 @@ serves are mirrors whose source of truth is a *different* repo — see Mirrored 
 | `sdr/meets/index.html` | Redirect stub → `sdr-meets.vercel.app/meets` | Meta-refresh only, no content |
 | `textures/` | Minecraft-style textures for the homepage hearth theme | **Load-bearing.** Do not move |
 | `assets/` | Images, resume PDFs, background videos, favicon (59MB) | |
-| `old/` | Archived zip | Gitignored — not in the repo, local-only |
 
 ## Working in this repo
 
@@ -128,8 +127,14 @@ It is a manually-synced mirror — there is no script, no symlink, nothing enfor
       it over HTTP. Deletion candidate.
 - [ ] **`work/` is empty** — contains only `.DS_Store` files, so nothing in it is tracked.
       Local cruft; safe to delete.
-- [ ] **`old/cionelo.github.io-master.zip` (10MB)** — a stale snapshot of this repo.
-      Gitignored, so it is local-only and deleting it touches no git history.
+- [ ] **10MB zip still in git history** (Nemo, 2026-07-24) — `old/cionelo.github.io-master.zip`,
+      a stale snapshot of this repo, was **tracked and pushed to `origin/master`**. The
+      `/old/` line in `.gitignore` never applied to it, same trap as `.DS_Store`: gitignore
+      does not retroactively untrack. It has been deleted at the tip, but every clone still
+      pays ~10MB because the blob lives in history. Removing it for real needs
+      `git filter-repo` + a force-push, which rewrites public history — Nemo's call, and
+      not worth it unless clone size starts to matter.
+      **Lesson for this repo: check `git ls-files` before assuming `.gitignore` covers something.**
 - [ ] **`README.md` is stale** — v2.3.0, "Last Updated: January 2026". Predates the media
       kit entirely and has mojibake in its section headers (`## =� Table of Contents`).
       Rewrite or retire; CLAUDE.md now carries the operational facts.
