@@ -77,18 +77,25 @@ is overwritten with no warning.
 
 ### `media-kit/` → source of truth is [`../media-kit/`](../media-kit/)
 
-`media-kit/index.html`, `media-kit.css`, `media-kit.js` are a **built artifact**. The
-brand decisions, positioning, voice, metrics, and design spec that produced them live in
-the sibling repo `PROJECTS/media-kit/` (its own git repo).
+This folder is **generated output**. Its source is `PROJECTS/media-kit/src/` (a separate
+git repo, private remote `github.com/cionelo/media-kit`), along with the brand decisions,
+positioning, voice, metrics, and design spec that drive it.
 
-- Decisions flow **one way**: `PROJECTS/media-kit/` → here. Never back.
-- Fixing a typo in the built page is fine. Changing what the page *says about the brand*
-  is not — change the spec in the sibling repo first, then rebuild here.
-- Spec: `../media-kit/docs/superpowers/specs/2026-07-23-media-kit-design.md`
-- `media-kit/media-kit.test.js` + `media-kit/package.json` are the page's unit tests
-  (`type: module`), the only JS tests anywhere in this repo.
-- The page still contains **33 `[GAP: ...]` placeholder tokens** and its `assets/` folder
-  (hero clip, work thumbnails, partner logos) does not exist yet.
+- **Do not edit anything in `media-kit/` here. Ever.** Deploy runs
+  `rsync --delete` from the source repo, so any edit you make in this folder is
+  **destroyed on the next deploy**, silently and without a merge conflict to warn you.
+  This includes typo fixes.
+- Deploy is `../media-kit/bin/deploy.sh` — it tests, mirrors, and commits *only* the
+  `media-kit/` path here, then asks before pushing.
+- Spec: `../media-kit/docs/superpowers/specs/2026-07-23-media-kit-design.md` (§7 covers
+  this arrangement, incl. the 2026-07-24 amendment that moved the source out of here).
+- The page currently contains **33 `[GAP: ...]` placeholder tokens** and its `assets/`
+  folder (hero clip, work thumbnails, partner logos) does not exist yet.
+- **⚠ Migration pending as of 2026-07-24** — `../media-kit/src/` does not exist yet, so
+  right now this folder *is* still the only copy of the source. Until the move happens,
+  the "generated output" framing above describes the intended state, not the current one.
+  Check whether `../media-kit/src/` exists before trusting it. Tests here:
+  `cd media-kit && node --test` (15 passing).
 
 ### `little-bites.html` → source of truth is [`../little-bites-menu-system/`](../little-bites-menu-system/)
 
