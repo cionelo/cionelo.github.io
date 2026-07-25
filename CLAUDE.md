@@ -91,11 +91,9 @@ positioning, voice, metrics, and design spec that drive it.
   this arrangement, incl. the 2026-07-24 amendment that moved the source out of here).
 - The page currently contains **33 `[GAP: ...]` placeholder tokens** and its `assets/`
   folder (hero clip, work thumbnails, partner logos) does not exist yet.
-- **⚠ Migration pending as of 2026-07-24** — `../media-kit/src/` does not exist yet, so
-  right now this folder *is* still the only copy of the source. Until the move happens,
-  the "generated output" framing above describes the intended state, not the current one.
-  Check whether `../media-kit/src/` exists before trusting it. Tests here:
-  `cd media-kit && node --test` (15 passing).
+- Tests and `package.json` are **not** served from here anymore — they live in
+  `../media-kit/src/` and the deploy excludes them. Run them with
+  `cd ../media-kit/src && node --test` (15 passing).
 
 ### `little-bites.html` → source of truth is [`../little-bites-menu-system/`](../little-bites-menu-system/)
 
