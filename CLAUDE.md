@@ -45,6 +45,31 @@ serves are mirrors whose source of truth is a *different* repo — see Mirrored 
 | `assets/` | Images, resume PDFs, background videos, favicon (59MB) | |
 | `old/` | Archived zip | Gitignored — not in the repo, local-only |
 
+## Working in this repo
+
+The layout above is deliberately flat and stays that way — a reorg was considered and
+rejected (2026-07-24). Every path in this repo is bare and relative, there's no build step
+to catch a break, and no staging URL to notice one on. Moving files buys tidiness and pays
+for it in live 404s. So: **navigate by the table, don't restructure.**
+
+Because nothing is enforced by tooling, do these by hand:
+
+```bash
+# Serve locally — always check a real browser, never trust the file:// protocol
+python3 -m http.server 8000     # → http://localhost:8000
+
+# Pre-push check: every relative href/src in every HTML file resolves to a real file.
+# Verified 2026-07-24 — catches the known tutor-dashboard break, no false positives.
+grep -rhoE '(href|src)="[^"#:]+"' --include='*.html' . \
+  | sed -E 's/.*="([^"]+)".*/\1/' \
+  | grep -vE '^(https?|mailto|#|\[GAP)' | sort -u \
+  | while read -r f; do [ -e "$f" ] || [ -e "media-kit/$f" ] || echo "MISSING: $f"; done
+```
+
+Reorg work, if it ever happens anyway, goes in an isolated git worktree — never on
+`master` — and does not get pushed until the check above is clean and the pages have been
+loaded in a browser.
+
 ## Mirrored files — do NOT edit these copies directly
 
 Two things served from this repo are built or copied from elsewhere. Editing them here
