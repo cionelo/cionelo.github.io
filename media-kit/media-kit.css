@@ -171,10 +171,14 @@ h1, h2, h3, .display {
   border: none;
   border-radius: 0;
 }
-.hero__media video {
+.hero__media video,
+.hero__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Subject sits right of centre. On phones cover crops to a narrow vertical
+     strip, so bias the window toward him or he loses an arm. */
+  object-position: 54% 45%;
 }
 .hero__scrim {
   position: absolute;
@@ -248,7 +252,30 @@ h1, h2, h3, .display {
 }
 
 @media (min-width: 600px) {
-  .stats__grid { grid-template-columns: repeat(4, 1fr); }
+  .stats__grid { max-width: 620px; }
+}
+
+/* Method disclosure — credibility play, must work on touch, so <details> not :hover */
+.stats__method {
+  margin-top: var(--space-lg);
+  max-width: 62ch;
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-md);
+}
+.stats__method summary {
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.stats__method summary:hover { color: var(--ink); }
+.stats__method p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: var(--space-xs);
 }
 
 /* ===== Section eyebrow (shared by all remaining sections) ===== */
@@ -269,10 +296,34 @@ h1, h2, h3, .display {
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-sm);
 }
+.logos__heading {
+  font-size: clamp(1.5rem, 2.5vw + 1rem, 2.25rem);
+  margin-block: var(--space-sm) var(--space-lg);
+}
 .logos__item {
   aspect-ratio: 3 / 1;
   font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.logos__item img {
+  width: auto;
+  max-width: 100%;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+.logos__item img:hover { opacity: 1; }
+
+/* Per-logo height caps. One shared cap makes Athletes.Org and Crocs shout
+   while Hammer and Splay recede — these are optical calls, not measurements.
+   Derived in assets-inbox/logos/_review.html. */
+.logos__item[data-asset="logo-hammer"] img          { max-height: 52px; }
+.logos__item[data-asset="logo-crocs"] img           { max-height: 30px; }
+.logos__item[data-asset="logo-heydude"] img         { max-height: 52px; }
+.logos__item[data-asset="logo-heartbreak-run"] img  { max-height: 18px; }
+.logos__item[data-asset="logo-splay"] img           { max-height: 40px; }
+.logos__item[data-asset="logo-athletes-org"] img    { max-height: 22px; }
 
 @media (min-width: 600px) {
   .logos__grid { grid-template-columns: repeat(3, 1fr); }
@@ -306,6 +357,13 @@ h1, h2, h3, .display {
   transform: translateY(-2px);
 }
 .work-card__thumb { aspect-ratio: 16 / 10; }
+.work-card__thumb img, .work-modal__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+  display: block;
+}
 .work-card__title { font-weight: 600; }
 .work-card__brand { color: var(--muted); font-size: 12px; }
 
@@ -341,6 +399,12 @@ h1, h2, h3, .display {
 .work-modal__thumb { aspect-ratio: 16 / 10; margin-bottom: var(--space-md); }
 .work-modal__brand { color: var(--muted); font-size: 12px; margin-bottom: var(--space-sm); }
 .work-modal__metrics { color: var(--muted); font-size: 14px; margin-bottom: var(--space-md); }
+.work-modal__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
 .work-modal__nav {
   display: flex;
   justify-content: space-between;
@@ -403,7 +467,6 @@ h1, h2, h3, .display {
   font-size: 13px;
   color: var(--muted);
 }
-.reach__gap { color: var(--muted); font-size: 12px; }
 
 /* ===== The runner ===== */
 .runner { padding-block: var(--space-xl); background: var(--surface); border-block: 1px solid var(--line); }
@@ -482,6 +545,11 @@ h1, h2, h3, .display {
   padding: var(--space-sm);
   color: var(--ink);
   min-height: 44px;
+}
+.contact__doors {
+  color: var(--muted);
+  max-width: 54ch;
+  margin-bottom: var(--space-lg);
 }
 .contact__direct {
   display: flex;

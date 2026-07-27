@@ -1,5 +1,28 @@
 // ===== Pure logic (unit tested in media-kit.test.js) =====
 
+// A card may point at one piece or at a whole series. `data-links` carries a
+// labelled list; `data-link` stays the single-link fallback so a card without
+// a list keeps working. Bad JSON falls back rather than blanking the modal.
+export function parseWorkLinks(raw, fallbackUrl) {
+  let parsed = null;
+  if (raw) {
+    try {
+      parsed = JSON.parse(raw);
+    } catch {
+      parsed = null;
+    }
+  }
+
+  if (Array.isArray(parsed)) {
+    const links = parsed
+      .filter((entry) => entry && typeof entry.url === 'string' && entry.url)
+      .map((entry) => ({ label: entry.label || entry.url, url: entry.url }));
+    if (links.length) return links;
+  }
+
+  return fallbackUrl ? [{ label: 'Watch full video ↗', url: fallbackUrl }] : [];
+}
+
 export function easeOutCubic(t) {
   return 1 - Math.pow(1 - t, 3);
 }
@@ -43,8 +66,8 @@ export function parseCountUpTarget(el) {
 export function initHeroMedia() {
   const slot = document.querySelector('[data-asset="hero-loop"]');
   if (!slot) return;
-  // Real <video> gets swapped in here once hero-loop.mp4/hero-poster.jpg exist
-  // (see Task 14). Until then the CSS asset-placeholder carries the section.
+  // The poster ships as a plain <img>. If a hero-loop.mp4 ever lands, swap in a
+  // muted autoplay <video> here with the poster as its fallback frame.
 }
 
 export function animateCountUp(el, { duration = 1200 } = {}) {
@@ -90,12 +113,47 @@ export function initGalleryModal() {
   const titleEl = document.getElementById('work-modal-title');
   const brandEl = document.getElementById('work-modal-brand');
   const metricsEl = document.getElementById('work-modal-metrics');
-  const linkEl = document.getElementById('work-modal-link');
+  const linksEl = document.getElementById('work-modal-links');
+  const thumbEl = modal.querySelector('.work-modal__thumb');
   const closeBtn = modal.querySelector('.work-modal__close');
   const prevBtn = modal.querySelector('.work-modal__prev');
   const nextBtn = modal.querySelector('.work-modal__next');
 
   let currentIndex = 0;
+
+  // The modal borrows whichever card was opened instead of carrying its own
+  // image. One asset per card, and nothing to keep in sync by hand.
+  function syncThumb(card) {
+    const cardThumb = card.querySelector('.work-card__thumb');
+    const source = cardThumb && cardThumb.querySelector('img');
+    thumbEl.replaceChildren();
+
+    if (!source) {
+      thumbEl.classList.add('asset-placeholder');
+      thumbEl.textContent = cardThumb ? cardThumb.textContent.trim() : '';
+      return;
+    }
+
+    thumbEl.classList.remove('asset-placeholder');
+    const img = document.createElement('img');
+    img.src = source.src;
+    img.alt = source.alt;
+    thumbEl.append(img);
+  }
+
+  function renderLinks(card) {
+    const links = parseWorkLinks(card.dataset.links, card.dataset.link);
+    linksEl.replaceChildren();
+    links.forEach((link, i) => {
+      const a = document.createElement('a');
+      a.className = i === 0 ? 'btn btn--primary' : 'btn btn--secondary';
+      a.href = link.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = link.label;
+      linksEl.append(a);
+    });
+  }
 
   function render(index) {
     currentIndex = index;
@@ -103,7 +161,8 @@ export function initGalleryModal() {
     titleEl.textContent = card.dataset.title;
     brandEl.textContent = card.dataset.brand;
     metricsEl.textContent = card.dataset.metrics;
-    linkEl.href = card.dataset.link;
+    renderLinks(card);
+    syncThumb(card);
   }
 
   function open(index) {
@@ -130,7 +189,7 @@ export function initContactForm() {
     event.preventDefault();
     const data = new FormData(form);
     const href = buildMailtoHref({
-      to: '[GAP: contact email]',
+      to: 'nemocionelo@gmail.com',
       name: data.get('name'),
       brand: data.get('brand'),
       need: data.get('need'),
@@ -178,10 +237,20 @@ export function initPraiseToggle() {
 }
 
 if (typeof document !== 'undefined') {
-  initHeroMedia();
-  initCountUp();
-  initGalleryModal();
-  initContactForm();
-  initScrollReveal();
-  initPraiseToggle();
+  // Every section below the hero starts at opacity 0 and is revealed by JS, so
+  // a single throwing init would otherwise blank most of the page. Isolate them.
+  [
+    initHeroMedia,
+    initCountUp,
+    initGalleryModal,
+    initContactForm,
+    initScrollReveal,
+    initPraiseToggle,
+  ].forEach((init) => {
+    try {
+      init();
+    } catch (error) {
+      console.error(`${init.name} failed`, error);
+    }
+  });
 }
